@@ -1,3 +1,5 @@
 --- 
 "923883": !ruby/object:Dooby::Task 
   todo: create basic calender :done
+1a2e0a: !ruby/object:Dooby::Task 
+  todo: posts display :done

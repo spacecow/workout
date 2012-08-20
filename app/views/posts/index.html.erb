@@ -1,11 +1,16 @@
 <% present Post do |presenter| %>
   <div id="calendar">
-    <%= title "#{t('date.month_names')[@month.strftime("%m_").to_i]} #{@month.strftime("%Y")}" %>
+    <h2 id="month">
+      <%= link_to "<", month:(@month.beginning_of_month-1).half %>
+      <%= "#{t('date.month_names')[@month.strftime("%m_").to_i]} #{@month.strftime("%Y")}" %>
+      <%= link_to ">", month:(@month.end_of_month+1).half %>
+    </h2>
 
     <%= calendar_for @posts, year:@month.year, month:@month.month do |calendar| %>
       <%= calendar.head(t('date.day_names')[0], t('date.day_names')[1], t('date.day_names')[2], t('date.day_names')[3], t('date.day_names')[4], t('date.day_names')[5], t('date.day_names')[6]) %>
       <% calendar.day(:id => 'day_%m%d') do |date, posts| %>
         <%= presenter.posts_link(date) %>
+        <%= presenter.posts_count(posts) %>
       <% end %>
     <% end %>
   </div>

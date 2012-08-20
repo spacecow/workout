@@ -3,6 +3,7 @@ require 'assert'
 class PostsController < ApplicationController
   def index
     @month = params[:month] ? Date.parse(params[:month]) : Date.today
+    @posts = Post.all
   end
 
   def detail

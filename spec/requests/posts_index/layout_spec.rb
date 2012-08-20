@@ -1,77 +1,69 @@
 require 'spec_helper'
 
 describe "Posts index" do
-  before(:each) do
-    visit posts_path(month:'2012/7')
+  context "without posts" do
+    before(:each) do
+      visit posts_path(month:'2012/7')
+    end
+
+    it "has a month title" do
+      h2(:month).should have_content('July 2012')
+    end
+
+    it "has a link to the previous month" do
+      h2(:month).should have_link('<')
+      h2(:month).click_link('<')
+      h2(:month).should have_content('June 2012')
+    end
+
+    it "has a link to the next month" do
+      h2(:month).should have_link('>')
+      h2(:month).click_link('>')
+      h2(:month).should have_content('August 2012')
+    end
+
+    it "has links to detail posts" do
+      td(:day_0701).click_link('1')
+      page.current_path.should eq detail_posts_path
+      page.should have_title('2012-07-01')
+    end
   end
 
-  it "has a month title" do
-    page.should have_content('July 2012')
-  end
+  context "with posts" do
+    before(:each) do
+      prince = FactoryGirl.create(:user, userid:'Prince')
+      king = FactoryGirl.create(:user, userid:'King')
+      FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:prince)
+      FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:king)
+      visit posts_path(month:'2012/7')
+    end
 
-  it "has links to detail posts" do
-  save_and_open_page
-    div(:calendar).click_link('1')
-    page.current_path.should eq detail_posts_path
-    page.should have_title('2012-07-01')
+    it "displays existing posts on given day" do
+      td(:day_0710).div(:posts,0).should have_content('Prince: 1')
+      td(:day_0710).div(:posts,1).should have_content('King: 1')
+    end
+
+    it "displays no posts if there are none" do
+      td(:day_0709).should_not have_content('0')
+    end
   end
 end
 
-#describe "Bookings index" do
-#  context "not logged in, without bookings" do
-#    before(:each) do
-#      FactoryGirl.create(:day,date:Date.parse('2012-7-15'))
-#      visit bookings_path(month:'2012/7')
-#    end
-#
-#    it "has a date title" do
-#      page.should have_content('July 2012')
-#    end
-#
-#    it "has links to detail bookings" do
-#      div(:calendar).click_link('1')
-#      page.current_path.should eq detail_bookings_path
-#      page.should have_title('2012-07-01')
-#    end
-#
-#    it "has no links to bookings if day is disabled" do
-#      td(:day_0715).should_not have_link('15')
-#    end
-#
-#    it "non-admin cannot disable days" do
-#      page.should_not have_link('Disable')
-#    end
-#  end
-#
-#  context "admin" do
-#    before(:each) do
-#      login_admin
-#      FactoryGirl.create(:day,date:Date.parse('2012-7-15'))
-#      visit bookings_path(month:'2012/7')
-#    end
-#
-#    it "enabled day should have disable link" do
-#      td(:day_0716).should have_link('Disable')
-#    end
-#    it "disabled day should have enable link" do
-#      td(:day_0715).should have_link('Enable')
-#    end
-#  end
-#
-#  context "with booking" do
-#    before(:each) do
-#      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
-#    end
-#
-#    it "single" do
-#      visit bookings_path(month:'2012/7')
-#      td(:day_0702).should have_content('Booking: 1')
-#    end
-#
-#    it "double" do
-#      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
-#      visit bookings_path(month:'2012/7')
-#      td(:day_0702).should have_content('Bookings: 2')
-#    end
-#  end
-#end
+  #describe "Bookings index" do
+  #  context "with booking" do
+  #    before(:each) do
+  #      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
+  #    end
+  #
+  #    it "single" do
+  #      visit bookings_path(month:'2012/7')
+  #      td(:day_0702).should have_content('Booking: 1')
+  #    end
+  #
+  #    it "double" do
+  #      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
+  #      visit bookings_path(month:'2012/7')
+  #      td(:day_0702).should have_content('Bookings: 2')
+  #    end
+  #  end
+  #end
