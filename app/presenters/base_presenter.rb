@@ -1,0 +1,1 @@
+/home/johan/apps/basiq/app/presenters/base_presenter.rb
