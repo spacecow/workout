@@ -4,7 +4,7 @@ Workout::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users, :only => :show
 
-  resources :posts, :only => [:new,:create,:index]
+  resources :posts, :only => [:new,:create,:index,:edit,:update,:destroy]
 
   get 'welcome' => 'posts#index'
   root :to => 'posts#index'

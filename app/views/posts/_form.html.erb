@@ -1,0 +1,10 @@
+<%= simple_form_for post do |f| %>
+  <%= f.input :date, :as => :string, wrapper_html:{id:'date'} %>
+  <%= f.input :distance %>
+  <%= f.input :duration %>
+  <%= f.input :time_of_day, :as => :string %>
+  <%= f.input :comment %>
+  <%= hidden_field_tag :date, date %>
+  <%= hidden_field_tag :month, month %>
+  <%= f.button :submit, :class => :submit %>
+<% end %>

@@ -5,3 +5,5 @@
   todo: posts display :done
 e646ed: !ruby/object:Dooby::Task 
   todo: login/logout :done
+06315c: !ruby/object:Dooby::Task 
+  todo: action links for post :doing

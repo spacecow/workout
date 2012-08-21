@@ -57,7 +57,7 @@ describe "Post new" do
   context "with posts on the same day" do
     before(:each) do
       prince = FactoryGirl.create(:user, userid:'Prince')
-      FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.')
+      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.')
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')
     end
@@ -79,6 +79,19 @@ describe "Post new" do
 
     it "has a comment" do
       div(:post,0).div(:comment).should have_content('Just some random comment.')
+    end
+
+    it "has an edit link" do
+      div(:post,0).div(:actions).should have_link('Edit')
+      div(:post,0).div(:actions).click_link 'Edit'
+      current_path.should eq edit_post_path(@post)
+    end
+
+    it "has a delete link" do
+      div(:post,0).div(:actions).should have_link('Delete')
+      lambda{ div(:post,0).div(:actions).click_link 'Delete'}.should change(Post,:count).by(-1)
+      current_path.should eq new_post_path
+      page.should have_content('2012-07-02')
     end
   end
 end

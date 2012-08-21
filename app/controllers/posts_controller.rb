@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   skip_load_resource :only => [:new,:create]
   load_and_authorize_resource
 
-  before_filter :set_date, :only => [:new, :create]
-  before_filter :set_month, :only => [:new, :create]
+  before_filter :set_date, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :set_month, :only => [:new, :create, :edit, :update, :destroy]
 
   def index
     @month = params[:month] ? Date.parse(params[:month]) : Date.today
@@ -24,6 +24,23 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @post.time_of_day = @post.time_of_day.strftime("%H:%M") unless @post.time_of_day.nil?
+  end
+
+  def update
+    if @post.update_attributes(params[:post])
+      redirect_to new_post_path(date:@post.date, month:@month)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to new_post_path(date:@post.date, month:@month)
   end
 
   private

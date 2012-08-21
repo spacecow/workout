@@ -1,6 +1,12 @@
 class PostPresenter < BasePresenter
   presents :post
 
+  def actions(date,month)
+    h.content_tag(:div, id:"actions") do
+      "#{edit_link(date,month)} #{delete_link(date,month)}".html_safe
+    end
+  end
+
   def author
     h.content_tag(:div, id:"author") do
       h.t(:by,name:post.authorid)
@@ -11,6 +17,16 @@ class PostPresenter < BasePresenter
     h.content_tag(:div, id:'comment') do
       post.comment
     end
+  end
+
+  def delete_link(date,month)
+    dcase = @object.class.to_s.downcase
+    h.link_to h.t(:delete), h.send("post_path", @object, date:date, month:month), method: :delete, data:{confirm:h.sure?} if h.can? :destroy, @object 
+  end
+
+  def edit_link(date,month)
+    dcase = @object.class.to_s.downcase
+    h.link_to h.t(:edit), h.send("edit_#{dcase}_path", @object, date:date, month:month) if h.can? :edit, @object 
   end
 
   def posts_count(posts)
