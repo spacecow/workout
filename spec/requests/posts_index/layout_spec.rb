@@ -31,7 +31,7 @@ describe "Posts index" do
 
     it "has links to detail posts" do
       td(:day_0701).click_link('1')
-      page.current_path.should eq detail_posts_path
+      page.current_path.should eq new_post_path
       page.should have_title('2012-07-01')
     end
   end

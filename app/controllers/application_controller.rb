@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       redirect_to welcome_url
     else
       session[:original_url] = request.path  
-      redirect_to login_url
+      redirect_to login_url(month:params[:month], date:params[:date])
     end
   end
 end

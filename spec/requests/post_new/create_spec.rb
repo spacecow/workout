@@ -42,9 +42,9 @@ describe "Post new" do
         @post.comment.should eq "Some random comment." 
       end
 
-      it "and redirect back to the calendar page" do
-        page.current_path.should eq posts_path
-        page.should have_content('July 2012')
+      it "and redirect back to the day page" do
+        page.current_path.should eq new_post_path
+        page.should have_content('2012-07-02')
       end
     end
   end

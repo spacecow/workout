@@ -10,7 +10,8 @@
 
 <div id="main_container">
   <%= render 'layouts/flash', flash:flash %>
-  <%= render 'layouts/user_nav' %>
+  <%= render 'layouts/user_nav', month:@month %>
+  <div class="clear"></div>
   <%= yield %>
 </div>
 

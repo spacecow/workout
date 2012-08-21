@@ -1,5 +1,5 @@
 def login(user = create_member)
-  visit login_path
+  visit login_path(month:'2012/7')
   fill_in 'Login', with:user.userid
   fill_in 'Password', with:user.password
   click_button 'Login'

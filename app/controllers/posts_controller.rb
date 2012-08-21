@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(params[:post])
     if @post.save
-      redirect_to posts_path(date:@post.date, month:@month)
+      redirect_to new_post_path(date:@post.date, month:@month)
     else
       render :new
     end

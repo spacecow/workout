@@ -1,6 +1,10 @@
 <%= title @date %>
 
+<hr>
+
 <%= render 'posts', posts:@posts if @posts.present? %>
+
+<h2><%= new(:post) %></h2>
 
 <%= simple_form_for @post do |f| %>
   <%= f.input :date, :as => :string, wrapper_html:{id:'date'} %>
