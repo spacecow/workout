@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820031541) do
+ActiveRecord::Schema.define(:version => 20120821083500) do
 
   create_table "posts", :force => true do |t|
     t.integer  "author_id"
@@ -20,8 +20,15 @@ ActiveRecord::Schema.define(:version => 20120820031541) do
     t.integer  "distance"
     t.integer  "duration"
     t.text     "comment"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "training_type_id"
+  end
+
+  create_table "training_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

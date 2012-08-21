@@ -19,6 +19,10 @@ describe "Post new" do
       value('* Date').should eq '2012-07-02'
     end
 
+    it "has the training type blank" do
+      value('Training Type').should be_nil
+    end
+
     it "has the time of day left blank" do
       value('Time of day').should be_nil 
     end

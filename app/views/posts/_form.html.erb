@@ -1,5 +1,6 @@
 <%= simple_form_for post do |f| %>
   <%= f.input :date, :as => :string, wrapper_html:{id:'date'} %>
+  <%= f.input :training_type_token, input_html:{data:{url:training_types_path(format: :json)}} %>
   <%= f.input :distance, hint:'km' %>
   <%= f.input :duration, hint:'min' %>
   <%= f.input :time_of_day, :as => :string %>

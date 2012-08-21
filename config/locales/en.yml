@@ -30,3 +30,8 @@ en:
   notices:
     logged_in: Logged in
     logged_out: Logged out
+
+  simple_form:
+    labels:
+      post:
+        training_type_token: Training Type 
