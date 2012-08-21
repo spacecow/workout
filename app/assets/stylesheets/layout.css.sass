@@ -105,6 +105,17 @@ div#calendar
       &.today
         background-color: #D7F2FF
 
+div#posts
+  div.post
+    div#author, div#actions
+      margin-left: 5px
+    div#timestamp, div#author
+      font-style: italic
+    div#timestamp, div#author, div#actions
+      height: 15px
+      line-height: 15px
+      float: left
+
 $label_margin: 5px
 $label_width: 100px
 $label_full_width: $label_width + $label_margin
@@ -128,6 +139,7 @@ form
     height: $textarea_height
   input.string, input.integer
     @include input_base
+    margin-right: 10px
   input.submit
     @include fancy-button(green)
     margin: 20px 0 0 $label_full_width
@@ -136,3 +148,6 @@ form
     @include fancy-button(#2966a8)
     margin-top: 20px
     float: left
+  span.hint
+    font-style: italic
+    color: #777

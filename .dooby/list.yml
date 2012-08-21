@@ -5,5 +5,7 @@
   todo: posts display :done
 e646ed: !ruby/object:Dooby::Task 
   todo: login/logout :done
-06315c: !ruby/object:Dooby::Task 
-  todo: action links for post :doing
+c2baa7: !ruby/object:Dooby::Task 
+  todo: hints to form :doing
+b15417: !ruby/object:Dooby::Task 
+  todo: hints to form :done
