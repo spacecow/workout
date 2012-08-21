@@ -31,6 +31,14 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+
+    #focus tag
+    config.treat_symbols_as_metadata_keys_with_true_values = true
+    config.filter_run :focus => true
+    config.run_all_when_everything_filtered = true
+
+    #Include presenters
+    config.include ActionView::TestCase::Behavior, example_group: {file_path: %r{spec/presenters}}
   end
 end
 

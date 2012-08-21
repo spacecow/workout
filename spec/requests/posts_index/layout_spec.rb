@@ -21,11 +21,28 @@ describe "Posts index" do
       h2(:month).click_link('>')
       h2(:month).should have_content('August 2012')
     end
+  end
+
+  context "logged in user" do
+    before(:each) do
+      login
+      visit posts_path(month:'2012/7')
+    end
 
     it "has links to detail posts" do
       td(:day_0701).click_link('1')
       page.current_path.should eq detail_posts_path
       page.should have_title('2012-07-01')
+    end
+  end
+
+  context "non-user" do
+    before(:each) do
+      visit posts_path(month:'2012/7')
+    end
+
+    it "has links to detail posts" do
+      td(:day_0701).should_not have_link('1')
     end
   end
 

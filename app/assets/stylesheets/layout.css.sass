@@ -1,3 +1,5 @@
+@import "fancy-buttons"
+
 $blue: #4B7399
 
 a
@@ -8,16 +10,30 @@ a
     color: #eee
     text-shadow: 1px 1px 1px $blue 
 
+div.clear
+  clear: both
+  height: 0
+  overflow: hidden
+
+div#user_nav
+  float: right
+
 div#main_container
   width: 600px
   margin: 0 auto 0 auto
+  border: 1px solid black
+
+h1
+  font-size: 30px !important
 
 div#calendar
+  border: 1px solid black
   h2#month
     margin: 0
     padding-top: 10px
     padding-bottom: 10px
     text-align: center
+    font-size: 30px
     a // #calendar #month a:hover {
       text-decoration: none
       padding: 0 10px
@@ -44,3 +60,35 @@ div#calendar
         color: #CCC
       &.today
         background-color: #D7F2FF
+
+$label_margin: 5px
+$label_width: 100px
+$label_full_width: $label_width + $label_margin
+$input_width: 300px
+$textarea_height: 100px
+
+@mixin input_base
+  @include fancy-button(gray)
+  width: $input_width
+  cursor: text
+
+form
+  border: 1px solid black
+  label
+    float: left
+    width: $label_width
+    text-align: right
+    margin: 8px $label_margin 0 0 
+  textarea
+    @include input_base
+    height: $textarea_height
+  input.string, input.integer
+    @include input_base
+  input.submit
+    @include fancy-button(green)
+    margin: 20px 0 0 $label_full_width
+    float: left
+  input.cancel
+    @include fancy-button(#2966a8)
+    margin-top: 20px
+    float: left

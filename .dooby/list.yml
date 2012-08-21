@@ -3,3 +3,5 @@
   todo: create basic calender :done
 1a2e0a: !ruby/object:Dooby::Task 
   todo: posts display :done
+e646ed: !ruby/object:Dooby::Task 
+  todo: login/logout :done

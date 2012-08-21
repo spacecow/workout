@@ -14,16 +14,23 @@
 ActiveRecord::Schema.define(:version => 20120820031541) do
 
   create_table "posts", :force => true do |t|
-    t.date     "date"
     t.integer  "author_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.date     "date"
+    t.datetime "time_of_day"
+    t.integer  "distance"
+    t.integer  "duration"
+    t.text     "comment"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "userid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "password_digest"
+    t.string   "email"
+    t.integer  "roles_mask"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end

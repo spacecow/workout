@@ -1,8 +1,11 @@
 Workout::Application.routes.draw do
-  resources :posts, :only => :index do
-    collection do
-      get :detail
-    end
-  end
+  get 'login' => 'sessions#new'
+  get 'logout' => 'sessions#destroy'
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :users, :only => :show
+
+  resources :posts, :only => [:new,:create,:index]
+
+  get 'welcome' => 'posts#index'
   root :to => 'posts#index'
 end
