@@ -46,7 +46,16 @@ describe "Posts index" do
     end
   end
 
-  context "with posts" do
+  it "with a post with a partner" do
+    partner = FactoryGirl.create(:user, userid:'Partner')
+    author = FactoryGirl.create(:user, userid:'Author')
+    post = FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:author)
+    post.training_partners << partner
+    visit posts_path(month:'2012/7')
+    td(:day_0710).div(:posts,0).should have_content('Author&Partner: 1')
+  end
+
+  context "with posts of different authors" do
     before(:each) do
       prince = FactoryGirl.create(:user, userid:'Prince')
       king = FactoryGirl.create(:user, userid:'King')

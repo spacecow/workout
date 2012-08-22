@@ -90,6 +90,10 @@ describe "Post new" do
       div(:post,0).div(:timestamp).should have_content('35 min')
     end
 
+    it "has a training partner" do
+      div(:post,0).div(:training_partner).should have_content('King')
+    end
+
     it "has a comment" do
       div(:post,0).div(:comment).should have_content('Just some random comment.')
     end

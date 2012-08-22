@@ -31,9 +31,9 @@ class PostPresenter < BasePresenter
 
   def posts_count(posts)
     if posts.present?
-      posts.group_by(&:author_id).map do |k,v|
+      posts.group_by{|e| ([e.author] | e.training_partners).map(&:userid).join("&")}.map do |k,v|
         h.content_tag(:div,class:'posts') do
-          "#{User.find(k).userid}: #{v.count}" 
+          "#{k}: #{v.count}" 
         end
       end.join.html_safe
     end
@@ -56,6 +56,12 @@ class PostPresenter < BasePresenter
       elsif post.duration
         "#{post.duration} min"
       end
+    end
+  end
+
+  def training_partners
+    h.content_tag(:div, id:"training_partners") do
+      "with #{post.training_partners.map(&:userid).join}" if post.training_partners.present?
     end
   end
 

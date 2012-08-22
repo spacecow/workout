@@ -55,7 +55,7 @@ div#user_nav
   font-size: 12px
 
 div#main_container
-  width: 600px
+  width: 700px
   margin: 100px auto 0 auto
   padding: 20px
   @include box-shadow(rgba(black, 0.9) 0 0 25px, rgba(green, 0.2) 0 0 3px 1px inset)
@@ -102,20 +102,26 @@ div#calendar
     td
       background: #FFF
       color: #777
-      height: 80px
+      height: 90px
       font-size: 16px
       &.notmonth
         color: #CCC
       &.today
         background-color: #D7F2FF
+      div.posts
+        font-size: 11px
 
 div#posts
   div.post
-    div#author, div#actions
-      margin-left: 5px
-    div#timestamp, div#author
+    div#training_type
+      font-size: 20px
+      margin-bottom: 5px
+    div#author, div#actions, div#training_partners
+      margin-left: 4px
+    div#timestamp, div#author, div#training_partners
+      font-size: 12px
       font-style: italic
-    div#timestamp, div#author, div#actions
+    div#timestamp, div#author, div#actions, div#training_partners
       height: 15px
       line-height: 15px
       float: left
