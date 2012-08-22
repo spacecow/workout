@@ -15,6 +15,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new(date:@date)
     @posts = Post.where(date:@date)
+    @training_partners = User.where('id <> ?',current_user.id).map{|e| [e.userid, e.id]}
   end
 
   def create

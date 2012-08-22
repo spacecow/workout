@@ -7,7 +7,9 @@ e646ed: !ruby/object:Dooby::Task
   todo: login/logout :done
 b15417: !ruby/object:Dooby::Task 
   todo: hints to form :done
-49bfd2: !ruby/object:Dooby::Task 
-  todo: training type to post :doing
 aee7a1: !ruby/object:Dooby::Task 
   todo: training type to post :done
+a91f80: !ruby/object:Dooby::Task 
+  todo: trainingship :doing
+"491951": !ruby/object:Dooby::Task 
+  todo: trainingship :done

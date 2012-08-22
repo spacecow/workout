@@ -3,12 +3,14 @@ require 'spec_helper'
 describe "Post new" do
   before(:each) do
     login
+    @prince = FactoryGirl.create(:user, userid:'Prince')
     visit new_post_path(date:'2012-7-2',month:'2012/7')
     fill_in 'Distance', with:'10'
     fill_in 'Duration', with:'30'
     fill_in 'Time of day', with:'11:15'
     fill_in 'Comment', with:'Some random comment.'
     fill_in 'Training Type', with:'<<<Running>>>'
+    select 'Prince', from:'Training Partner'
   end
 
   context "create" do
@@ -48,7 +50,7 @@ describe "Post new" do
       end
 
       it "an author reference" do
-        @post.author.should eq User.last 
+        @post.author.should eq User.first 
       end
       it "the date" do
         @post.date.should eq Date.parse('2012-7-2')
@@ -64,6 +66,9 @@ describe "Post new" do
       end
       it "the comment of the post" do
         @post.comment.should eq "Some random comment." 
+      end
+      it "an partner reference" do
+        @post.training_partners.should eq [@prince]
       end
 
       it "and redirect back to the day page" do

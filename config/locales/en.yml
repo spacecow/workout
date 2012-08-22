@@ -34,4 +34,5 @@ en:
   simple_form:
     labels:
       post:
+        training_partner_ids: Training Partner 
         training_type_token: Training Type 

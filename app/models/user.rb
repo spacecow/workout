@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 
   has_many :posts, :foreign_key => 'author_id'
 
+  has_many :trainingships
+  has_many :partner_posts, through: :trainingships
+
   attr_accessible :userid, :email, :password
 
   validates :email, presence:true, uniqueness:true
@@ -16,6 +19,11 @@ class User < ActiveRecord::Base
   ROLES     = [GOD,ADMIN,MINIADMIN,VIP,MEMBER]
 
   class << self
+    def ids_from_tokens(tokens)
+      tokens.gsub!(/<<<(.+?)>>>/){ create!(userid:$1).id}
+      tokens.split(",")
+    end
+
     def role(s); 2**ROLES.index(s.to_s) end
   end
 end

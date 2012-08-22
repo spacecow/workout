@@ -5,6 +5,7 @@
   <%= f.input :duration, hint:'min' %>
   <%= f.input :time_of_day, :as => :string %>
   <%= f.input :comment %>
+  <%= f.input :training_partner_ids, as: :select, collection:@training_partners %>
   <%= hidden_field_tag :date, date %>
   <%= hidden_field_tag :month, month %>
   <%= f.button :submit, :class => :submit %>

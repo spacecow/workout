@@ -38,6 +38,10 @@ describe "Post new" do
       value('Comment').should be_empty
     end
 
+    it "has the training partners listed" do
+      options('Training Partner').should eq 'BLANK'
+    end
+
     it "has a create button" do
       page.should have_submit_button('Create Post')
     end
