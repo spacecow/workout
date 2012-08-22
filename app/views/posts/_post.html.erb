@@ -1,5 +1,6 @@
 <% present post do |presenter| %>
   <div class="post">
+    <%= presenter.training_type %>
     <%= presenter.timestamp %>
     <%= presenter.author %>
     <%= presenter.actions(date,month) %>

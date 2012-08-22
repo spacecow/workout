@@ -1,5 +1,9 @@
 class TrainingType < ActiveRecord::Base
+  has_many :posts
+
   attr_accessible :name
+
+  validate :name, presenece:true, uniqueness:true
 
   class << self
     def id_from_token(token)

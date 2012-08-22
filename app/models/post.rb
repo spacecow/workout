@@ -1,10 +1,11 @@
 class Post < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
+  belongs_to :training_type
 
   attr_accessible :date, :distance, :duration, :time_of_day, :comment, :training_type_token
   attr_reader :training_type_token
 
-  validates_presence_of :date, :author_id
+  validates_presence_of :date, :author_id, :training_type
 
   def authorid; author.userid end
 

@@ -61,7 +61,8 @@ describe "Post new" do
   context "with posts on the same day" do
     before(:each) do
       prince = FactoryGirl.create(:user, userid:'Prince')
-      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.')
+      training_type = FactoryGirl.create(:training_type, name:'Running')
+      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.', training_type:training_type)
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')
     end
@@ -71,6 +72,10 @@ describe "Post new" do
     end
     it "has a div for each post" do
       div(:posts).divs_no(:post).should be(1)
+    end
+
+    it "has a traning type" do
+      div(:post,0).div(:training_type).should have_content('Running')
     end
 
     it "has an author" do

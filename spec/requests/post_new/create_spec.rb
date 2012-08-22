@@ -8,6 +8,7 @@ describe "Post new" do
     fill_in 'Duration', with:'30'
     fill_in 'Time of day', with:'11:15'
     fill_in 'Comment', with:'Some random comment.'
+    fill_in 'Training Type', with:'<<<Running>>>'
   end
 
   context "create" do
@@ -15,6 +16,29 @@ describe "Post new" do
       lambda{ click_button 'Create Post'
       }.should change(Post,:count).by(1)
       Post.count.should be 1
+    end
+
+    context "with existing training type" do
+      before(:each) do
+        training_type = FactoryGirl.create(:training_type)
+        fill_in 'Training Type', with:training_type.id
+      end
+
+      it "adds no training type to db" do
+        lambda{ click_button 'Create Post'
+        }.should change(TrainingType,:count).by(0)
+      end
+    end
+
+    context "with a new training type" do
+      before(:each) do
+        fill_in 'Training Type', with:'<<<Running>>>'
+      end
+
+      it "adds a training type to db" do
+        lambda{ click_button 'Create Post'
+        }.should change(TrainingType,:count).by(1)
+      end
     end
 
     context "saves" do

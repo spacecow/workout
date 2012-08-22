@@ -11,6 +11,7 @@ describe "Post edit" do
     fill_in 'Time of day', with:'11:20'
     fill_in 'Date', with:'2012-7-3'
     fill_in 'Comment', with:'Some random comment.'
+    fill_in 'Training Type', with:'<<<Running>>>'
   end
 
   context "update" do
