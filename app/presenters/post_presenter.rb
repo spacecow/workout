@@ -61,7 +61,7 @@ class PostPresenter < BasePresenter
 
   def training_type
     h.content_tag(:div, id:"training_type") do
-      post.training_type.name
+      post.training_type_name
     end
   end
 end

@@ -106,6 +106,13 @@ describe "Post new" do
       fill_in 'Date', with:''
       click_button 'Create Post'
       div(:date).should have_blank_error
+      div(:training_type).should_not have_blank_error
+    end
+
+    it "training type cannot be left blank" do
+      fill_in 'Training Type', with:''
+      click_button 'Create Post'
+      div(:training_type).should have_blank_error
     end
   end
 end

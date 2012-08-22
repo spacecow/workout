@@ -22,6 +22,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to new_post_path(date:@post.date, month:@month)
     else
+      @post.errors.add(:training_type_token, errors(:blank)) if @post.errors.messages[:training_type]
       render :new
     end
   end

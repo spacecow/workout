@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
 
   def authorid; author.userid end
 
+  def training_type_name; training_type && training_type.name end
+
   def training_type_token=(token)
     self.training_type_id = TrainingType.id_from_token(token)
   end

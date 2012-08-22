@@ -8,6 +8,7 @@ class TrainingType < ActiveRecord::Base
   class << self
     def id_from_token(token)
       token.gsub!(/<<<(.+?)>>>/){ create!(name:$1).id}
+      token
     end
 
     def tokens(query)
