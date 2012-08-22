@@ -23,6 +23,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to new_post_path(date:@post.date, month:@month)
     else
+      @training_partners = User.where('id <> ?',current_user.id).map{|e| [e.userid, e.id]}
       @post.errors.add(:training_type_token, errors(:blank)) if @post.errors.messages[:training_type]
       render :new
     end
@@ -30,12 +31,14 @@ class PostsController < ApplicationController
 
   def edit
     @post.time_of_day = @post.time_of_day.strftime("%H:%M") unless @post.time_of_day.nil?
+    @training_partners = User.where('id <> ?',@post.author_id).map{|e| [e.userid, e.id]}
   end
 
   def update
     if @post.update_attributes(params[:post])
       redirect_to new_post_path(date:@post.date, month:@month)
     else
+      @training_partners = User.where('id <> ?',@post.author_id).map{|e| [e.userid, e.id]}
       render :edit
     end
   end

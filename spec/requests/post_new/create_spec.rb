@@ -107,6 +107,12 @@ describe "Post new" do
   end
 
   context "error" do
+    it "page has the training partners listed" do
+      fill_in 'Date', with:''
+      click_button 'Create Post'
+      options('Training Partner').should eq 'BLANK, Prince'
+    end
+
     it "date cannot be left blank" do
       fill_in 'Date', with:''
       click_button 'Create Post'
