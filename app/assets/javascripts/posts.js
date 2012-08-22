@@ -9,6 +9,7 @@ $(function(){
   var training_type_id = "input#post_training_type_token";
   $(training_type_id).tokenInput($(training_type_id).data('url'), {
     tokenLimit: 1,
-    preventDuplicates: true
+    preventDuplicates: true,
+    prePopulate: $(training_type_id).data('load')
   });
 });
