@@ -1,8 +1,4 @@
-require 'assert'
-
 class SessionsController < ApplicationController
-  before_filter :set_month
-
   def new
   end
 
@@ -16,7 +12,7 @@ class SessionsController < ApplicationController
         session_original_url(nil)
         redirect_to url and return
       end
-      redirect_to root_url(month:@month)
+      redirect_to root_url
     else
       flash.now.alert = alertify(:invalid_login_or_password)
       render :new
@@ -25,13 +21,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session_userid(nil)
-    redirect_to root_url(month:@month), notice:notify(:logged_out)
+    redirect_to root_url, notice:notify(:logged_out)
   end
-
-  private
-
-    def set_month
-      assert_not_nil(params[:month]) if $AVLUSA
-      @month = Date.parse(params[:month])
-    end
 end

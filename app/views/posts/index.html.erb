@@ -9,7 +9,7 @@
     <%= calendar_for @posts, year:@month.year, month:@month.month do |calendar| %>
       <%= calendar.head(t('date.day_names')[0], t('date.day_names')[1], t('date.day_names')[2], t('date.day_names')[3], t('date.day_names')[4], t('date.day_names')[5], t('date.day_names')[6]) %>
       <% calendar.day(:id => 'day_%m%d') do |date, posts| %>
-        <%= presenter.posts_link(date,@month) %>
+        <%= presenter.posts_link(date) %>
         <%= presenter.posts_count(posts) %>
       <% end %>
     <% end %>

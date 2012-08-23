@@ -9,7 +9,9 @@ b15417: !ruby/object:Dooby::Task
   todo: hints to form :done
 aee7a1: !ruby/object:Dooby::Task 
   todo: training type to post :done
-a91f80: !ruby/object:Dooby::Task 
-  todo: trainingship :doing
 "491951": !ruby/object:Dooby::Task 
   todo: trainingship :done
+f94fec: !ruby/object:Dooby::Task 
+  todo: store date and month in session :doing
+a25ee6: !ruby/object:Dooby::Task 
+  todo: store date and month in session :done

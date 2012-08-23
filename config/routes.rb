@@ -4,7 +4,7 @@ Workout::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users, :only => :show
 
-  resources :training_types, :only => :index
+  resources :training_types, :only => [:show,:index]
 
   resources :posts, :only => [:new,:create,:index,:edit,:update,:destroy]
 

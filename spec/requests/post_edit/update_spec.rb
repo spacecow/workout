@@ -75,7 +75,7 @@ describe "Post edit" do
         click_button 'Cancel'
       end
 
-      it "redirect back to the calendar page" do
+      it "redirect back to the new post page" do
         page.current_path.should eq new_post_path
         page.should have_title('2012-07-02')
       end

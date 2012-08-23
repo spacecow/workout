@@ -2,15 +2,13 @@
 
 <hr>
 
-<%= render 'posts', posts:@posts, date:@date, month:@month if @posts.present? %>
+<%= render 'posts', posts:@posts, title: :type if @posts.present? %>
 
 <h2><%= new(:post) %></h2>
 
-<%= render 'form', post:@post, date:@date, month:@month %>
+<%= render 'form', post:@post, date:@date %>
 
 <%= form_tag posts_path, :method => :get do %>
-  <%= hidden_field_tag :date, @date %>
-  <%= hidden_field_tag :month, @month %>
   <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
 <% end %>
 

@@ -1,10 +1,9 @@
 <%= title edit(:post) %>
 
-<%= render 'form', post:@post, date:@date, month:@month %>
+<%= render 'form', post:@post, date:@date %>
 
 <%= form_tag new_post_path, :method => :get do %>
   <%= hidden_field_tag :date, @date %>
-  <%= hidden_field_tag :month, @month %>
   <%= submit_tag t('helpers.submit.cancel'), :class => :cancel %>
 <% end %>
 

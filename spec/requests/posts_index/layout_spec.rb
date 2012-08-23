@@ -74,22 +74,3 @@ describe "Posts index" do
     end
   end
 end
-
-  #describe "Bookings index" do
-  #  context "with booking" do
-  #    before(:each) do
-  #      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
-  #    end
-  #
-  #    it "single" do
-  #      visit bookings_path(month:'2012/7')
-  #      td(:day_0702).should have_content('Booking: 1')
-  #    end
-  #
-  #    it "double" do
-  #      FactoryGirl.create(:booking, date:Date.parse('2012-7-2'))
-  #      visit bookings_path(month:'2012/7')
-  #      td(:day_0702).should have_content('Bookings: 2')
-  #    end
-  #  end
-  #end

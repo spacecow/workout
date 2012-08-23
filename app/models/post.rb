@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :date, :author_id, :training_type
 
+  after_validation :set_training_type_token_error
+
   def authorid; author.userid end
 
   def training_type_name; training_type && training_type.name end
@@ -17,4 +19,10 @@ class Post < ActiveRecord::Base
   def training_type_token=(token)
     self.training_type_id = TrainingType.id_from_token(token)
   end
+
+  private
+
+    def set_training_type_token_error
+      errors.add(:training_type_token, I18n.t('errors.messages.blank')) if errors.messages[:training_type]
+    end
 end

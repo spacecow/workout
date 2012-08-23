@@ -25,9 +25,11 @@ div.clear
   padding-left: $flash_left_padding_width 
   margin-bottom: 10px 
 
+$main_width: 700px
+
 $flash_border_width: 1px
 $flash_left_padding_width: 40px
-$flash_width: 600px - $flash_left_padding_width - 2*$flash_border_width
+$flash_width: $main_width - $flash_left_padding_width - 2*$flash_border_width
 $alert_dark: #933
 $notice_dark: #396
 $alert_light: #f33
@@ -55,7 +57,7 @@ div#user_nav
   font-size: 12px
 
 div#main_container
-  width: 700px
+  width: $main_width 
   margin: 100px auto 0 auto
   padding: 20px
   @include box-shadow(rgba(black, 0.9) 0 0 25px, rgba(green, 0.2) 0 0 3px 1px inset)

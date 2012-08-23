@@ -7,6 +7,7 @@ class Ability
       can :show, User
       can [:new,:create], Post
       can [:update,:destroy], Post
+      can [:show,:index], TrainingType
     end
     # :read, :create, :update and :destroy.
   end

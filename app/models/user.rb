@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
       tokens.split(",")
     end
 
+    def minus(user)
+      User.where('id <> ?',user.id).map{|e| [e.userid, e.id]}
+    end
+
     def role(s); 2**ROLES.index(s.to_s) end
   end
 end

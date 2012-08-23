@@ -88,7 +88,6 @@ describe "Post new" do
       it "redirect back to the calendar page" do
         click_button 'Calendar'
         page.current_path.should eq posts_path
-        page.should have_content('July 2012')
       end
     end
 
@@ -101,7 +100,6 @@ describe "Post new" do
 
       it "redirect back to the calendar page" do
         page.current_path.should eq posts_path
-        page.should have_content('July 2012')
       end
     end
   end

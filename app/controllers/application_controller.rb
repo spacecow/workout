@@ -15,4 +15,16 @@ class ApplicationController < ActionController::Base
       redirect_to login_url(month:params[:month], date:params[:date])
     end
   end
+
+    #def set_date
+    #  assert_not_nil(session[:date] || params[:date]) if $AVLUSA
+    #  session[:date] = params[:date] unless params[:date].nil?
+    #  @date = Date.parse(session[:date])
+    #end
+
+    #def set_month
+    #  assert_not_nil(session[:month] || params[:date]) if $AVLUSA
+    #  session[:month] = params[:month] unless params[:month].nil?
+    #  @month = Date.parse(session[:month])
+    #end
 end

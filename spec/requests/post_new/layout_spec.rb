@@ -62,11 +62,32 @@ describe "Post new" do
     end
   end
 
+  context "error page" do
+    before(:each) do
+      login
+      date = '2012-7-2'
+      FactoryGirl.create(:post, date:Date.parse(date))
+      visit new_post_path(date:date)
+      fill_in 'Date', with:''
+      click_button 'Create Post'
+    end
+
+    it "still has the same title" do
+      page.should have_title('2012-07-02')
+    end
+
+    it "has posts listed" do
+      page.should have_div(:posts)
+    end
+  end
+
   context "with posts on the same day" do
     before(:each) do
       prince = FactoryGirl.create(:user, userid:'Prince')
-      training_type = FactoryGirl.create(:training_type, name:'Running')
-      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.', training_type:training_type)
+      king = FactoryGirl.create(:user, userid:'King')
+      @type = FactoryGirl.create(:training_type, name:'Running')
+      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.', training_type:@type)
+      @post.training_partners << king
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')
     end
@@ -78,8 +99,13 @@ describe "Post new" do
       div(:posts).divs_no(:post).should be(1)
     end
 
-    it "has a traning type" do
-      div(:post,0).div(:training_type).should have_content('Running')
+    it "has the traning type as the post title" do
+      div(:post,0).div(:title).should have_link('Running')
+    end
+
+    it "link from type title redirects to the training type show page" do
+      div(:post,0).div(:title).click_link 'Running'
+      current_path.should eq training_type_path(@type) 
     end
 
     it "has an author" do
@@ -91,7 +117,7 @@ describe "Post new" do
     end
 
     it "has a training partner" do
-      div(:post,0).div(:training_partner).should have_content('King')
+      div(:post,0).div(:training_partners).should have_content('King')
     end
 
     it "has a comment" do
@@ -105,10 +131,21 @@ describe "Post new" do
     end
 
     it "has a delete link" do
-      div(:post,0).div(:actions).should have_link('Delete')
-      lambda{ div(:post,0).div(:actions).click_link 'Delete'}.should change(Post,:count).by(-1)
-      current_path.should eq new_post_path
-      page.should have_content('2012-07-02')
+      first_post_actions.should have_link('Delete')
+    end
+
+    context "delete" do
+      before(:each) do
+        lambda{ first_post_actions.click_link 'Delete'}.should change(Post,:count).by(-1)
+      end
+
+      it "redirects back" do
+        current_path.should eq new_post_path
+      end
+
+      it "redirects back to the correct page" do
+        page.should have_content('2012-07-02')
+      end
     end
   end
 end

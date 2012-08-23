@@ -1,10 +1,10 @@
 <% present post do |presenter| %>
   <div class="post">
-    <%= presenter.training_type %>
+    <%= presenter.title(post.training_type,title) %>
     <%= presenter.timestamp %>
     <%= presenter.author %>
     <%= presenter.training_partners %>
-    <%= presenter.actions(date,month) %>
+    <%= presenter.actions %>
     <div class="clear"></div>
     <%= presenter.comment %>
   </div>

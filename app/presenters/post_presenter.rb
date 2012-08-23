@@ -1,9 +1,9 @@
 class PostPresenter < BasePresenter
   presents :post
 
-  def actions(date,month)
+  def actions
     h.content_tag(:div, id:"actions") do
-      "#{edit_link(date,month)} #{delete_link(date,month)}".html_safe
+      "#{edit_link} #{delete_link}".html_safe
     end
   end
 
@@ -19,14 +19,14 @@ class PostPresenter < BasePresenter
     end
   end
 
-  def delete_link(date,month)
+  def delete_link
     dcase = @object.class.to_s.downcase
-    h.link_to h.t(:delete), h.send("post_path", @object, date:date, month:month), method: :delete, data:{confirm:h.sure?} if h.can? :destroy, @object 
+    h.link_to h.t(:delete), h.send("post_path", @object), method: :delete, data:{confirm:h.sure?} if h.can? :destroy, @object 
   end
 
-  def edit_link(date,month)
+  def edit_link
     dcase = @object.class.to_s.downcase
-    h.link_to h.t(:edit), h.send("edit_#{dcase}_path", @object, date:date, month:month) if h.can? :edit, @object 
+    h.link_to h.t(:edit), h.send("edit_#{dcase}_path", @object) if h.can? :edit, @object 
   end
 
   def posts_count(posts)
@@ -39,9 +39,9 @@ class PostPresenter < BasePresenter
     end
   end
 
-  def posts_link(date,month)
+  def posts_link(date)
     if h.current_user
-      h.link_to date.day, h.new_post_path(date:date.full, month:month.half)
+      h.link_to date.day, h.new_post_path(date:date.full)
     else
       date.day
     end
@@ -65,9 +65,13 @@ class PostPresenter < BasePresenter
     end
   end
 
-  def training_type
-    h.content_tag(:div, id:"training_type") do
-      post.training_type_name
+  def title(type,title)
+    h.content_tag(:div, id:"title") do
+      if title == :date
+        h.link_to post.date.full, h.new_post_path(date:post.date.full)
+      else
+        h.link_to post.training_type_name, type
+      end
     end
   end
 end
