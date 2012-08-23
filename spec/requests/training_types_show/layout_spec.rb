@@ -11,6 +11,10 @@ describe "TrainingType show" do
     it "has a title" do
       page.should have_title('Running')
     end
+
+    it "has a calendar button" do
+      page.should have_cancel_button 'Calendar'
+    end
   end
 
   context 'with posts' do

@@ -11,6 +11,10 @@ describe "User show" do
     it "has the userid as title" do
       page.should have_title('Prince')
     end
+
+    it "has a calendar button" do
+      page.should have_cancel_button 'Calendar'
+    end
   end
 
   context "with posts as partner" do
