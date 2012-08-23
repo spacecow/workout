@@ -83,10 +83,10 @@ describe "Post new" do
 
   context "with posts on the same day" do
     before(:each) do
-      prince = FactoryGirl.create(:user, userid:'Prince')
+      @author = FactoryGirl.create(:user, userid:'Prince')
       king = FactoryGirl.create(:user, userid:'King')
       @type = FactoryGirl.create(:training_type, name:'Running')
-      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, duration:35, comment:'Just some random comment.', training_type:@type)
+      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:@author, duration:35, comment:'Just some random comment.', training_type:@type)
       @post.training_partners << king
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')
@@ -108,8 +108,19 @@ describe "Post new" do
       current_path.should eq training_type_path(@type) 
     end
 
-    it "has an author" do
-      div(:post,0).div(:author).should have_content('by Prince')
+    context "div author" do
+      it "contains the author" do
+        first_post_author.should have_content('by Prince')
+      end
+
+      it "has a link to the author show page" do
+        first_post_author.should have_link('Prince')
+      end
+
+      it "links to the author show page" do
+        first_post_author.click_link 'Prince'
+        current_path.should eq user_path(@author)
+      end
     end 
 
     it "has a timestamp" do

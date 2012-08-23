@@ -3,4 +3,5 @@ def login(user = create_member)
   fill_in 'Login', with:user.userid
   fill_in 'Password', with:user.password
   click_button 'Login'
+  user
 end

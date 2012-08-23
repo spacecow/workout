@@ -27,7 +27,7 @@ describe "TrainingType show" do
 
     context "link from date title" do
       before(:each) do
-        div(:posts).div(:post,0).div(:title).click_link('2012-07-14')
+        first_post_title.click_link('2012-07-14')
       end
 
       it "redirects to the new post page" do

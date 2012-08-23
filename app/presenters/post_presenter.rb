@@ -9,7 +9,7 @@ class PostPresenter < BasePresenter
 
   def author
     h.content_tag(:div, id:"author") do
-      h.t(:by,name:post.authorid)
+      "#{h.t(:by)} #{h.link_to post.authorid, post.author}".html_safe
     end
   end
 
@@ -69,7 +69,9 @@ class PostPresenter < BasePresenter
     h.content_tag(:div, id:"title") do
       if title == :date
         h.link_to post.date.full, h.new_post_path(date:post.date.full)
-      else
+      elsif title == :typedate
+        "#{h.link_to post.training_type_name, type}, #{h.link_to post.date.full, h.new_post_path(date:post.date.full)}".html_safe
+      elsif title == :type
         h.link_to post.training_type_name, type
       end
     end

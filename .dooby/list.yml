@@ -11,7 +11,7 @@ aee7a1: !ruby/object:Dooby::Task
   todo: training type to post :done
 "491951": !ruby/object:Dooby::Task 
   todo: trainingship :done
-f94fec: !ruby/object:Dooby::Task 
-  todo: store date and month in session :doing
 a25ee6: !ruby/object:Dooby::Task 
   todo: store date and month in session :done
+68cd2c: !ruby/object:Dooby::Task 
+  todo: lists of posts for user :done
