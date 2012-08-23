@@ -13,7 +13,7 @@ describe PostPresenter do
       post = FactoryGirl.create(:post)
       post.training_partners << partner
       @presenter = PostPresenter.new(post, view)
-      @presenter.training_partners.should eq '<div id="training_partners">with King</div>' 
+      @presenter.training_partners.should eq "<div id=\"training_partners\">with <a href=\"/users/#{partner.id}\">King</a></div>" 
     end
   end
 

@@ -83,11 +83,11 @@ describe "Post new" do
 
   context "with posts on the same day" do
     before(:each) do
-      @author = FactoryGirl.create(:user, userid:'Prince')
-      king = FactoryGirl.create(:user, userid:'King')
+      @prince = FactoryGirl.create(:user, userid:'Prince')
+      @king = FactoryGirl.create(:user, userid:'King')
       @type = FactoryGirl.create(:training_type, name:'Running')
-      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:@author, duration:35, comment:'Just some random comment.', training_type:@type)
-      @post.training_partners << king
+      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:@prince, duration:35, comment:'Just some random comment.', training_type:@type)
+      @post.training_partners << @king
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')
     end
@@ -119,7 +119,7 @@ describe "Post new" do
 
       it "links to the author show page" do
         first_post_author.click_link 'Prince'
-        current_path.should eq user_path(@author)
+        current_path.should eq user_path(@prince)
       end
     end 
 
@@ -127,8 +127,19 @@ describe "Post new" do
       div(:post,0).div(:timestamp).should have_content('35 min')
     end
 
-    it "has a training partner" do
-      div(:post,0).div(:training_partners).should have_content('King')
+    context "div training partners" do
+      it "contains the training partners" do
+        first_post_training_partners.should have_content('with King')
+      end
+
+      it "has a link to the partner show page" do
+        first_post_training_partners.should have_link('King')
+      end
+
+      it "links to the partner show page" do
+        first_post_training_partners.click_link 'King'
+        current_path.should eq user_path(@king)
+      end
     end
 
     it "has a comment" do

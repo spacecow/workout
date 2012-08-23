@@ -61,7 +61,7 @@ class PostPresenter < BasePresenter
 
   def training_partners
     h.content_tag(:div, id:"training_partners") do
-      "with #{post.training_partners.map(&:userid).join}" if post.training_partners.present?
+      "with #{post.training_partners.map{|e| h.link_to e.userid, e}.join(" and ")}".html_safe if post.training_partners.present?
     end
   end
 
