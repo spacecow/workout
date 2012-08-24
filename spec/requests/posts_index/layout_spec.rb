@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index" do
+describe "Posts index", focus:true do
   context "without posts" do
     before(:each) do
       visit posts_path(month:'2012/7')
@@ -31,8 +31,8 @@ describe "Posts index" do
 
     it "has links to detail posts" do
       td(:day_0701).click_link('1')
-      page.current_path.should eq new_post_path
-      page.should have_title('2012-07-01')
+      page.current_path.should eq day_path('2012-07-01')
+      #page.should have_title('2012-07-01')
     end
   end
 
@@ -49,7 +49,8 @@ describe "Posts index" do
   it "with a post with a partner" do
     partner = FactoryGirl.create(:user, userid:'Partner')
     author = FactoryGirl.create(:user, userid:'Author')
-    post = FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:author)
+    day = FactoryGirl.create(:day, date:Date.parse('2012-7-10'))
+    post = FactoryGirl.create(:post, day:day, author:author)
     post.training_partners << partner
     visit posts_path(month:'2012/7')
     td(:day_0710).div(:posts,0).should have_content('Author&Partner: 1')
@@ -59,8 +60,9 @@ describe "Posts index" do
     before(:each) do
       prince = FactoryGirl.create(:user, userid:'Prince')
       king = FactoryGirl.create(:user, userid:'King')
-      FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:prince)
-      FactoryGirl.create(:post, date:Date.parse('2012-7-10'), author:king)
+      day = FactoryGirl.create(:day, date:Date.parse('2012-7-10'))
+      FactoryGirl.create(:post, day:day, author:prince)
+      FactoryGirl.create(:post, day:day, author:king)
       visit posts_path(month:'2012/7')
     end
 

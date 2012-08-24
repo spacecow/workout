@@ -1,6 +1,8 @@
 FactoryGirl.define do
+  factory :day do
+  end
+
   factory :post do
-    date Date.parse('2012-7-14')
     association :author, factory: :user
     training_type
   end

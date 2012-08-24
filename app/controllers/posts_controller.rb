@@ -9,12 +9,12 @@ class PostsController < ApplicationController
   def index
     set_month
     @posts = Post.includes(:training_partners)
-    @posts_by_date = @posts.group_by(&:date)
+    @posts_by_date = @posts.group_by{|e| e.day.date}
   end
 
   def new
-    @post = Post.new(date:@date)
-    @posts = Post.where(date:@date)
+    @post = Post.new #(date:@date)
+    @posts = Post.all #where(date:@date)
     @training_partners = User.minus(current_user)
     
   end

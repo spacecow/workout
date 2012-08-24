@@ -11,11 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822021457) do
+ActiveRecord::Schema.define(:version => 20120824074401) do
+
+  create_table "days", :force => true do |t|
+    t.date     "date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "posts", :force => true do |t|
     t.integer  "author_id"
-    t.date     "date"
     t.time     "time_of_day"
     t.integer  "distance"
     t.integer  "duration"
@@ -23,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20120822021457) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "training_type_id"
+    t.integer  "day_id"
   end
 
   create_table "training_types", :force => true do |t|

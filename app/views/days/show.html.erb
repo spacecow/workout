@@ -1,0 +1,5 @@
+<%= title @day.date %>
+
+<hr>
+
+<%= render 'posts/posts', posts:@posts, title: :type if @posts.present? %>

@@ -4,7 +4,7 @@ describe "Post new" do
   context "without posts" do
     before(:each) do
       login
-      visit new_post_path(date:'2012-7-2', month:'2012/7')
+      visit new_post_path(date:'2012-7-2')
     end
 
     it "has no div for the posts" do
@@ -86,7 +86,8 @@ describe "Post new" do
       @prince = FactoryGirl.create(:user, userid:'Prince')
       @king = FactoryGirl.create(:user, userid:'King')
       @type = FactoryGirl.create(:training_type, name:'Running')
-      @post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:@prince, duration:35, comment:'Just some random comment.', training_type:@type)
+      day = FactoryGirl.create(:day, date:Date.parse('2012-7-2'))
+      @post = FactoryGirl.create(:post, day:day, author:@prince, duration:35, comment:'Just some random comment.', training_type:@type)
       @post.training_partners << @king
       login
       visit new_post_path(date:'2012-7-2', month:'2012/7')

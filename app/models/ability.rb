@@ -5,6 +5,7 @@ class Ability
     can :index, Post
     if user
       can :show, User
+      can :show, Day
       can [:new,:create], Post
       can [:update,:destroy], Post
       can [:show,:index], TrainingType

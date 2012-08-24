@@ -41,7 +41,7 @@ class PostPresenter < BasePresenter
 
   def posts_link(date)
     if h.current_user
-      h.link_to date.day, h.new_post_path(date:date.full)
+      h.link_to date.day, h.day_path(date.full)
     else
       date.day
     end
