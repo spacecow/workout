@@ -15,3 +15,7 @@ a25ee6: !ruby/object:Dooby::Task
   todo: store date and month in session :done
 68cd2c: !ruby/object:Dooby::Task 
   todo: lists of posts for user :done
+926e2b: !ruby/object:Dooby::Task 
+  todo: change date to day model
+cf433b: !ruby/object:Dooby::Task 
+  todo: replace calendar gem with own calendar :done

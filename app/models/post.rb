@@ -6,7 +6,6 @@ class Post < ActiveRecord::Base
   has_many :training_partners, through: :trainingships, source: :partner
 
   attr_accessible :date, :distance, :duration, :time_of_day, :comment, :training_type_token, :training_partner_ids
-  attr_reader :training_type_token
 
   validates_presence_of :date, :author_id, :training_type
 
@@ -16,6 +15,9 @@ class Post < ActiveRecord::Base
 
   def training_type_name; training_type && training_type.name end
 
+  def training_type_token
+    training_type_id
+  end
   def training_type_token=(token)
     self.training_type_id = TrainingType.id_from_token(token)
   end

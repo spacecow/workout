@@ -4,12 +4,32 @@ describe "TrainingType show" do
   context 'without posts' do
     before(:each) do
       login
-      type = FactoryGirl.create(:training_type, name:'Running')
-      visit training_type_path(type)
+      @type = FactoryGirl.create(:training_type, name:'Running')
+      visit training_type_path(@type)
     end
 
     it "has a title" do
       page.should have_title('Running')
+    end
+
+    it "has a form title" do
+      page.should have_h2('New Post')
+    end
+
+    it "has a new post form" do
+      page.should have_form(:new_post)
+    end
+
+    it "has the date value blank" do
+      value('* Date').should be_nil
+    end
+
+    it "has the training type set" do
+      value('Training Type').should eq @type.id.to_s 
+    end
+
+    it "has the training partners listed" do
+      options('Training Partner').should eq 'BLANK'
     end
 
     it "has a calendar button" do

@@ -2,6 +2,9 @@ class TrainingTypesController < ApplicationController
   load_and_authorize_resource
 
   def show
+    session[:type] = @training_type.id
+    @post = Post.new(:training_type_token => @training_type.id.to_s)
+    @training_partners = User.minus(current_user)
   end
 
   def index

@@ -7,9 +7,9 @@ class PostsController < ApplicationController
   before_filter :set_date, :only => :new
 
   def index
-    #@month = params[:month] ? Date.parse(params[:month]) : Date.today
     set_month
     @posts = Post.includes(:training_partners)
+    @posts_by_date = @posts.group_by(&:date)
   end
 
   def new
@@ -22,11 +22,20 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(params[:post])
     if @post.save
-      redirect_to new_post_path(date:@post.date)
+      if params[:location] == 'type'
+        redirect_to @post.training_type
+      else
+        redirect_to new_post_path(date:@post.date)
+      end
     else
       @training_partners = User.minus(current_user)
-      @posts = Post.where(date:get_date)
-      render :new
+      if params[:location] == 'type'
+        @training_type = TrainingType.find(session[:type])
+        render 'training_types/show'
+      else
+        @posts = Post.where(date:get_date)
+        render :new
+      end
     end
   end
 

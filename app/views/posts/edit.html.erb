@@ -1,6 +1,6 @@
 <%= title edit(:post) %>
 
-<%= render 'form', post:@post, date:@date %>
+<%= render 'form', post:@post, date:@date, partners:@training_partners, location:'post' %>
 
 <%= form_tag new_post_path, :method => :get do %>
   <%= hidden_field_tag :date, @date %>

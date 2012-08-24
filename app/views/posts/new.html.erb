@@ -6,7 +6,7 @@
 
 <h2><%= new(:post) %></h2>
 
-<%= render 'form', post:@post, date:@date %>
+<%= render 'form', post:@post, partners:@training_partners, location:'post' %>
 
 <%= form_tag posts_path, :method => :get do %>
   <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>

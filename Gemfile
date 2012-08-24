@@ -4,7 +4,7 @@ gem 'rails', '3.2.7'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem "watu_table_builder", :require => "table_builder"
+#gem "watu_table_builder", :require => "table_builder"
 gem 'cancan'
 gem 'simple_form'
 
