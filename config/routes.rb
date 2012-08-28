@@ -7,7 +7,7 @@ Workout::Application.routes.draw do
   resources :training_types, :only => [:show,:index]
 
   resources :days, :only => :show
-  resources :posts, :only => [:new,:create,:index,:edit,:update,:destroy]
+  resources :posts, :only => [:create,:index,:edit,:update,:destroy]
 
   get 'welcome' => 'posts#index'
   root :to => 'posts#index'

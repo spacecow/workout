@@ -5,7 +5,8 @@ describe "Post edit" do
     king = create_member({userid:'King'})
     login(king)
     prince = FactoryGirl.create(:user, userid:'Prince')
-    post = FactoryGirl.create(:post, date:Date.parse('2012-7-2'), author:prince, time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.')
+    day = FactoryGirl.create(:day, date:Date.parse('2012-7-2'))
+    post = FactoryGirl.create(:post, day:day , author:prince, time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.')
     visit edit_post_path(post, date:'2012-7-2',month:'2012/7')
     fill_in 'Distance', with:'10'
     fill_in 'Duration', with:'30'
@@ -48,8 +49,7 @@ describe "Post edit" do
       end
 
       it "and redirect back to the page of that day" do
-        page.current_path.should eq new_post_path
-        page.should have_content('2012-07-03')
+        page.current_path.should eq day_path('2012-07-03')
       end
     end
   end
@@ -63,8 +63,7 @@ describe "Post edit" do
 
       it "redirect back to the new post page" do
         click_button 'Cancel'
-        page.current_path.should eq new_post_path
-        page.should have_title('2012-07-02')
+        page.current_path.should eq day_path('2012-07-02')
       end
     end
 
@@ -76,8 +75,7 @@ describe "Post edit" do
       end
 
       it "redirect back to the new post page" do
-        page.current_path.should eq new_post_path
-        page.should have_title('2012-07-02')
+        page.current_path.should eq day_path('2012-07-02')
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index", focus:true do
+describe "Posts index" do
   context "without posts" do
     before(:each) do
       visit posts_path(month:'2012/7')

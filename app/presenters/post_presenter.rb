@@ -68,9 +68,9 @@ class PostPresenter < BasePresenter
   def title(type,title)
     h.content_tag(:div, id:"title") do
       if title == :date
-        h.link_to post.date.full, h.new_post_path(date:post.date.full)
+        h.link_to post.date.full, h.day_path(post.date.full)
       elsif title == :typedate
-        "#{h.link_to post.training_type_name, type}, #{h.link_to post.date.full, h.new_post_path(date:post.date.full)}".html_safe
+        "#{h.link_to post.training_type_name, type}, #{h.link_to post.date.full, h.day_path(post.date.full)}".html_safe
       elsif title == :type
         h.link_to post.training_type_name, type
       end

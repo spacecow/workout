@@ -2,8 +2,7 @@
 
 <%= render 'form', post:@post, date:@date, partners:@training_partners, location:'post' %>
 
-<%= form_tag new_post_path, :method => :get do %>
-  <%= hidden_field_tag :date, @date %>
+<%= form_tag day_path(@day.date), :method => :get do %>
   <%= submit_tag t('helpers.submit.cancel'), :class => :cancel %>
 <% end %>
 

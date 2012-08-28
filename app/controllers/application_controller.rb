@@ -16,15 +16,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-    #def set_date
-    #  assert_not_nil(session[:date] || params[:date]) if $AVLUSA
-    #  session[:date] = params[:date] unless params[:date].nil?
-    #  @date = Date.parse(session[:date])
-    #end
-
-    #def set_month
-    #  assert_not_nil(session[:month] || params[:date]) if $AVLUSA
-    #  session[:month] = params[:month] unless params[:month].nil?
-    #  @month = Date.parse(session[:month])
-    #end
+  def session_day(*opt)
+    if opt.present? 
+      session[:day] = opt.first 
+    else
+      session[:day] 
+    end
+  end
+  def session_type(*opt)
+    if opt.present? 
+      session[:type] = opt.first 
+    else
+      session[:type] 
+    end
+  end
 end

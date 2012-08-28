@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-describe "Day show", focus:true do
+describe "Day show" do
   context "without posts" do
     before(:each) do
-      login
+      user = create_member
+      login(user)
       visit day_path('2012-7-2')
     end
 
@@ -13,6 +14,44 @@ describe "Day show", focus:true do
 
     it "has no div for the posts" do
       page.should_not have_div(:posts)
+    end
+
+    it "has a new post title" do
+      page.should have_title('2012-07-02')
+    end
+
+    it "has the date field filled in" do
+      value('* Date').should eq '2012-07-02'
+    end
+
+    it "has the training type blank" do
+      value('Training Type').should be_nil
+    end
+
+    it "has the time of day left blank" do
+      value('Time of day').should be_nil
+    end
+    it "has the duration left blank" do
+      value('Duration').should be_nil
+    end
+
+    it "has the distance field blank" do
+      value('Distance').should be_nil
+    end
+
+    it "has the comment field blank" do
+      value('Comment').should be_empty
+    end
+
+    it "has the training partners listed" do
+      options('Training Partner').should eq 'BLANK'
+    end
+
+    it "has a create button" do
+      page.should have_submit_button('Create Post')
+    end
+    it "has a cancel button" do
+      page.should have_cancel_button 'Calendar'
     end
   end
 

@@ -1,5 +1,6 @@
 <%= simple_form_for post do |f| %>
-  <%= f.simple_fields_for :date do |f2| %>
+  <%= f.simple_fields_for :day do |f2| %>
+    <%= f2.input :date, as: :string, wrapper_html:{id:'date'} %>
   <% end %>
   <%# f.input :date, :as => :string, wrapper_html:{id:'date'} %>
   <%= f.input :training_type_token, wrapper_html:{id:'training_type'}, input_html:{data:{load:[post.training_type], url:training_types_path(format: :json)}} %>

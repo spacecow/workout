@@ -1,10 +1,12 @@
 FactoryGirl.define do
   factory :day do
+    date '2012-07-14'
   end
 
   factory :post do
     association :author, factory: :user
     training_type
+    day
   end
 
   factory :training_type do

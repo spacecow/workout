@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "TrainingType show" do
+describe "TrainingType show", focus:true do
   context 'create' do
     before(:each) do
       login
@@ -12,6 +12,10 @@ describe "TrainingType show" do
     it "saves the post to db" do
       lambda{ click_button 'Create Post'
       }.should change(Post,:count).by(1)
+    end
+
+    it "shows a flash message" do
+      page.should have_notice('Successfully created Post.')
     end
 
     context 'errors page' do

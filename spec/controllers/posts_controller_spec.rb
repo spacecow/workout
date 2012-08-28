@@ -28,13 +28,14 @@ describe PostsController do
       before(:each) do
         session[:userid] = create_member.id
         @date = '2012-8-23'
+        session[:day] = FactoryGirl.create(:day, date:@date).id
         session[:date] = @date
         request.env['HTTP_REFERER'] = posts_path
       end
 
       controller_actions.each do |action,req|
         it "should reach the #{action} page" do
-          send(req, action, id:@model.id, date:@date)
+          send(req, action, id:@model.id)
           response.redirect_url.should_not eq welcome_url
         end
       end
