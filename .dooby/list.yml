@@ -19,3 +19,5 @@ cf433b: !ruby/object:Dooby::Task
   todo: replace calendar gem with own calendar :done
 484d0a: !ruby/object:Dooby::Task 
   todo: change date to day model :done
+559dc7: !ruby/object:Dooby::Task 
+  todo: clean up and flash messages :done
