@@ -52,7 +52,7 @@ describe "Post edit" do
         page.current_path.should eq day_path('2012-07-03')
       end
 
-      it "shows a flash message", focus:true do
+      it "shows a flash message" do
         page.should have_notice 'Successfully updated Post'
       end
     end
@@ -79,7 +79,7 @@ describe "Post edit" do
       end
 
       it "redirect back to the new post page" do
-        page.current_path.should eq day_path('2012-07-02')
+        page.current_path.should eq day_path(Date.today.full)
       end
     end
   end

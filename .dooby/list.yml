@@ -23,3 +23,5 @@ cf433b: !ruby/object:Dooby::Task
   todo: clean up and flash messages :done
 80bdac: !ruby/object:Dooby::Task 
   todo: " :done"
+f02f7a: !ruby/object:Dooby::Task 
+  todo: link redirects :done

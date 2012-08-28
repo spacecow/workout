@@ -46,10 +46,10 @@ describe "TrainingType show" do
     end
 
     it "has the date as the post title" do
-      first_post_title.should have_link('2012-07-14')
+      first_post_title.should have_link('2012-07-15')
     end
 
-    context "edit link", focus:true do
+    context "edit link" do
       before(:each) do
         first_post_actions.click_link 'Edit'
       end
@@ -106,14 +106,32 @@ describe "TrainingType show" do
         end
       end
     end #edit link
+    ############################################
+
+    context "delete link" do
+      it "exits" do
+        first_post_actions.should have_link('Delete')
+      end
+
+      context "delete" do
+        before(:each) do
+          lambda{ first_post_actions.click_link 'Delete'}.should change(Post,:count).by(-1)
+        end
+
+        it "redirects back" do
+          current_path.should eq training_type_path(@type)
+        end
+      end
+    end #delete link
+    ############################################
 
     context "link from date title" do
       before(:each) do
-        first_post_title.click_link('2012-07-14')
+        first_post_title.click_link('2012-07-15')
       end
 
       it "redirects to the day page" do
-        current_path.should eq day_path('2012-07-14')
+        current_path.should eq day_path('2012-07-15')
       end
     end
   end

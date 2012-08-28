@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "User show", focus:true do
+describe "User show" do
   context 'without posts' do
     before(:each) do
       user = FactoryGirl.create(:user, userid:'Prince') 
@@ -58,7 +58,7 @@ describe "User show", focus:true do
       end
     end
 
-    context "edit link", focus:true do
+    context "edit link" do
       before(:each) do
         first_post_actions.click_link 'Edit'
       end
@@ -115,6 +115,23 @@ describe "User show", focus:true do
         end
       end
     end #edit link
+    ############################################
+
+    context "delete link" do
+      it "exits" do
+        first_post_actions.should have_link('Delete')
+      end
+
+      context "delete" do
+        before(:each) do
+          lambda{ first_post_actions.click_link 'Delete'}.should change(Post,:count).by(-1)
+        end
+
+        it "redirects back" do
+          current_path.should eq user_path(@author)
+        end
+      end
+    end #delete link
     ############################################
 
     it "has date as post title" do

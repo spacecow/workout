@@ -132,7 +132,7 @@ describe "Day show" do
       first_post_comment.should have_content('Just some random comment.')
     end
 
-    context "edit link", focus:true do
+    context "edit link" do
       before(:each) do
         first_post_actions.click_link 'Edit'
       end
@@ -189,19 +189,23 @@ describe "Day show" do
         end
       end
     end #edit link
+    ############################################
 
-    it "has a delete link" do
-      first_post_actions.should have_link('Delete')
-    end
-
-    context "delete" do
-      before(:each) do
-        lambda{ first_post_actions.click_link 'Delete'}.should change(Post,:count).by(-1)
+    context "delete link" do
+      it "exits" do
+        first_post_actions.should have_link('Delete')
       end
 
-      it "redirects back" do
-        current_path.should eq day_path('2012-7-2')
+      context "delete" do
+        before(:each) do
+          lambda{ first_post_actions.click_link 'Delete'}.should change(Post,:count).by(-1)
+        end
+
+        it "redirects back" do
+          current_path.should eq day_path('2012-07-02')
+        end
       end
-    end
+    end #delete link
+    ############################################
   end
 end

@@ -38,13 +38,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def return_path
+  def return_path(post)
     if !session_type.nil?
       training_type_path(session_type)
     elsif !session_day.nil?
       day_path(session_day)
     elsif !session_user.nil?
       user_path(session_user)
+    elsif !post.date.nil?
+      day_path(post.date)
+    else
+      day_path(Date.today)
     end
   end
 end

@@ -37,23 +37,6 @@ class PostsController < ApplicationController
         render 'days/show', id:get_day
       end
     end
-    #@post = current_user.posts.build(params[:post])
-    #if @post.save
-    #  if params[:location] == 'type'
-    #    redirect_to @post.training_type
-    #  else
-    #    redirect_to new_post_path(date:@post.date)
-    #  end
-    #else
-    #  @training_partners = User.minus(current_user)
-    #  if params[:location] == 'type'
-    #    @training_type = TrainingType.find(session[:type])
-    #    render 'training_types/show'
-    #  else
-    #    @posts = Post.where('day_id = ?', get_day.id)
-    #    render :new
-    #  end
-    #end
   end
 
   def edit
@@ -91,14 +74,8 @@ class PostsController < ApplicationController
 
   private
 
-    #def set_date
-    #  assert_not_nil(params[:date]) if $AVLUSA
-    #  session[:date] = params[:date]
-    #  get_date
-    #end
-
     def get_day
-      @day = Day.find(session_day)
+      @day = Day.find_by_date(session_day)
     end
     def get_training_type
       @training_type = TrainingType.find(session_type)
