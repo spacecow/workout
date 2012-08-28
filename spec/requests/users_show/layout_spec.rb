@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "User show" do
+describe "User show", focus:true do
   context 'without posts' do
     before(:each) do
       user = FactoryGirl.create(:user, userid:'Prince') 
@@ -33,14 +33,19 @@ describe "User show" do
   context "with author posts" do
     before(:each) do
       @date = '2012-08-22'
-      user = login
-      @running = FactoryGirl.create(:training_type, name:'Running')
-      FactoryGirl.create(:post, author:user, training_type:@running, date:Date.parse(@date))
-      visit user_path(user)
+      @post = create_post({date:@date, type:'Running'}) 
+      @running = @post.training_type
+      @author = @post.author
+      login(@author)
+      visit user_path(@author)
     end
 
     it "has the type as post title" do
       first_post_title.should have_link('Running')
+    end
+
+    it "has the date as post title" do
+      first_post_title.should have_link('2012-08-22')
     end
 
     context "link from date title" do
@@ -49,12 +54,68 @@ describe "User show" do
       end
 
       it "redirects to the new post page" do
-        current_path.should eq new_post_path
-      end
-      it "redirects to correct new post page" do
-        page.should have_title('2012-08-22')
+        current_path.should eq day_path('2012-08-22')
       end
     end
+
+    context "edit link", focus:true do
+      before(:each) do
+        first_post_actions.click_link 'Edit'
+      end
+
+      it "redirects to the edit post page" do
+        current_path.should eq edit_post_path(@post)
+      end
+
+      context "cancel" do
+        before(:each) do
+          click_button 'Cancel'
+        end
+
+        it "redirects back to the user page" do
+          current_path.should eq user_path(@author)
+        end
+      end
+
+      context "update" do
+        before(:each) do
+          click_button 'Update Post'
+        end
+
+        it "redirects back to the user page" do
+          current_path.should eq user_path(@author)
+        end
+      end
+
+      context "error" do
+        before(:each) do
+          fill_in 'Date', with:''
+          click_button 'Update Post'
+        end
+
+        context "cancel" do
+          before(:each) do
+            click_button 'Cancel'
+          end
+
+          it "redirects back to the user page" do
+            current_path.should eq user_path(@author)
+          end
+        end
+
+        context "update" do
+          before(:each) do
+            fill_in 'Date', with:@date
+            click_button 'Update Post'
+          end
+
+          it "redirects back to the user page" do
+            current_path.should eq user_path(@author)
+          end
+        end
+      end
+    end #edit link
+    ############################################
 
     it "has date as post title" do
       first_post_title.should have_link(@date)

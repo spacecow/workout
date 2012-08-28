@@ -21,3 +21,5 @@ cf433b: !ruby/object:Dooby::Task
   todo: change date to day model :done
 559dc7: !ruby/object:Dooby::Task 
   todo: clean up and flash messages :done
+80bdac: !ruby/object:Dooby::Task 
+  todo: " :done"

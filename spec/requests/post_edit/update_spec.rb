@@ -51,6 +51,10 @@ describe "Post edit" do
       it "and redirect back to the page of that day" do
         page.current_path.should eq day_path('2012-07-03')
       end
+
+      it "shows a flash message", focus:true do
+        page.should have_notice 'Successfully updated Post'
+      end
     end
   end
 

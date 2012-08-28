@@ -14,7 +14,8 @@ class DaysController < ApplicationController
   private
 
     def set_day
-      session[:day] = @day.id 
-      session[:type] = nil
+      session_day(@day.date)
+      session_type(nil)
+      session_user(nil)
     end
 end

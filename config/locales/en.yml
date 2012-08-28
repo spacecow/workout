@@ -36,3 +36,7 @@ en:
       post:
         training_partner_ids: Training Partner 
         training_type_token: Training Type 
+
+  successes:
+    created: Successfully created %{o}
+    updated: Successfully updated %{o}

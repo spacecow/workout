@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "TrainingType show", focus:true do
+describe "TrainingType show" do
   context 'create' do
     before(:each) do
       login
@@ -15,7 +15,8 @@ describe "TrainingType show", focus:true do
     end
 
     it "shows a flash message" do
-      page.should have_notice('Successfully created Post.')
+      click_button 'Create Post'
+      page.should have_notice('Successfully created Post')
     end
 
     context 'errors page' do

@@ -18,7 +18,8 @@ class TrainingTypesController < ApplicationController
   private
     
     def set_type
-      session[:type] = @training_type.id
-      session[:day] = nil
+      session_type(@training_type.id)
+      session_day(nil)
+      session_user(nil)
     end
 end

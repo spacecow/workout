@@ -69,10 +69,11 @@ describe "Day show" do
 
   context "with posts on the same day" do
     before(:each) do
-      date = '2012-7-2'
-      author = create_post({date:date, type:'Running', author:'Prince', duration:35, partner:'King', comment:'Just some random comment.'})
+      @date = '2012-07-02'
+      @post = create_post({date:@date, type:'Running', author:'Prince', duration:35, partner:'King', comment:'Just some random comment.'})
+      author = @post.author
       login(author)
-      visit day_path(date)
+      visit day_path(@date)
     end
 
     it "has a div for the posts" do
@@ -131,11 +132,63 @@ describe "Day show" do
       first_post_comment.should have_content('Just some random comment.')
     end
 
-    it "has an edit link" do
-      first_post_actions.should have_link('Edit')
-      first_post_actions.click_link 'Edit'
-      current_path.should eq edit_post_path(Post.last)
-    end
+    context "edit link", focus:true do
+      before(:each) do
+        first_post_actions.click_link 'Edit'
+      end
+
+      it "redirects to the edit post page" do
+        current_path.should eq edit_post_path(@post)
+      end
+
+      context "cancel" do
+        before(:each) do
+          click_button 'Cancel'
+        end
+
+        it "redirects back to the type page" do
+          current_path.should eq day_path(@date)
+        end
+      end
+
+      context "update" do
+        before(:each) do
+          click_button 'Update Post'
+        end
+
+        it "redirects back to the type page" do
+          current_path.should eq day_path(@date)
+        end
+      end
+
+      context "error" do
+        before(:each) do
+          fill_in 'Date', with:''
+          click_button 'Update Post'
+        end
+
+        context "cancel" do
+          before(:each) do
+            click_button 'Cancel'
+          end
+
+          it "redirects back to the type page" do
+            current_path.should eq day_path(@date)
+          end
+        end
+
+        context "update" do
+          before(:each) do
+            fill_in 'Date', with:@date
+            click_button 'Update Post'
+          end
+
+          it "redirects back to the type page" do
+            current_path.should eq day_path(@date)
+          end
+        end
+      end
+    end #edit link
 
     it "has a delete link" do
       first_post_actions.should have_link('Delete')

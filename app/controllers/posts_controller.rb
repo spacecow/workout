@@ -19,10 +19,11 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(params[:post])
     if @post.save
+      flash[:notice] = created(:post)
       if session_day.nil?
         redirect_to @post.training_type
       else
-        redirect_to @post.day
+        redirect_to day_url(@post.date)
       end
     else
       if @post.errors.messages[:day_id]
@@ -57,7 +58,7 @@ class PostsController < ApplicationController
 
   def edit
     @day = @post.day
-    session[:day] = @day.id
+    #session[:day] = @day.id
     @post.time_of_day = @post.time_of_day.strftime("%H:%M") unless @post.time_of_day.nil?
     @training_partners = User.minus(@post.author)
   end
@@ -65,7 +66,14 @@ class PostsController < ApplicationController
   def update
     @day = @post.day
     if @post.update_attributes(params[:post])
-      redirect_to day_url(@post.date)
+      flash[:notice] = updated(:post)
+      if !session_type.nil?
+        redirect_to @post.training_type
+      elsif !session_user.nil?
+        redirect_to user_url(@post.author)
+      else #!session_day.nil?
+        redirect_to day_url(@post.date)
+      end
     else
       if @post.errors.messages[:day_id]
         @post.build_day
