@@ -18,6 +18,13 @@ class User < ActiveRecord::Base
   VIP       = 'vip'
   ROLES     = [GOD,ADMIN,MINIADMIN,VIP,MEMBER]
 
+  def total_min(days)
+    posts.where("days.date >= ? and days.date <= ?", Date.today-days.days, Date.today).includes(:day).map(&:duration).sum
+  end
+  def total_time(days)
+    "#{total_min(days)} min"
+  end
+
   class << self
     def ids_from_tokens(tokens)
       tokens.gsub!(/<<<(.+?)>>>/){ create!(userid:$1).id}

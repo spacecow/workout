@@ -1,0 +1,16 @@
+<div id="toplists">
+  <h4>7 Days</h4>
+  <hr>
+  <ul id="seven_days">
+    <% users.each do |user| %>
+      <li><%= "#{user.userid} #{user.total_time(7)}" %></li>
+    <% end %>
+  </ul>
+  <h4>30 Days</h4>
+  <hr>
+  <ul id="thirty_days">
+    <% users.each do |user| %>
+      <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
+    <% end %>
+  </ul>
+</div>
