@@ -32,7 +32,9 @@ def create_post(params = {})
   h[:comment] = params[:comment] if params[:comment]
 
   post = FactoryGirl.create(:post,h)
+
   post.training_partners << FactoryGirl.create(:user, userid:params[:partner]) if params[:partner]
+  post.training_partners << params[:user_partner] if params[:user_partner]
 
   post
 end

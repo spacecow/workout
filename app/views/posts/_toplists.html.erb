@@ -1,3 +1,4 @@
+<% if false %>
 <div id="toplists">
   <h4>7 Days</h4>
   <hr>
@@ -11,6 +12,15 @@
   <ul id="thirty_days">
     <% users.each do |user| %>
       <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div id="toplists">
+  <ul id="seven_days">
+    <% users.each do |user| %>
+      <li><%= "#{user.userid} #{user.total_time(7, posts)}" %></li>
     <% end %>
   </ul>
 </div>

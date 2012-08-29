@@ -29,3 +29,5 @@ f02f7a: !ruby/object:Dooby::Task
   todo: typeship :done
 bcff5b: !ruby/object:Dooby::Task 
   todo: topplist :done
+aa66a2: !ruby/object:Dooby::Task 
+  todo: include partner time in toplist :done

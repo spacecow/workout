@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     set_month
     @posts = Post.includes(:training_partners)
     @posts_by_date = @posts.group_by{|e| e.day.date}
-    @users = User.all.sort{|e| e.total_min(7)}
+    @users = User.all.sort{|e| e.total_min(7, @posts)}
   end
 
   #def new

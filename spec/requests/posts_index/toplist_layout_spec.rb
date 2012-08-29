@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index, toplist" do
+describe "Posts index, toplist", focus:true do
   context "without users" do
     before(:each) do
       visit posts_path(month:'2012/7')
@@ -34,14 +34,14 @@ describe "Posts index, toplist" do
         visit posts_path(month:'2012/7')
       end
 
-      it "displays toplists" do
-        page.should have_div(:toplists)
-      end
+      #it "displays toplists" do
+      #  page.should have_div(:toplists)
+      #end
 
-      it "lists each user & total time" do
-        first_user7.should have_content 'Prince 0 min'
-        second_user7.should have_content 'King 0 min'
-      end
+      #it "lists each user & total time" do
+      #  first_user7.should have_content 'Prince 0 min'
+      #  second_user7.should have_content 'King 0 min'
+      #end
     end
 
     context "with posts, within scope" do
@@ -71,6 +71,18 @@ describe "Posts index, toplist" do
       it "lists each user & total time" do
         first_user7.should have_content 'Prince 0 min'
         second_user7.should have_content 'King 0 min'
+      end
+    end
+
+    context "with posts as partner" do
+      before(:each) do
+        create_post(user:@prince, duration:30, date:"#{Date.today}", user_partner:@king)
+        visit posts_path(month:'2012/7')
+      end
+
+      it "lists each user & total time" do
+        first_user7.should have_content 'King 30 min'
+        second_user7.should have_content 'Prince 30 min'
       end
     end
   end
