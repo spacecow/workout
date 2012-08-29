@@ -8,6 +8,10 @@ FactoryGirl.define do
     day
   end
 
+  factory :topentry do
+    score 10
+  end
+
   factory :training_type do
     name 'Factorywork'
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829044627) do
+ActiveRecord::Schema.define(:version => 20120829072816) do
 
   create_table "days", :force => true do |t|
     t.date     "date"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(:version => 20120829044627) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "day_id"
+  end
+
+  create_table "topentries", :force => true do |t|
+    t.integer  "score"
+    t.integer  "duration"
+    t.integer  "user_id"
+    t.integer  "day_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "training_types", :force => true do |t|

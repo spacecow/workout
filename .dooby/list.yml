@@ -31,3 +31,5 @@ bcff5b: !ruby/object:Dooby::Task
   todo: topplist :done
 aa66a2: !ruby/object:Dooby::Task 
   todo: include partner time in toplist :done
+938e7b: !ruby/object:Dooby::Task 
+  todo: topentry :done

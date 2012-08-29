@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   has_many :trainingships
   has_many :partner_posts, through: :trainingships
 
+  has_many :topentries
+  has_many :days, through: :topentries
+
   attr_accessible :userid, :email, :password
 
   validates :email, presence:true, uniqueness:true
@@ -21,9 +24,9 @@ class User < ActiveRecord::Base
   #def total_min(days)
   #  posts.where("days.date >= ? and days.date <= ?", Date.today-days.days, Date.today).includes(:day).map(&:duration).sum
   #end
-  def total_min(days, posts)
+  def total_min(days, posts, date=Date.today)
     minutes = posts.map do |post|
-      if post.date >= Date.today-days.days and post.date <= Date.today
+      if post.date >= date-days.days and post.date <= date 
         if post.author == self || post.training_partners.include?(self)
           post.duration
         else
@@ -35,8 +38,8 @@ class User < ActiveRecord::Base
     end
     minutes.empty? ? 0 : minutes.sum
   end
-  def total_time(days, posts)
-    "#{total_min(days, posts)} min"
+  def total_time(days, posts, date=Date.today)
+    "#{total_min(days, posts, date)} min"
   end
 
   class << self
