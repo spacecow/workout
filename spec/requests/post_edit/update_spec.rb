@@ -4,9 +4,7 @@ describe "Post edit" do
   before(:each) do
     king = create_member({userid:'King'})
     login(king)
-    prince = FactoryGirl.create(:user, userid:'Prince')
-    day = FactoryGirl.create(:day, date:Date.parse('2012-7-2'))
-    post = FactoryGirl.create(:post, day:day , author:prince, time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.')
+    post = create_post(date:'2012-7-2', author:'Prince', time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.')
     visit edit_post_path(post, date:'2012-7-2',month:'2012/7')
     fill_in 'Distance', with:'10'
     fill_in 'Duration', with:'30'

@@ -5,11 +5,11 @@ FactoryGirl.define do
 
   factory :post do
     association :author, factory: :user
-    training_type
     day
   end
 
   factory :training_type do
+    name 'Factorywork'
   end
 
   factory :user do

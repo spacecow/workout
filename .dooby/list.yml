@@ -25,3 +25,5 @@ cf433b: !ruby/object:Dooby::Task
   todo: " :done"
 f02f7a: !ruby/object:Dooby::Task 
   todo: link redirects :done
+98108f: !ruby/object:Dooby::Task 
+  todo: typeship :done

@@ -1,17 +1,19 @@
 class Post < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
-  belongs_to :training_type
   belongs_to :day
   accepts_nested_attributes_for :day
+
+  has_many :typeships  
+  has_many :training_types, through: :typeships
 
   has_many :trainingships
   has_many :training_partners, through: :trainingships, source: :partner
 
-  attr_accessible :distance, :training_type_token, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes
+  attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes
 
-  validates_presence_of :day_id, :author_id, :training_type
+  validates_presence_of :day_id, :author_id, :training_type_ids
 
-  after_validation :set_training_type_token_error
+  after_validation :set_training_type_tokens_error
 
   def authorid; author.userid end
 
@@ -21,18 +23,20 @@ class Post < ActiveRecord::Base
 
   def date; day.date end
 
+  def first_type; training_types.first end
+
   def training_type_name; training_type && training_type.name end
 
-  def training_type_token
-    training_type_id
+  def training_type_tokens
+    training_type_ids.join(', ')
   end
-  def training_type_token=(token)
-    self.training_type_id = TrainingType.id_from_token(token)
+  def training_type_tokens=(tokens)
+    self.training_type_ids = TrainingType.ids_from_tokens(tokens)
   end
 
   private
 
-    def set_training_type_token_error
-      errors.add(:training_type_token, I18n.t('errors.messages.blank')) if errors.messages[:training_type]
+    def set_training_type_tokens_error
+      errors.add(:training_type_tokens, I18n.t('errors.messages.blank')) if errors.messages[:training_type_ids]
     end
 end

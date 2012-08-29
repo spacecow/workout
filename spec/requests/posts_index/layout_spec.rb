@@ -47,22 +47,16 @@ describe "Posts index" do
   end
 
   it "with a post with a partner" do
-    partner = FactoryGirl.create(:user, userid:'Partner')
-    author = FactoryGirl.create(:user, userid:'Author')
-    day = FactoryGirl.create(:day, date:Date.parse('2012-7-10'))
-    post = FactoryGirl.create(:post, day:day, author:author)
-    post.training_partners << partner
+    post = create_post(date:'2012-7-10', author:'Author', partner:'Partner')
     visit posts_path(month:'2012/7')
     td(:day_0710).div(:posts,0).should have_content('Author&Partner: 1')
   end
 
   context "with posts of different authors" do
     before(:each) do
-      prince = FactoryGirl.create(:user, userid:'Prince')
-      king = FactoryGirl.create(:user, userid:'King')
       day = FactoryGirl.create(:day, date:Date.parse('2012-7-10'))
-      FactoryGirl.create(:post, day:day, author:prince)
-      FactoryGirl.create(:post, day:day, author:king)
+      create_post(day:day, author:'Prince')
+      create_post(day:day, author:'King')
       visit posts_path(month:'2012/7')
     end
 

@@ -25,7 +25,7 @@ describe "Day show" do
     end
 
     it "has the training type blank" do
-      value('Training Type').should be_nil
+      value('Training Types').should be_blank
     end
 
     it "has the time of day left blank" do
@@ -70,9 +70,8 @@ describe "Day show" do
   context "with posts on the same day" do
     before(:each) do
       @date = '2012-07-02'
-      @post = create_post({date:@date, type:'Running', author:'Prince', duration:35, partner:'King', comment:'Just some random comment.'})
-      author = @post.author
-      login(author)
+      @post = create_post(date:@date, type:'<<<Running>>>', author:'Prince', duration:35, partner:'King', comment:'Just some random comment.')
+      login(@post.author)
       visit day_path(@date)
     end
 

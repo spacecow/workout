@@ -1,14 +1,17 @@
 class TrainingType < ActiveRecord::Base
   has_many :posts
 
+  has_many :typeships  
+  has_many :posts, through: :typeships
+
   attr_accessible :name
 
-  validate :name, presenece:true, uniqueness:true
+  validates :name, presence:true, uniqueness:true
 
   class << self
-    def id_from_token(token)
-      token.gsub!(/<<<(.+?)>>>/){ create!(name:$1).id}
-      token
+    def ids_from_tokens(tokens)
+      tokens.gsub!(/<<<(.+?)>>>/){ create!(name:$1).id}
+      tokens.split(",")
     end
 
     def tokens(query)

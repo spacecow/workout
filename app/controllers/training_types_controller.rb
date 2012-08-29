@@ -3,7 +3,7 @@ class TrainingTypesController < ApplicationController
 
   def show
     set_type
-    @post = Post.new(:training_type_token => @training_type.id.to_s)
+    @post = Post.new(:training_type_tokens => @training_type.id.to_s)
     @post.build_day
     @training_partners = User.minus(current_user)
   end

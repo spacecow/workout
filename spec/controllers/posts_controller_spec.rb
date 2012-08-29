@@ -4,7 +4,7 @@ describe PostsController do
   controller_actions = controller_actions("posts")
 
   before(:each) do
-    @model = FactoryGirl.create(:post)
+    @model = create_post
   end
 
   describe "a user is not logged in" do

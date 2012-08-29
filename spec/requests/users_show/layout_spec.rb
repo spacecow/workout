@@ -20,7 +20,7 @@ describe "User show" do
   context "with posts as partner" do
     before(:each) do
       user = login
-      post = FactoryGirl.create(:post)
+      post = create_post
       post.training_partners << user
       visit user_path(user)
     end
@@ -33,8 +33,8 @@ describe "User show" do
   context "with author posts" do
     before(:each) do
       @date = '2012-08-22'
-      @post = create_post({date:@date, type:'Running'}) 
-      @running = @post.training_type
+      @post = create_post(date:@date, type:'<<<Running>>>') 
+      @running = @post.training_types.first
       @author = @post.author
       login(@author)
       visit user_path(@author)

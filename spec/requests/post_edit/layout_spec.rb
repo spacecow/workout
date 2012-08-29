@@ -5,10 +5,9 @@ describe "Post edit" do
     before(:each) do
       member = create_member({userid:'King'})
       login(member)
-      prince = FactoryGirl.create(:user, userid:'Prince')
-      day = FactoryGirl.create(:day, date:Date.parse('2012-7-2'))
-      post = FactoryGirl.create(:post, day:day , author:prince, time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.')
+      post = create_post({date:'2012-7-2', author:'Prince', type:'<<<Running>>>', time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.'})
       visit edit_post_path(post, date:'2012-7-2', month:'2012/7')
+      @running = post.training_types.first
     end
 
     it "has no div for the posts" do
@@ -21,6 +20,10 @@ describe "Post edit" do
 
     it "has the date field filled in" do
       value('* Date').should eq '2012-07-02'
+    end
+
+    it "has the training type field filled in" do
+      value('Training Types').should eq "#{@running.id}"
     end
 
     it "has the time of day field filled in" do

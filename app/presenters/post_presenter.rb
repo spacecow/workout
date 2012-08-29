@@ -70,9 +70,9 @@ class PostPresenter < BasePresenter
       if title == :date
         h.link_to post.date.full, h.day_path(post.date.full)
       elsif title == :typedate
-        "#{h.link_to post.training_type_name, type}, #{h.link_to post.date.full, h.day_path(post.date.full)}".html_safe
+        "#{post.training_types.map{|type| h.link_to type.name, type}.join(', ')}, #{h.link_to post.date.full, h.day_path(post.date.full)}".html_safe
       elsif title == :type
-        h.link_to post.training_type_name, type
+        "#{post.training_types.map{|type| h.link_to type.name, type}.join(', ')}".html_safe
       end
     end
   end

@@ -3,8 +3,9 @@ require "spec_helper"
 describe "TrainingType show" do
   context 'without posts' do
     before(:each) do
-      login
-      @type = FactoryGirl.create(:training_type, name:'Running')
+      post = create_post(type:'<<<Running>>>')
+      login(post.author)
+      @type = post.training_types.first
       visit training_type_path(@type)
     end
 
@@ -25,7 +26,7 @@ describe "TrainingType show" do
     end
 
     it "has the training type set" do
-      value('Training Type').should eq @type.id.to_s 
+      value('Training Types').should eq @type.id.to_s 
     end
 
     it "has the training partners listed" do
@@ -40,8 +41,8 @@ describe "TrainingType show" do
   context 'with posts' do
     before(:each) do
       login
-      @post = create_post({type:'Running', date:'2012-07-15'})
-      @type = @post.training_type
+      @post = create_post({type:'<<<Running>>>', date:'2012-07-15'})
+      @type = @post.training_types.first
       visit training_type_path(@type)
     end
 

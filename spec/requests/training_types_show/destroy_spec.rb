@@ -4,8 +4,8 @@ describe "TrainingType show" do
   context 'delete posts' do
     before(:each) do
       login
-      @type = FactoryGirl.create(:training_type, name:'Running')
-      FactoryGirl.create(:post, training_type:@type)
+      post = create_post(type:'<<<Running>>>')
+      @type = post.first_type
       visit training_type_path(@type)
       first_post_actions.click_link 'Delete'
     end

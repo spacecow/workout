@@ -21,7 +21,7 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = created(:post)
       if session_day.nil?
-        redirect_to @post.training_type
+        redirect_to @post.training_types.first
       else
         redirect_to day_url(@post.date)
       end
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
     if @post.update_attributes(params[:post])
       flash[:notice] = updated(:post)
       if !session_type.nil?
-        redirect_to @post.training_type
+        redirect_to @post.training_types.first
       elsif !session_user.nil?
         redirect_to user_url(@post.author)
       else #!session_day.nil?

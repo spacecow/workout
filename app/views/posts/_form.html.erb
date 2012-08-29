@@ -3,7 +3,7 @@
     <%= f2.input :date, as: :string, wrapper_html:{id:'date'} %>
   <% end %>
   <%# f.input :date, :as => :string, wrapper_html:{id:'date'} %>
-  <%= f.input :training_type_token, wrapper_html:{id:'training_type'}, input_html:{data:{load:[post.training_type], url:training_types_path(format: :json)}} %>
+  <%= f.input :training_type_tokens, wrapper_html:{id:'training_type'}, input_html:{data:{load:post.training_types, url:training_types_path(format: :json)}} %>
   <%= f.input :distance, hint:'km' %>
   <%= f.input :duration, hint:'min' %>
   <%= f.input :time_of_day, :as => :string %>

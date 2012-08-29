@@ -123,7 +123,7 @@ describe "Day show" do
       fill_in 'Date', with:''
     end
 
-    it "still has the same title" do
+    it "stil has the same title" do
       click_button 'Create Post'
       page.should have_title('2012-07-02')
     end

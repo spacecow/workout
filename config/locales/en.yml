@@ -35,7 +35,7 @@ en:
     labels:
       post:
         training_partner_ids: Training Partner 
-        training_type_token: Training Type 
+        training_type_tokens: Training Types 
 
   successes:
     created: Successfully created %{o}
