@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Topentry do
-  describe "generate_total_missing_entries", focus:true do
-    before(:each) do
-      @user = FactoryGirl.create(:user, userid:'Prince')
-    end
+  before(:each) do
+    @user = FactoryGirl.create(:user, userid:'Prince')
+  end
 
+  describe "generate_total_missing_entries" do
     it "none if there are no posts" do
       lambda do
         Topentry.generate_total_missing_entries(7)
@@ -13,65 +13,61 @@ describe Topentry do
     end
 
     context "with posts" do
-      before(:each) do
-        create_post(date:'2012-08-01', user:@user, duration:30)
-      end
+      context "multiple users" do
+        before(:each) do
+          @king = FactoryGirl.create(:user, userid:'King')
+          create_post(date:'2012-08-01', user:@user, duration:30)
+          create_post(date:'2012-08-02', user:@king, duration:30)
+        end
 
-      it "" do
-        lambda do
-          Topentry.generate_total_missing_entries(7, '2012-08-10')
-        end.should change(Topentry,:count).by(3)
+        it "saves to db for each user" do
+          lambda do
+            Topentry.generate_total_missing_entries(7, '2012-08-10')
+          end.should change(Topentry,:count).by(5)
+        end
       end
     end
   end
 
   describe "generate_missing_entries" do
-    before(:each) do
-      @user = FactoryGirl.create(:user, userid:'Prince')
-    end
-
     context "no posts" do
       it "generates no entries" do
         lambda do
           Topentry.generate_missing_entries(7,@user)
         end.should change(Topentry,:count).by(0)
       end
-    end
+    end #no posts
+
+    context "another user's post" do
+      before(:each) do
+        @king = FactoryGirl.create(:user, userid:'King')
+        create_post(date:'2012-08-01', user:@king)
+      end
+
+      it "saves no entry to db" do
+        lambda do
+          Topentry.generate_missing_entries(7, @user, '2012-08-15')
+        end.should change(Topentry,:count).by(0)
+      end
+    end #another user's post
+
+
+    context "partner to post" do
+      before(:each) do
+        create_post(date:'2012-08-01', user_partner:@user)
+      end
+
+      it "saves entry to db" do
+        lambda do
+          Topentry.generate_missing_entries(7, @user, '2012-08-15')
+        end.should change(Topentry,:count).by(1)
+      end
+    end #another user's post
+
 
     context "posts older than timeframe" do
       before(:each) do
         create_post(date:'2012-08-01', user:@user, duration:30)
-        create_post(date:'2012-08-10', user:@user, duration:40)
-      end
-
-      context "not yet generated" do
-        it "saves entry to db" do
-          lambda do
-            Topentry.generate_missing_entries(7, @user, '2012-08-15')
-          end.should change(Topentry,:count).by(1)
-        end
-
-        context "values" do
-          before(:each) do
-            Topentry.generate_missing_entries(7, @user, '2012-08-15')
-            @entry = Topentry.last
-          end
-
-          it "saves the score" do
-            @entry.score.should eq 40
-          end
-          it "saves the duration" do
-            @entry.duration.should eq 7
-          end
-
-          it "saves the day" do
-            @entry.day.should eq Day.where(date:'2012-08-15').first
-          end
-
-          it "saves the user" do
-            @entry.user.should eq @user
-          end
-        end
       end
 
       context "already generated" do
@@ -86,12 +82,43 @@ describe Topentry do
             Topentry.generate_missing_entries(7, @user, '2012-08-15')
           end.should change(Topentry,:count).by(0)
         end
-      end
-    end
+      end #already generated
+
+      context "not get generated" do
+        it "saves entry to db" do
+          lambda do
+            Topentry.generate_missing_entries(7, @user, '2012-08-15')
+          end.should change(Topentry,:count).by(1)
+        end
+
+        context "values" do
+          before(:each) do
+            Topentry.generate_missing_entries(7, @user, '2012-08-15')
+            @entry = Topentry.last
+          end
+
+          it "saves the score" do
+            @entry.score.should eq 30
+          end
+          it "saves the duration" do
+            @entry.duration.should eq 7
+          end
+
+          it "saves the day" do
+            @entry.day.should eq Day.where(date:'2012-08-15').first
+          end
+
+          it "saves the user" do
+            @entry.user.should eq @user
+          end
+        end #values
+      end #not yet generated
+    end #posts older than timeframe
+
 
     context "posts not older than timeframe" do
       before(:each) do
-        create_post(date:'2012-08-01', user:@user, duration:10)
+        create_post(date:'2012-08-01', user:@user)
       end
 
       context "not yet generated" do
@@ -101,6 +128,6 @@ describe Topentry do
           end.should change(Topentry,:count).by(0)
         end
       end
-    end
-  end
+    end #posts not older than timeframe
+  end #generate missing entries
 end

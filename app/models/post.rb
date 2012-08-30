@@ -34,6 +34,17 @@ class Post < ActiveRecord::Base
     self.training_type_ids = TrainingType.ids_from_tokens(tokens)
   end
 
+  class << self
+    def first_post(user); user(user).order('days.date').includes(:day).first end
+    def interval(first,last)
+      where("days.date >= ? and days.date <= ?", first, last).includes(:day)
+    end
+
+    def user(user)
+      where("author_id = ? or posts.id = trainingships.post_id and trainingships.partner_id = ?", user.id, user.id).includes(:trainingships)
+    end
+  end
+
   private
 
     def set_training_type_tokens_error

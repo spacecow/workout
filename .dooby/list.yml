@@ -33,3 +33,5 @@ aa66a2: !ruby/object:Dooby::Task
   todo: include partner time in toplist :done
 938e7b: !ruby/object:Dooby::Task 
   todo: topentry :done
+ef5aa4: !ruby/object:Dooby::Task 
+  todo: make topentries depend on the user not only the post :done

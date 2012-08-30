@@ -21,25 +21,18 @@ class User < ActiveRecord::Base
   VIP       = 'vip'
   ROLES     = [GOD,ADMIN,MINIADMIN,VIP,MEMBER]
 
-  #def total_min(days)
-  #  posts.where("days.date >= ? and days.date <= ?", Date.today-days.days, Date.today).includes(:day).map(&:duration).sum
-  #end
-  def total_min(days, posts, date=Date.today)
-    minutes = posts.map do |post|
-      if post.date >= date-days.days and post.date <= date 
-        if post.author == self || post.training_partners.include?(self)
-          post.duration
-        else
-          0
-        end
-      else
-        0
-      end
-    end
-    minutes.empty? ? 0 : minutes.sum
+  def first_post; Post.first_post(self) end
+
+  def total_min(days, date=Date.today)
+    posts = Post.user(self).order('days.date').includes(:day)
+    return '-' if posts.empty?
+    return '-' if (date - posts.first.date).to_i < days
+    posts = posts.interval(date-days.days,date)
+    posts.map(&:duration).sum
   end
-  def total_time(days, posts, date=Date.today)
-    "#{total_min(days, posts, date)} min"
+  def total_time(days, date=Date.today)
+    min = total_min(days, date)
+    min == '-' ? '-' : "#{min} min"
   end
 
   class << self

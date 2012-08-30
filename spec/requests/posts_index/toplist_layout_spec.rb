@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index, toplist", focus:true do
+describe "Posts index, toplist" do
   context "without users" do
     before(:each) do
       visit posts_path(month:'2012/7')
@@ -44,10 +44,22 @@ describe "Posts index, toplist", focus:true do
       #end
     end
 
+    context "with posts, not older than timeframe" do
+      before(:each) do
+        create_post(user:@prince, duration:30, date:"#{Date.today - 2.days}")
+        visit posts_path(month:'2012/7')
+      end
+
+      it "lists each user & total time" do
+        first_user7.should have_content 'Prince -'
+      end
+    end
+
     context "with posts, within scope" do
       before(:each) do
         create_post(user:@prince, duration:30, date:"#{Date.today - 7.days}")
         create_post(user:@king, duration:80, date:"#{Date.today}")
+        create_post(user:@king, date:"#{Date.today-8.days}")
         visit posts_path(month:'2012/7')
       end
 
@@ -56,15 +68,16 @@ describe "Posts index, toplist", focus:true do
       end
 
       it "lists each user & total time" do
-        first_user7.should have_content 'King 80 min'
-        second_user7.should have_content 'Prince 30 min'
+        first_user7.should have_content 'Prince 30 min'
+        second_user7.should have_content 'King 80 min'
       end
     end
 
     context "with posts, outside scope" do
       before(:each) do
-        create_post(user:@prince, duration:30, date:"#{Date.today - 8.days}")
-        create_post(user:@king, duration:80, date:"#{Date.today + 1.day}")
+        create_post(user:@prince, date:"#{Date.today - 8.days}")
+        create_post(user:@king, date:"#{Date.today + 1.day}")
+        create_post(user:@king, date:"#{Date.today - 9.day}")
         visit posts_path(month:'2012/7')
       end
 
@@ -76,13 +89,14 @@ describe "Posts index, toplist", focus:true do
 
     context "with posts as partner" do
       before(:each) do
+        create_post(user:@prince, date:"#{Date.today-8.days}", user_partner:@king)
         create_post(user:@prince, duration:30, date:"#{Date.today}", user_partner:@king)
         visit posts_path(month:'2012/7')
       end
 
       it "lists each user & total time" do
-        first_user7.should have_content 'King 30 min'
-        second_user7.should have_content 'Prince 30 min'
+        first_user7.should have_content 'Prince 30 min'
+        second_user7.should have_content 'King 30 min'
       end
     end
   end

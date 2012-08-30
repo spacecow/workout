@@ -13,7 +13,7 @@
     <% end %>
   </div>
 
-  <%= render 'toplists', users:@users, posts:@posts if @posts.present? if can? :new, Post %>
+  <%= render 'toplists', users:@users if can? :new, Post %>
 
   <div class="clear"></div>
 <% end %>
