@@ -6,6 +6,11 @@ class Topentry < ActiveRecord::Base
   validates_presence_of :day, :duration, :user, :score
 
   class << self
+    def first_date
+      return 0 if first.nil?
+      (first.day.date.to_time + 9.hours).to_i * 1000
+    end
+
     def generate_total_missing_entries(days, date = Date.today.full)
       #return if Post.count == 0
       User.all.each do |user|

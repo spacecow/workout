@@ -3,6 +3,8 @@
 
 en:
   by: by
+  chart:
+    other: Charts
   edit: Edit
   login: Login
   logout: Logout

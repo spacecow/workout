@@ -14,4 +14,6 @@
       <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
     <% end %>
   </ul>
+
+  <%= link_to pl(:chart), stats_charts_path %>
 </div>

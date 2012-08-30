@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index, toplist" do
+describe "Posts index, toplist", focus:true do
   context "without users" do
     before(:each) do
       visit posts_path(month:'2012/7')
@@ -34,14 +34,25 @@ describe "Posts index, toplist" do
         visit posts_path(month:'2012/7')
       end
 
-      #it "displays toplists" do
-      #  page.should have_div(:toplists)
-      #end
+      it "displays toplists" do
+        page.should have_div(:toplists)
+      end
 
-      #it "lists each user & total time" do
-      #  first_user7.should have_content 'Prince 0 min'
-      #  second_user7.should have_content 'King 0 min'
-      #end
+      it "lists each user & total time" do
+        first_user7.should have_content 'Prince -'
+        second_user7.should have_content 'King -'
+      end
+
+      context "charts link" do
+        it "has a link" do
+          toplists.should have_link 'Charts'
+        end
+
+        it "redirects to the chart page" do
+          toplists.click_link 'Charts'
+          current_path.should eq stats_charts_path
+        end
+      end
     end
 
     context "with posts, not older than timeframe" do

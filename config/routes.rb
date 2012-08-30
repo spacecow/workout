@@ -9,6 +9,8 @@ Workout::Application.routes.draw do
   resources :days, :only => :show
   resources :posts, :only => [:create,:index,:edit,:update,:destroy]
 
+  match "/stats/charts" => "stats#charts"
+
   get 'welcome' => 'posts#index'
   root :to => 'posts#index'
 end

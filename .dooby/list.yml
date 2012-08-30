@@ -35,3 +35,5 @@ aa66a2: !ruby/object:Dooby::Task
   todo: topentry :done
 ef5aa4: !ruby/object:Dooby::Task 
   todo: make topentries depend on the user not only the post :done
+f97b50: !ruby/object:Dooby::Task 
+  todo: highcharts :done
