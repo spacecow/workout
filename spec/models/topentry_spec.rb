@@ -67,13 +67,13 @@ describe Topentry do
 
     context "posts older than timeframe" do
       before(:each) do
-        create_post(date:'2012-08-01', user:@user, duration:30)
+        create_post(date:'2012-08-01', user:@user)
+        create_post(date:'2012-08-10', user:@user, duration:30)
       end
 
       context "already generated" do
         before(:each) do
-          date = '2012-08-15'
-          day = FactoryGirl.create(:day, date:date)
+          day = FactoryGirl.create(:day, date:'2012-08-15')
           FactoryGirl.create(:topentry, user:@user, day:day, duration:7)
         end
 

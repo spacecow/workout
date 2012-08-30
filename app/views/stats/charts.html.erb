@@ -15,11 +15,22 @@
           text: "min"
         }
       },
-      series: [{
+      tooltip: {
+        formatter: function () {
+          return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' +
+          Highcharts.numberFormat(this.y, 0) + ' min';
+        }
+      },
+      series: [
+      <% @topentries.each do |name,entries| %>
+        {
+        name: '<%= name %>',
         pointInterval: <%= 1.day * 1000 %>,
-        pointStart: <%= @topentries.first_date %>,
-        data: <%= @topentries.map(&:score) %>
-      }]
+        pointStart: <%= entries.first.chartdate %>,
+        data: <%= entries.map(&:score) %>
+        },
+      <% end %>
+      ],
     });
   });
 </script>

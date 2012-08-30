@@ -37,7 +37,7 @@ class Post < ActiveRecord::Base
   class << self
     def first_post(user); user(user).order('days.date').includes(:day).first end
     def interval(first,last)
-      where("days.date >= ? and days.date <= ?", first, last).includes(:day)
+      where("days.date >= ? and days.date < ?", first, last).includes(:day)
     end
 
     def user(user)

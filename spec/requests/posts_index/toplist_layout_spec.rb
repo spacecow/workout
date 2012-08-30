@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Posts index, toplist", focus:true do
+describe "Posts index, toplist" do
   context "without users" do
     before(:each) do
       visit posts_path(month:'2012/7')
@@ -69,7 +69,7 @@ describe "Posts index, toplist", focus:true do
     context "with posts, within scope" do
       before(:each) do
         create_post(user:@prince, duration:30, date:"#{Date.today - 7.days}")
-        create_post(user:@king, duration:80, date:"#{Date.today}")
+        create_post(user:@king, duration:80, date:"#{Date.yesterday}")
         create_post(user:@king, date:"#{Date.today-8.days}")
         visit posts_path(month:'2012/7')
       end
@@ -101,7 +101,7 @@ describe "Posts index, toplist", focus:true do
     context "with posts as partner" do
       before(:each) do
         create_post(user:@prince, date:"#{Date.today-8.days}", user_partner:@king)
-        create_post(user:@prince, duration:30, date:"#{Date.today}", user_partner:@king)
+        create_post(user:@prince, duration:30, date:"#{Date.yesterday}", user_partner:@king)
         visit posts_path(month:'2012/7')
       end
 

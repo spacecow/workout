@@ -9,7 +9,6 @@ class PostsController < ApplicationController
     @posts = Post.includes(:training_partners)
     @posts_by_date = @posts.group_by{|e| e.day.date}
     @users = User.all #.sort{|e| e.total_min(7, @posts)}
-    @topentries = Topentry.order('days.date').includes(:day)
   end
 
   def create
