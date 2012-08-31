@@ -29,7 +29,9 @@ class Topentry < ActiveRecord::Base
       date = Date.parse(date)
       User.all.each do |user|
         counter = Date.parse(date.full) 
+        last_date = Post.last_post(user).date
         while (counter - date).to_i < days
+          break if (last_date - counter).to_i < 0
           generate_missing_entries(days, user, counter.full)
           counter += 1.day
         end

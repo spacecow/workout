@@ -24,10 +24,6 @@ class Post < ActiveRecord::Base
   def date; day.date end
   def full_date; date.full end
 
-  def duration
-    self[:duration].nil? ? 0 : self[:duration]
-  end
-
   def first_type; training_types.first end
 
   def training_type_name; training_type && training_type.name end
@@ -41,6 +37,7 @@ class Post < ActiveRecord::Base
 
   class << self
     def first_post(user); user(user).order('days.date').includes(:day).first end
+    def last_post(user); user(user).order('days.date').includes(:day).last end
     def interval(first,last)
       where("days.date > ? and days.date <= ?", first, last).includes(:day)
     end
