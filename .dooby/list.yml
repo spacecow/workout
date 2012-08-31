@@ -41,5 +41,5 @@ decbf2: !ruby/object:Dooby::Task
   todo: timeinterval :done
 c65909: !ruby/object:Dooby::Task 
   todo: update topentry when adding a record
-1767e1: !ruby/object:Dooby::Task 
-  todo: delete typeship when post is deleted
+81941b: !ruby/object:Dooby::Task 
+  todo: delete typeship when post is deleted :done

@@ -1,6 +1,31 @@
 require 'spec_helper'
 
 describe Post do
+  context "delete post", focus:true do
+    it "deletes its typeships too" do
+      post = create_post
+      lambda do
+        lambda do
+          lambda do
+            post.destroy 
+          end.should change(Post,:count).by(-1)
+        end.should change(Typeship,:count).by(-1)
+      end.should change(TrainingType,:count).by(0)
+    end
+
+    it "deletes its trainingships too" do
+      partner = FactoryGirl.create(:user)
+      post = create_post(partner:partner)
+      lambda do
+        lambda do
+          lambda do
+            post.destroy 
+          end.should change(Post,:count).by(-1)
+        end.should change(Trainingship,:count).by(-1)
+      end.should change(User,:count).by(0)
+    end
+  end
+
   describe ".training_types" do
     before(:each) do
       @author = FactoryGirl.create(:user)

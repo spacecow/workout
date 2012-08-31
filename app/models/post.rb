@@ -3,10 +3,10 @@ class Post < ActiveRecord::Base
   belongs_to :day
   accepts_nested_attributes_for :day
 
-  has_many :typeships  
+  has_many :typeships, dependent: :destroy
   has_many :training_types, through: :typeships
 
-  has_many :trainingships
+  has_many :trainingships, dependent: :destroy
   has_many :training_partners, through: :trainingships, source: :partner
 
   attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes
