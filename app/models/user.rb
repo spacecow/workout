@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   def total_min(days, date=Date.today)
     posts = Post.user(self).order('days.date').includes(:day)
     return '-' if posts.empty?
-    return '-' if (date - posts.first.date).to_i < days
+    return '-' if (date - posts.first.date).to_i < (days-1)
     posts = posts.interval(date-days.days,date)
     posts.map(&:duration).sum
   end

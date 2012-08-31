@@ -68,8 +68,8 @@ describe "Posts index, toplist" do
 
     context "with posts, within scope" do
       before(:each) do
-        create_post(user:@prince, duration:30, date:"#{Date.today - 7.days}")
-        create_post(user:@king, duration:80, date:"#{Date.yesterday}")
+        create_post(user:@prince, duration:30, date:"#{Date.today-6.days}")
+        create_post(user:@king, duration:80, date:"#{Date.today}")
         create_post(user:@king, date:"#{Date.today-8.days}")
         visit posts_path(month:'2012/7')
       end

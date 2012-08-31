@@ -18,12 +18,14 @@ class Topentry < ActiveRecord::Base
     end
 
     def generate_missing_entries(days, user, date=Date.today.full)
-      posts = Post.user(user)
-      return false if posts.first.nil?
+      #posts = Post.user(user)
+      #return false if posts.first.nil?
       date = Date.parse(date)
-      return false if (date - posts.first.date).to_i < days
+      #return false if (date - posts.first.date).to_i < days
 
-      score = posts.interval(date-days.days,date).map(&:duration).sum
+      #score = posts.interval(date-days.days,date).map(&:duration).sum
+      score = user.total_min(days, date)
+      return false if score == '-'
       day = Day.find_or_create_by_date(date)
       entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration(day.id, user.id, days)
       entry.update_attributes(score:score, duration:days)

@@ -23,7 +23,7 @@ describe Topentry do
         it "saves to db for each user" do
           lambda do
             Topentry.generate_total_missing_entries(7, '2012-08-10')
-          end.should change(Topentry,:count).by(5)
+          end.should change(Topentry,:count).by(7)
         end
       end
     end
