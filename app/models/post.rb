@@ -22,6 +22,11 @@ class Post < ActiveRecord::Base
   end
 
   def date; day.date end
+  def full_date; date.full end
+
+  def duration
+    self[:duration].nil? ? 0 : self[:duration]
+  end
 
   def first_type; training_types.first end
 

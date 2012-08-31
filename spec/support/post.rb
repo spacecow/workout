@@ -19,7 +19,7 @@ def create_post(params = {})
 
   h[:training_type_tokens] = params[:type] if params[:type]
 
-  h[:day] = FactoryGirl.create(:day, date:Date.parse(params[:date])) if params[:date]
+  h[:day] = Day.find_or_create_by_date(params[:date]) if params[:date]
   h[:day] = params[:day] if params[:day]
 
   h[:author] = FactoryGirl.create(:user, userid:params[:author]) if params[:author]

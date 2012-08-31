@@ -8,7 +8,6 @@ class Topentry < ActiveRecord::Base
   def chartdate; day.date.to_time.to_i * 1000 end
   class << self
     def generate_total_missing_entries(days, date = Date.today.full)
-      #return if Post.count == 0
       User.all.each do |user|
         newdate = Date.parse(date)
         while generate_missing_entries(days, user, newdate.full)
@@ -18,17 +17,23 @@ class Topentry < ActiveRecord::Base
     end
 
     def generate_missing_entries(days, user, date=Date.today.full)
-      #posts = Post.user(user)
-      #return false if posts.first.nil?
       date = Date.parse(date)
-      #return false if (date - posts.first.date).to_i < days
-
-      #score = posts.interval(date-days.days,date).map(&:duration).sum
       score = user.total_min(days, date)
       return false if score == '-'
       day = Day.find_or_create_by_date(date)
       entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration(day.id, user.id, days)
       entry.update_attributes(score:score, duration:days)
+    end
+
+    def generate_forward_missing_days_entries(days, date=Date.today.full)
+      date = Date.parse(date)
+      User.all.each do |user|
+        counter = Date.parse(date.full) 
+        while (counter - date).to_i < days
+          generate_missing_entries(days, user, counter.full)
+          counter += 1.day
+        end
+      end
     end
   end
 end

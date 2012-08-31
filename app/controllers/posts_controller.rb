@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(params[:post])
     if @post.save
+      Topentry.generate_forward_missing_days_entries(7, @post.full_date)
       flash[:notice] = created(:post)
       if session_day.nil?
         redirect_to @post.training_types.first
