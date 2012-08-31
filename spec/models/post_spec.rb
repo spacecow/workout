@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Post do
-  context "delete post", focus:true do
+  context "delete post" do
     it "deletes its typeships too" do
       post = create_post
       lambda do

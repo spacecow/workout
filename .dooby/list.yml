@@ -39,7 +39,9 @@ f97b50: !ruby/object:Dooby::Task
   todo: highcharts :done
 decbf2: !ruby/object:Dooby::Task 
   todo: timeinterval :done
-c65909: !ruby/object:Dooby::Task 
-  todo: update topentry when adding a record
 81941b: !ruby/object:Dooby::Task 
   todo: delete typeship when post is deleted :done
+71e89b: !ruby/object:Dooby::Task 
+  todo: update topentry when editing a record
+81fd8e: !ruby/object:Dooby::Task 
+  todo: update topentry when deleting a record

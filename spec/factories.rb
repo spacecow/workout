@@ -10,6 +10,8 @@ FactoryGirl.define do
 
   factory :topentry do
     score 10
+    user
+    duration 5 
   end
 
   factory :training_type do

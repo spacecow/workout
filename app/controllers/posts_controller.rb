@@ -64,6 +64,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    Topentry.generate_forward_missing_days_entries(7, @post.full_date)
     @post.destroy
     redirect_to :back #new_post_path(date:@post.date, month:@month)
   end
