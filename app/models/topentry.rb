@@ -6,6 +6,8 @@ class Topentry < ActiveRecord::Base
   validates_presence_of :day, :duration, :user, :score
 
   def chartdate; day.date.to_time.to_i * 1000 end
+  def date; day.date end
+
   class << self
     def generate_total_missing_entries(days, date = Date.today.full)
       User.all.each do |user|
@@ -25,14 +27,24 @@ class Topentry < ActiveRecord::Base
       entry.update_attributes(score:score, duration:days)
     end
 
-    def generate_forward_missing_days_entries(days, date=Date.today.full)
+    def entries(user)
+      where("user_id = ?", user.id)
+    end
+
+    def last_entry(user)
+      entries(user).last
+    end
+
+    def generate_forward_day_entries(days, date=Date.today.full)
       date = Date.parse(date)
       User.all.each do |user|
         counter = Date.parse(date.full) 
+        last_entry = last_entry(user)
         last_post = Post.last_post(user)
-        break if last_post.nil?
+        last_entry_date = last_entry.nil? ? Date.parse('2001-1-1') : last_entry.date
+        last_post_date = last_post.nil? ? Date.parse('2001-1-1') : last_post.date
         while (counter - date).to_i < days
-          break if (last_post.date - counter).to_i < 0
+          break if ([last_post_date,last_entry_date].max - counter).to_i < 0
           generate_missing_entries(days, user, counter.full)
           counter += 1.day
         end

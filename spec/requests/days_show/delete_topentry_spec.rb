@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-describe "Day show, delete topentries", focus:true do
+describe "Day show, delete topentries" do
   before(:each) do
     @user = login
     date = '2012-07-15'
     create_post(date:'2012-07-01', user:@user)
-    create_post(date:date, user:@user, entry:10)
+    create_post(date:date, user:@user)
+    create_entry(user:@user, date:date, duration:7)
     visit day_path(date)
   end
 
@@ -16,7 +17,7 @@ describe "Day show, delete topentries", focus:true do
 
   context "saves values" do
     before(:each) do
-      create_post(date:'2012-07-16', user:@user, entry:10, duration:10)
+      create_post(date:'2012-07-16', user:@user, duration:10, entry:10)
       create_post(date:'2012-07-17', user:@user, entry:10, duration:10)
       create_post(date:'2012-07-18', user:@user, entry:10, duration:10)
       create_post(date:'2012-07-19', user:@user, entry:10, duration:10)
@@ -37,19 +38,4 @@ describe "Day show, delete topentries", focus:true do
       Topentry.find_by_day_id(Day.find_by_date('2012-07-22')).score.should eq 10
     end
   end
-
-  #    create_entry(date:'2012-07-17', user:@user, duration:7, score:10)
-  #    create_entry(date:'2012-07-18', user:@user, duration:7, score:10)
-  #    create_entry(date:'2012-07-19', user:@user, duration:7, score:10)
-  #    create_entry(date:'2012-07-20', user:@user, duration:7, score:10)
-  #    create_entry(date:'2012-07-21', user:@user, duration:7, score:10)
-  #    create_entry(date:'2012-07-22', user:@user, duration:7, score:10)
-
-  #  it "updates the score" do
-  #    Topentry.find_by_day_id(Day.find_by_date('2012-07-15')).score.should eq 0
-  #    Topentry.find_by_day_id(Day.find_by_date('2012-07-16')).score.should eq 10
-  #    Topentry.find_by_day_id(Day.find_by_date('2012-07-17')).score.should eq 10
-  #    Topentry.find_by_day_id(Day.find_by_date('2012-07-18')).score.should eq 10
-  #  end
-  #end
 end
