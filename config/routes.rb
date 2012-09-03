@@ -10,6 +10,7 @@ Workout::Application.routes.draw do
   resources :posts, :only => [:create,:index,:edit,:update,:destroy]
 
   match "/stats/charts" => "stats#charts"
+  match "/stats/toplists" => "stats#toplists"
 
   get 'welcome' => 'posts#index'
   root :to => 'posts#index'

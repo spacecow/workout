@@ -17,6 +17,27 @@ describe "Day show, update topentries" do
     }.should change(Topentry,:count).by(0)
   end
 
+  context "existing topentries" do
+    context "older than timeframe" do
+      before(:each) do
+        fill_in 'Duration', with:100
+        create_post(date:'2012-07-01', user:@user)
+        create_entry(date:'2012-07-16', user:@user, duration:7, score:10)
+      end
+
+      it "saves topentries to db" do
+        lambda{ click_button 'Create Post'
+        }.should change(Topentry,:count).by(1)
+      end
+
+      it "updates/sets the score" do
+        click_button 'Create Post'
+        Topentry.find_by_day_id(Day.find_by_date('2012-07-15')).score.should eq 100
+        Topentry.find_by_day_id(Day.find_by_date('2012-07-16')).score.should eq 100
+      end
+    end
+  end
+
   context "existing posts" do
     context "younger than timeframe" do 
       before(:each) do

@@ -1,0 +1,7 @@
+<div id="stats_menu">
+  <ul class="tabrow">
+    <li id="charts" <%= stats_menu_class(:charts,@selected) %>><%= link_to pl(:chart), stats_charts_path %></li>
+    <li id="toplists" <%= stats_menu_class(:toplists,@selected) %>><%= link_to pl(:toplist), stats_toplists_path %></li>
+  </ul>
+</div>
+

@@ -45,3 +45,5 @@ decbf2: !ruby/object:Dooby::Task
   todo: update topentry when editing a record
 81fd8e: !ruby/object:Dooby::Task 
   todo: update topentry when deleting a record
+c3c30a: !ruby/object:Dooby::Task 
+  todo: tabs on chart page :done

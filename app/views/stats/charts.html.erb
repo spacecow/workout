@@ -1,11 +1,13 @@
+<%= render 'stats_menu' %>
+
 <script type="text/javascript" charset="utf-8">
   $(function(){
     new Highcharts.Chart({
       chart: {
-        renderTo: "chart"
+        renderTo: "chart7days"
       },
       title: {
-        text: "Top Score"
+        text: "7 Days Top Score"
       },
       xAxis: {
         type: "datetime"
@@ -35,4 +37,10 @@
   });
 </script>
 
-<div id="chart" style="width:560px; height:300px;"></div>
+<div id="chart7days" style="width:560px; height:300px;"></div>
+
+<%= form_tag posts_path, :method => :get do %>
+  <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
+<% end %>
+
+<div class="clear"></div>

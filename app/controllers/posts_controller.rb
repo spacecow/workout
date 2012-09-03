@@ -45,6 +45,7 @@ class PostsController < ApplicationController
   def update
     @day = @post.day
     if @post.update_attributes(params[:post])
+      Topentry.generate_forward_day_entries(7, @post.full_date)
       flash[:notice] = updated(:post)
       if !session_type.nil?
         redirect_to @post.training_types.first
@@ -64,8 +65,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    Topentry.generate_forward_day_entries(7, @post.full_date)
+    date = @post.full_date
     @post.destroy
+    Topentry.generate_forward_day_entries(7, @post.full_date)
     redirect_to :back #new_post_path(date:@post.date, month:@month)
   end
 
@@ -79,7 +81,8 @@ class PostsController < ApplicationController
     end
     
     def set_month
-      session[:month] = params[:month] || (@month.nil? ? nil : @month.half) || session[:month] || Date.today.half
+      #session[:month] = params[:month] || (@month.nil? ? nil : @month.half) || session[:month] || Date.today.half
+      session[:month] = params[:month] || Date.today.half
       @month = Date.parse(session[:month])
     end
 end

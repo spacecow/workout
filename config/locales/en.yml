@@ -5,12 +5,18 @@ en:
   by: by
   chart:
     other: Charts
+  day:
+    other: Days
   edit: Edit
   login: Login
   logout: Logout
+  minute:
+    other: Minutes
   post:
     one: Post
     other: Posts
+  toplist:
+    other: Toplists
 
   alerts:
     invalid_login_or_password: Invalid login or password

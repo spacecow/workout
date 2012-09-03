@@ -32,7 +32,11 @@ class Topentry < ActiveRecord::Base
     end
 
     def last_entry(user)
-      entries(user).last
+      entries(user).sort_by_date.last
+    end
+
+    def sort_by_date
+      order('days.date').includes(:day)
     end
 
     def generate_forward_day_entries(days, date=Date.today.full)

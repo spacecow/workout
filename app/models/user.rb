@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
     posts = Post.user(self).order('days.date').includes(:day)
     return '-' if posts.empty?
     return '-' if (date - posts.first.date).to_i < (days-1)
-    #return '-' if (posts.last.date - date).to_i < 0 
     posts = posts.interval(date-days.days,date)
     posts.map{|e| e.duration.nil? ? 0 : e.duration}.sum
   end

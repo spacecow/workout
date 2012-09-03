@@ -1,0 +1,29 @@
+<%= render 'stats_menu' %>
+
+<div id="toplists">
+  <div id="duration">
+    <ul id="seven_days">
+    <h4>7 <%= pl(:day) %> (<%= t(:duration) %>)</h4>
+    <hr>
+      <% User.all.map{|e| [e.userid, e.total_time(7)]}.sort_by{|e| e[1]}.reverse.each do |user| %>
+        <li><%= "#{user[0]} #{user[1]}" %></li>
+      <% end %>
+    </ul>
+
+    <ul id="thirty_days">
+    <h4>30 <%= pl(:day) %> (<%= t(:duration) %>)</h4>
+    <hr>
+      <% User.all.map{|e| [e.userid, e.total_time(30)]}.sort_by{|e| e[1]}.reverse.each do |user| %>
+        <li><%= "#{user[0]} #{user[1]}" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<%= form_tag posts_path, :method => :get do %>
+  <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
+<% end %>
+
+<div class="clear"></div>
