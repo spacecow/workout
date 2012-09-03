@@ -12,6 +12,7 @@ FactoryGirl.define do
     score 10
     user
     duration 5 
+    category 'duration'
   end
 
   factory :training_type do

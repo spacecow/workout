@@ -4,10 +4,10 @@
   $(function(){
     new Highcharts.Chart({
       chart: {
-        renderTo: "chart7days"
+        renderTo: "duration7days"
       },
       title: {
-        text: "7 Days Top Score"
+        text: "7 Days - Distance"
       },
       xAxis: {
         type: "datetime"
@@ -24,7 +24,42 @@
         }
       },
       series: [
-      <% @topentries.each do |name,entries| %>
+      <% @durations7.keys.sort.each do |name| %>
+      <% entries = @durations7[name] %>
+        {
+        name: '<%= name %>',
+        pointInterval: <%= 1.day * 1000 %>,
+        pointStart: <%= entries.first.chartdate %>,
+        data: <%= entries.map(&:score) %>
+        },
+      <% end %>
+      ],
+    });
+
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "distance7days"
+      },
+      title: {
+        text: "7 Days - Distance"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "km"
+        }
+      },
+      tooltip: {
+        formatter: function () {
+          return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' +
+          Highcharts.numberFormat(this.y, 0) + ' min';
+        }
+      },
+      series: [
+      <% @distances7.keys.sort.each do |name| %>
+      <% entries = @distances7[name] %>
         {
         name: '<%= name %>',
         pointInterval: <%= 1.day * 1000 %>,
@@ -37,7 +72,9 @@
   });
 </script>
 
-<div id="chart7days" style="width:560px; height:300px;"></div>
+<div id="duration7days" style="width:560px; height:300px;"></div>
+
+<div id="distance7days" style="width:560px; height:300px;"></div>
 
 <%= form_tag posts_path, :method => :get do %>
   <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>

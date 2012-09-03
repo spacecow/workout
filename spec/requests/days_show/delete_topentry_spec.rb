@@ -5,7 +5,7 @@ describe "Day show, delete topentries" do
     @user = login
     date = '2012-07-15'
     create_post(date:'2012-07-01', user:@user)
-    create_post(date:date, user:@user, duration:10, entry:10)
+    create_post(date:date, user:@user, duration:10)
     visit day_path(date)
   end
 

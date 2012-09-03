@@ -2,8 +2,8 @@ class Topentry < ActiveRecord::Base
   belongs_to :day
   belongs_to :user
 
-  attr_accessible :score, :day, :duration
-  validates_presence_of :day, :duration, :user, :score
+  attr_accessible :score, :day, :duration, :category
+  validates_presence_of :day, :duration, :user, :score, :category
 
   def chartdate; day.date.to_time.to_i * 1000 end
   def date; day.date end
@@ -20,11 +20,13 @@ class Topentry < ActiveRecord::Base
 
     def generate_missing_entries(days, user, date=Date.today.full)
       date = Date.parse(date)
-      score = user.total_min(days, date)
-      return false if score == '-'
       day = Day.find_or_create_by_date(date)
-      entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration(day.id, user.id, days)
-      entry.update_attributes(score:score, duration:days)
+      ['duration','distance'].each do |category|
+        score = category == 'duration' ? user.total_min(days, date) : user.total_km(days, date)
+        break if score == '-'
+        entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration_and_category(day.id, user.id, days, category)
+        entry.update_attributes(score:score, duration:days)
+      end
     end
 
     def entries(user)

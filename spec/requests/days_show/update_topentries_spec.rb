@@ -21,19 +21,22 @@ describe "Day show, update topentries" do
     context "older than timeframe" do
       before(:each) do
         fill_in 'Duration', with:100
+        fill_in 'Distance', with:15
         create_post(date:'2012-07-01', user:@user)
         create_entry(date:'2012-07-16', user:@user, duration:7, score:10)
       end
 
       it "saves topentries to db" do
         lambda{ click_button 'Create Post'
-        }.should change(Topentry,:count).by(1)
+        }.should change(Topentry,:count).by(3)
       end
 
       it "updates/sets the score" do
         click_button 'Create Post'
-        Topentry.find_by_day_id(Day.find_by_date('2012-07-15')).score.should eq 100
-        Topentry.find_by_day_id(Day.find_by_date('2012-07-16')).score.should eq 100
+        Topentry.find_by_day_id_and_category(Day.find_by_date('2012-07-15'), 'duration').score.should eq 100
+        Topentry.find_by_day_id_and_category(Day.find_by_date('2012-07-16'), 'duration').score.should eq 100
+        Topentry.find_by_day_id_and_category(Day.find_by_date('2012-07-15'), 'distance').score.should eq 15
+        Topentry.find_by_day_id_and_category(Day.find_by_date('2012-07-16'), 'distance').score.should eq 15
       end
     end
   end
@@ -58,7 +61,7 @@ describe "Day show, update topentries" do
 
       it "saves topentries to db" do
         lambda{ click_button 'Create Post'
-        }.should change(Topentry,:count).by(1)
+        }.should change(Topentry,:count).by(2)
       end
 
       context "with newer entries within timeframe" do
@@ -75,7 +78,7 @@ describe "Day show, update topentries" do
 
         it "saves topentries to db" do
           lambda{ click_button 'Create Post'
-          }.should change(Topentry,:count).by(7)
+          }.should change(Topentry,:count).by(14)
         end
       end #with newer entries within timeframe
 
@@ -89,7 +92,7 @@ describe "Day show, update topentries" do
 
         it "saves topentries to db" do
           lambda{ click_button 'Create Post'
-          }.should change(Topentry,:count).by(2)
+          }.should change(Topentry,:count).by(4)
         end
       end
     end

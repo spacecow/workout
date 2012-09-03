@@ -33,7 +33,7 @@ class PostPresenter < BasePresenter
     if posts.present?
       posts.group_by{|e| ([e.author] | e.training_partners).map(&:userid).join("&")}.map do |k,v|
         h.content_tag(:div,class:'posts') do
-          "#{k}: #{v.count}" 
+          "#{k}: #{v.map(&:duration).sum}" 
         end
       end.join.html_safe
     end

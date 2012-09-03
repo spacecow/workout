@@ -36,7 +36,7 @@ def create_post(params = {})
   post.training_partners << FactoryGirl.create(:user, userid:params[:partner]) if params[:partner]
   post.training_partners << params[:user_partner] if params[:user_partner]
 
-  h[:author].topentries.create(score:params[:entry], day:h[:day], duration:7) if params[:entry]
+  h[:author].topentries.create(score:params[:entry], day:h[:day], duration:7, category:'duration') if params[:entry]
 
   post
 end

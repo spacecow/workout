@@ -1,7 +1,8 @@
 class StatsController < ApplicationController
   def charts
     @selected = :charts
-    @topentries = Topentry.order('days.date').includes(:day).group_by{|e| e.user.userid}
+    @durations7 = Topentry.where('duration = ? and category = ?', 7, 'duration').order('days.date').includes(:day).group_by{|e| e.user.userid}
+    @distances7 = Topentry.where('duration = ? and category = ?', 7, 'distance').order('days.date').includes(:day).group_by{|e| e.user.userid}
   end
 
   def toplists

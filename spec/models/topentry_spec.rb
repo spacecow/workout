@@ -23,7 +23,7 @@ describe Topentry do
         it "saves to db for each user" do
           lambda do
             Topentry.generate_total_missing_entries(7, '2012-08-10')
-          end.should change(Topentry,:count).by(7)
+          end.should change(Topentry,:count).by(14)
         end
       end
     end
@@ -60,7 +60,7 @@ describe Topentry do
       it "saves entry to db" do
         lambda do
           Topentry.generate_missing_entries(7, @user, '2012-08-15')
-        end.should change(Topentry,:count).by(1)
+        end.should change(Topentry,:count).by(2)
       end
     end #another user's post
 
@@ -68,13 +68,14 @@ describe Topentry do
     context "posts older than timeframe" do
       before(:each) do
         create_post(date:'2012-08-01', user:@user)
-        create_post(date:'2012-08-10', user:@user, duration:30)
+        create_post(date:'2012-08-10', user:@user, duration:30, distance:15)
       end
 
       context "already generated" do
         before(:each) do
           day = FactoryGirl.create(:day, date:'2012-08-15')
-          FactoryGirl.create(:topentry, user:@user, day:day, duration:7)
+          FactoryGirl.create(:topentry, user:@user, day:day, duration:7, category:'duration')
+          FactoryGirl.create(:topentry, user:@user, day:day, duration:7, category:'distance')
         end
 
         it "saves no entry to db" do
@@ -88,28 +89,46 @@ describe Topentry do
         it "saves entry to db" do
           lambda do
             Topentry.generate_missing_entries(7, @user, '2012-08-15')
-          end.should change(Topentry,:count).by(1)
+          end.should change(Topentry,:count).by(2)
         end
 
         context "values" do
           before(:each) do
             Topentry.generate_missing_entries(7, @user, '2012-08-15')
-            @entry = Topentry.last
+            @duration = Topentry.all[-2]
+            @distance = Topentry.all[-1]
           end
 
           it "saves the score" do
-            @entry.score.should eq 30
+            @duration.score.should eq 30
           end
           it "saves the duration" do
-            @entry.duration.should eq 7
+            @duration.duration.should eq 7
           end
-
           it "saves the day" do
-            @entry.day.should eq Day.where(date:'2012-08-15').first
+            @duration.day.should eq Day.where(date:'2012-08-15').first
+          end
+          it "saves the user" do
+            @duration.user.should eq @user
+          end
+          it "saves the category" do
+            @duration.category.should eq 'duration'
           end
 
+          it "saves the score" do
+            @distance.score.should eq 15
+          end
+          it "saves the duration" do
+            @distance.duration.should eq 7
+          end
+          it "saves the day" do
+            @distance.day.should eq Day.where(date:'2012-08-15').first
+          end
           it "saves the user" do
-            @entry.user.should eq @user
+            @distance.user.should eq @user
+          end
+          it "saves the category" do
+            @distance.category.should eq 'distance'
           end
         end #values
       end #not yet generated
