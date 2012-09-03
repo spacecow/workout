@@ -67,7 +67,7 @@ class PostsController < ApplicationController
   def destroy
     date = @post.full_date
     @post.destroy
-    Topentry.generate_forward_day_entries(7, @post.full_date)
+    Topentry.generate_forward_day_entries(7, date)
     redirect_to :back #new_post_path(date:@post.date, month:@month)
   end
 
@@ -81,8 +81,7 @@ class PostsController < ApplicationController
     end
     
     def set_month
-      #session[:month] = params[:month] || (@month.nil? ? nil : @month.half) || session[:month] || Date.today.half
-      session[:month] = params[:month] || Date.today.half
-      @month = Date.parse(session[:month])
+      session_month(params[:month] || Date.today.half)
+      @month = Date.parse(session_month)
     end
 end

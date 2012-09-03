@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Stats charts", focus:true do
+describe "Stats charts" do
   before(:each) do
     visit stats_charts_path
   end

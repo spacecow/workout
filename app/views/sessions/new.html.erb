@@ -12,7 +12,7 @@
   <%= submit_tag t(:login), :class => 'button submit' %>
 <% end %>
 
-<%= form_tag posts_path, :method => :get do %>
+<%= form_tag posts_path(month:session_month), :method => :get do %>
   <%= submit_tag t('helpers.submit.cancel'), :class => :cancel %>
 <% end %>
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Stats toplists", focus:true do
+describe "Stats toplists" do
   before(:each) do
     visit stats_toplists_path
   end

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :pl, :current_user, :mess, :jt, :session_type, :session_day, :session_user, :return_path
+  helper_method :pl, :current_user, :mess, :jt, :session_type, :session_day, :session_user, :return_path, :session_month
 
   rescue_from CanCan::AccessDenied do |exception|
     exception.default_message = alertify(:unauthorized_access)
@@ -21,6 +21,13 @@ class ApplicationController < ActionController::Base
       session[:day] = opt.first 
     else
       session[:day] 
+    end
+  end
+  def session_month(*opt)
+    if opt.present? 
+      session[:month] = opt.first 
+    else
+      session[:month] 
     end
   end
   def session_type(*opt)

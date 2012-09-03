@@ -47,3 +47,5 @@ decbf2: !ruby/object:Dooby::Task
   todo: update topentry when deleting a record
 c3c30a: !ruby/object:Dooby::Task 
   todo: tabs on chart page :done
+6d98c3: !ruby/object:Dooby::Task 
+  todo: distance toplist :doing

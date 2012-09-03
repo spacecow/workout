@@ -21,6 +21,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session_userid(nil)
-    redirect_to root_url, notice:notify(:logged_out)
+    redirect_to posts_path(month:session_month), notice:notify(:logged_out)
   end
 end

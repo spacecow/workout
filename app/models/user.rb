@@ -23,16 +23,30 @@ class User < ActiveRecord::Base
 
   def first_post; Post.first_post(self) end
 
-  def total_min(days, date=Date.today)
+  def total_posts(days, date=Date.today)
     posts = Post.user(self).order('days.date').includes(:day)
     return '-' if posts.empty?
     return '-' if (date - posts.first.date).to_i < (days-1)
-    posts = posts.interval(date-days.days,date)
+    posts.interval(date-days.days,date)
+  end
+
+  def total_km(days, date=Date.today)
+    posts = total_posts(days, date)
+    return '-' if posts == '-'
+    posts.map{|e| e.distance.nil? ? 0 : e.distance}.sum
+  end
+  def total_min(days, date=Date.today)
+    posts = total_posts(days, date)
+    return '-' if posts == '-'
     posts.map{|e| e.duration.nil? ? 0 : e.duration}.sum
   end
   def total_time(days, date=Date.today)
     min = total_min(days, date)
     min == '-' ? '-' : "#{min} min"
+  end
+  def total_distance(days, date=Date.today)
+    dist = total_km(days, date)
+    dist == '-' ? '-' : "#{dist} km"
   end
 
   class << self
