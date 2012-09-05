@@ -29,4 +29,4 @@ namespace :deploy do
   end
 end
 
-after 'deploy:update_code', 'deploy:symlink_shared', 'delayed_job:start'
+after 'deploy:update_code', 'deploy:symlink_shared', 'delayed_job:restart'
