@@ -70,7 +70,7 @@ describe "Day show" do
   context "with posts on the same day" do
     before(:each) do
       @date = '2012-07-02'
-      @post = create_post(date:@date, type:'<<<Running>>>', author:'Prince', duration:35, partner:'King', comment:'Just some random comment.')
+      @post = create_post(date:@date, type:'<<<Running>>>', author:'Prince', duration:35, distance:8, partner:'King', comment:'Just some random comment.')
       login(@post.author)
       visit day_path(@date)
     end
@@ -107,6 +107,10 @@ describe "Day show" do
         current_path.should eq user_path(User.first)
       end
     end 
+
+    it "has a distance meter", focus:true do
+      first_post_distance.should have_content('8 km')
+    end
 
     it "has a timestamp" do
       first_post_timestamp.should have_content('35 min')

@@ -2,9 +2,9 @@
 
 <hr>
 
-<% cache @day do %>
+<%# cache @day do %>
   <%= render 'posts/posts', posts:@posts, title: :type if @posts.present? %>
-<% end %>
+<%# end %>
 
 <%= render 'posts/form', post:@post, partners:@training_partners, location:'post' %>
 

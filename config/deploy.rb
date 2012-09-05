@@ -1,4 +1,4 @@
-require 'delayed/recipes'
+require "delayed/recipes"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -33,4 +33,4 @@ namespace :deploy do
 end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
-after 'deploy:restart', 'delayed_job:restart'
+#after 'deploy:restart', 'delayed_job:restart'

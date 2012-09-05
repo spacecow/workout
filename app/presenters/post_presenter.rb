@@ -19,6 +19,14 @@ class PostPresenter < BasePresenter
     end
   end
 
+  def distance
+    unless post.distance.blank?
+      h.content_tag(:div, id:'distance') do
+        "(#{post.distance} km)"
+      end
+    end
+  end
+
   def delete_link
     dcase = @object.class.to_s.downcase
     h.link_to h.t(:delete), h.send("post_path", @object), method: :delete, data:{confirm:h.sure?} if h.can? :destroy, @object 
