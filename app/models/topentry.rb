@@ -5,7 +5,7 @@ class Topentry < ActiveRecord::Base
   attr_accessible :score, :day, :duration, :category
   validates_presence_of :day, :duration, :user, :score, :category
 
-  def chartdate; day.date.to_time.to_i * 1000 end
+  def chartdate; (day.date.to_time + 9.hour).to_i * 1000 end
   def date; day.date end
 
   class << self

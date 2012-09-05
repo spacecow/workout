@@ -3,10 +3,13 @@ require 'assert'
 class PostsController < ApplicationController
   skip_load_resource :only => [:new,:create]
   load_and_authorize_resource
+  cache_sweeper :post_sweeper
 
   def index
     set_month
-    @posts = Post.includes(:training_partners)
+    first = @month.beginning_of_month.beginning_of_week(:monday) - 1.day
+    last = @month.end_of_month.end_of_week(:monday)
+    @posts = Post.interval(first,last).includes(:training_partners, :day)
     @posts_by_date = @posts.group_by{|e| e.day.date}
     @users = User.all #.sort{|e| e.total_min(7, @posts)}
   end

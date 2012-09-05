@@ -2,16 +2,24 @@
   <ul id="seven_days">
   <h4>7 Days</h4>
   <hr>
-    <% users.each do |user| %>
-      <li><%= "#{user.userid} #{user.total_time(7)}" %></li>
+    <% cache "top7duration" do %>
+      <% users.each do |user| %>
+        <% cache ["top7duration", user] do %>
+          <li><%= "#{user.userid} #{user.total_time(7)}" %></li>
+        <% end %>
+      <% end %>
     <% end %>
   </ul>
 
   <ul id="thirty_days">
   <h4>30 Days</h4>
   <hr>
-    <% users.each do |user| %>
-      <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
+    <% cache "top30duration" do %>
+      <% users.each do |user| %>
+        <% cache ["top30duration", user] do %>
+          <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
+        <% end %>
+      <% end %>
     <% end %>
   </ul>
 

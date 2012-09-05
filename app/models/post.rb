@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-  belongs_to :author, :class_name => 'User'
-  belongs_to :day
+  belongs_to :author, class_name:'User', touch:true
+  belongs_to :day, touch:true
   accepts_nested_attributes_for :day
 
   has_many :typeships, dependent: :destroy

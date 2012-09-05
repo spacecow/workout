@@ -4,8 +4,8 @@ module CalendarHelper
   end
 
   class Calendar < Struct.new(:view, :date, :callback)
-    HEADER = I18n.t('date.day_names')
-    START_DAY = :sunday
+    HEADER = I18n.t('date.day_names')[1..-1] | I18n.t('date.day_names')[0..1]
+    START_DAY = :monday
     delegate :content_tag, to: :view
 
     def table

@@ -3,7 +3,8 @@ $(function(){
     dateFormat: 'yy-mm-dd'
   });
   $("input#post_time_of_day").datetimeEntry({
-    datetimeFormat: 'H:M'
+    datetimeFormat: 'H:M',
+    spinnerImage: '/assets/spinnerDefault.png'
   });
 
   var training_type_id = "input#post_training_type_tokens";

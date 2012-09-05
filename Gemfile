@@ -25,6 +25,7 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'guard-spork'
+  gem 'pry'
 end
 
 group :test do

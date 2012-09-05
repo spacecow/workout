@@ -47,7 +47,9 @@ decbf2: !ruby/object:Dooby::Task
   todo: update topentry when deleting a record
 c3c30a: !ruby/object:Dooby::Task 
   todo: tabs on chart page :done
-23c95d: !ruby/object:Dooby::Task 
-  todo: add category to topentry :doing
 5139c6: !ruby/object:Dooby::Task 
   todo: add category to topentry :done
+067b8a: !ruby/object:Dooby::Task 
+  todo: caching of days :doing
+f08fd0: !ruby/object:Dooby::Task 
+  todo: caching of days :done
