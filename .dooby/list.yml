@@ -49,7 +49,9 @@ c3c30a: !ruby/object:Dooby::Task
   todo: tabs on chart page :done
 5139c6: !ruby/object:Dooby::Task 
   todo: add category to topentry :done
-067b8a: !ruby/object:Dooby::Task 
-  todo: caching of days :doing
 f08fd0: !ruby/object:Dooby::Task 
   todo: caching of days :done
+0ee19b: !ruby/object:Dooby::Task 
+  todo: update button on chart page :doing
+7b39c4: !ruby/object:Dooby::Task 
+  todo: update button on chart page :done

@@ -47,22 +47,22 @@ describe "Posts index" do
   end
 
   it "with a post with a partner" do
-    post = create_post(date:'2012-7-10', author:'Author', partner:'Partner')
+    post = create_post(date:'2012-7-10', author:'Author', partner:'Partner', duration:100)
     visit posts_path(month:'2012/7')
-    td(:day_0710).div(:posts,0).should have_content('Author&Partner: 1')
+    td(:day_0710).div(:posts,0).should have_content('Author&Partner: 100')
   end
 
   context "with posts of different authors" do
     before(:each) do
       day = FactoryGirl.create(:day, date:Date.parse('2012-7-10'))
-      create_post(day:day, author:'Prince')
-      create_post(day:day, author:'King')
+      create_post(day:day, author:'Prince', duration:50)
+      create_post(day:day, author:'King', duration:123)
       visit posts_path(month:'2012/7')
     end
 
     it "displays existing posts on given day" do
-      td(:day_0710).div(:posts,0).should have_content('Prince: 1')
-      td(:day_0710).div(:posts,1).should have_content('King: 1')
+      td(:day_0710).div(:posts,0).should have_content('Prince: 50')
+      td(:day_0710).div(:posts,1).should have_content('King: 123')
     end
 
     it "displays no posts if there are none" do

@@ -16,7 +16,7 @@ describe "Post edit, update topentries" do
     end 
 
     context "topentry does not exist" do
-      it "saves topentry to db", context:true do
+      it "saves no topentries to db" do
          lambda{ click_button 'Update Post' 
         }.should change(Topentry,:count).by(2)
       end
