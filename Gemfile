@@ -7,6 +7,7 @@ gem 'jquery-ui-rails'
 #gem "watu_table_builder", :require => "table_builder"
 gem 'cancan'
 gem 'simple_form'
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.

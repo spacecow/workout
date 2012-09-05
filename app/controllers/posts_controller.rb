@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(params[:post])
     if @post.save
-      Topentry.generate_forward_day_entries(7, @post.full_date)
+      Topentry.delay.generate_forward_day_entries(7, @post.full_date)
       flash[:notice] = created(:post)
       if session_day.nil?
         redirect_to @post.training_types.first
@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   def update
     @day = @post.day
     if @post.update_attributes(params[:post])
-      Topentry.generate_forward_day_entries(7, @post.full_date)
+      Topentry.delay.generate_forward_day_entries(7, @post.full_date)
       flash[:notice] = updated(:post)
       if !session_type.nil?
         redirect_to @post.training_types.first
@@ -70,7 +70,7 @@ class PostsController < ApplicationController
   def destroy
     date = @post.full_date
     @post.destroy
-    Topentry.generate_forward_day_entries(7, date)
+    Topentry.delay.generate_forward_day_entries(7, date)
     redirect_to :back #new_post_path(date:@post.date, month:@month)
   end
 
