@@ -3,6 +3,9 @@ require 'delayed/recipes'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
+#delayed job
+set :rails_env, "production"
+
 set :repository, "git@github.com:spacecow/workout.git"
 set :scm, "git"
 set :branch, "master"
