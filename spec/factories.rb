@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  factory :comment do
+    association :commenter, factory: :user
+  end
+
   factory :day do
     date '2012-07-14'
   end

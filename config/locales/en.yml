@@ -10,6 +10,7 @@ en:
     other: Comments
   day:
     other: Days
+  delete: Delete
   edit: Edit
   login: Login
   logout: Logout

@@ -1,9 +1,9 @@
 class PostPresenter < BasePresenter
   presents :post
 
-  def actions
+  def actions(no)
     h.content_tag(:div, id:"actions") do
-      "#{edit_link} #{delete_link}".html_safe
+      "#{edit_link} #{delete_link} #{comment_link(no)} #{hide_comment_link(no)}".html_safe
     end
   end
 
@@ -17,6 +17,15 @@ class PostPresenter < BasePresenter
     h.content_tag(:div, id:'comment') do
       post.comment
     end
+  end
+
+  def comment_link(no)
+    dcase = @object.class.to_s.downcase
+    h.link_to h.pl(:comment,1), nil, {class:'comment', data:{link:no}} if h.can? :new, Comment
+  end
+  def hide_comment_link(no)
+    dcase = @object.class.to_s.downcase
+    h.link_to h.t(:hide_comment), nil, {class:'hide_comment', data:{link:no}} if h.can? :new, Comment
   end
 
   def distance

@@ -133,6 +133,29 @@ div#user_nav
   float: right
   font-size: 12px
 
+div#comments
+  background: #ddd
+  float: left
+  margin-top: 5px
+  padding: 5px 10px 0 5px
+  div.comment
+    border-bottom: 1px solid black
+    margin-bottom: 5px
+    padding-bottom: 5px
+    &:last-child
+      border-bottom: 0
+    div#content
+      font-size: 14px
+    div#timestamp
+      color: GoldenRod
+    div#content, div#timestamp, div#commenter
+      margin-left: 5px
+      float: left
+      line-height: 15px !important
+    div#timestamp, div#commenter
+      font-size: 12px
+      font-style: italic
+
 div#main_container
   width: $main_width 
   margin: 100px auto 0 auto
@@ -208,6 +231,11 @@ div#posts
     div#training_type
       font-size: 20px
       margin-bottom: 5px
+    div#actions
+      a.comment
+        display: none
+      a.hide_comment
+        display: none
     div#distance, div#author, div#actions, div#training_partners
       margin-left: 4px
     div#distance, div#timestamp, div#author, div#training_partners
@@ -229,7 +257,7 @@ $textarea_height: 100px
   width: $input_width
   cursor: text
 
-form#new_comment
+form.new_comment
   margin-top: 5px
   textarea
     font-size: 10px

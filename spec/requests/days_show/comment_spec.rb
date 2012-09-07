@@ -3,8 +3,9 @@ require 'spec_helper'
 describe "Day show, comment", focus:true do
   before(:each) do
     @date = '2012-07-02'
-    @post = create_post(date:@date)
-    login
+    @post = create_post(date:@date, author:'Prince')
+    @user = @post.author
+    login(@user)
   end
 
   context "layout, without comments" do
@@ -27,7 +28,8 @@ describe "Day show, comment", focus:true do
 
   context "layout, with comments" do
     before(:each) do
-      @post.comments.create!(content:'Yeah!') 
+      FactoryGirl.create(:comment, content:'Yeah!', commenter:@user, commentable:@post) 
+      @post.last_comment.update_column(:updated_at,1.hour.ago)
       visit day_path(@date)
     end
 
@@ -38,11 +40,37 @@ describe "Day show, comment", focus:true do
     it "each comment has a div" do
       div(:comments).divs_no(:comment).should eq 1
     end
+
+    it "displays the comment" do
+      first_comment_content.should have_content 'Yeah!'
+    end
+
+    it "displays the timestamp" do
+      first_comment_timestamp.should have_content 'about 1 hour ago'
+    end
+
+    it "displays the commenter" do
+      first_comment_commenter.should have_content 'by Prince'
+    end
+
+    it "displays the commenter as a link" do
+      first_comment_commenter.should have_link 'Prince'
+    end
+
+    context "link to commenter" do
+      before(:each) do
+        first_comment.click_link 'Prince'
+      end
+
+      it "redirects to that user" do
+        current_path.should eq user_path(@user)
+      end
+    end
   end
 
   context "comment" do
     before(:each) do
-      @post.comments.create!(content:'Yeah!') 
+      FactoryGirl.create(:comment, content:'Yeah!', commentable:@post) 
       visit day_path(@date)
       first_post.fill_in 'comment_content', with:'Okidoki'
     end
@@ -68,6 +96,14 @@ describe "Day show, comment", focus:true do
 
       it "saves the content" do
         @comment.content.should eq 'Okidoki'
+      end
+
+      it "saves the commenter" do
+        @comment.commenter.should eq @user
+      end
+
+      it "saves the post" do
+        @comment.commentable.should eq @post
       end
     end
 

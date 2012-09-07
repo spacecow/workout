@@ -55,7 +55,9 @@ f08fd0: !ruby/object:Dooby::Task
   todo: update button on chart page :done
 433fba: !ruby/object:Dooby::Task 
   todo: delayed job :done
-098bef: !ruby/object:Dooby::Task 
-  todo: add comments :doing
 c97486: !ruby/object:Dooby::Task 
   todo: add comments :done
+a7c779: !ruby/object:Dooby::Task 
+  todo: add user to comment :doing
+aec701: !ruby/object:Dooby::Task 
+  todo: add user to comment :done
