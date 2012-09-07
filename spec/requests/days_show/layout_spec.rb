@@ -108,7 +108,7 @@ describe "Day show" do
       end
     end 
 
-    it "has a distance meter", focus:true do
+    it "has a distance meter" do
       first_post_distance.should have_content('8 km')
     end
 

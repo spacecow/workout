@@ -4,6 +4,8 @@ def first_post; postno(0) end
 def first_post_actions; first_post.div(:actions) end
 def first_post_author; first_post.div(:author) end
 def first_post_comment; first_post.div(:comment) end
+def first_post_comment_content; first_post.find_field('comment_content') end
+def first_post_comment_value; first_post_comment_content.value end
 def first_post_title; first_post.div(:title) end
 def first_post_timestamp; first_post.div(:timestamp) end
 def first_post_distance; first_post.div(:distance) end

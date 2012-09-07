@@ -1,5 +1,5 @@
 <div id="posts">
   <% posts.each do |post| %>
-    <%= render post, title:title %>
+    <%= render post, title:title, comment:post.last_comment, comments:post.comments[0..-2] %>
   <% end %>
 </div>

@@ -5,6 +5,9 @@ en:
   by: by
   chart:
     other: Charts
+  comment:
+    one: Comment
+    other: Comments
   day:
     other: Days
   edit: Edit
@@ -25,6 +28,8 @@ en:
     submit:
       calendar: Calendar
       cancel: Cancel
+      comment:
+        create: Comment
       post: Post
 
   labels:
@@ -46,5 +51,5 @@ en:
         training_type_tokens: Training Types 
 
   successes:
-    created: Successfully created %{o}
-    updated: Successfully updated %{o}
+    created: '%{o} created'
+    updated: '%{o} updated'

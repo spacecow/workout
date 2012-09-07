@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     can :index, Post
     if user
+      can [:index,:create], Comment
       can :show, User
       can :show, Day
       can [:new,:create], Post

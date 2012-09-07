@@ -1,0 +1,9 @@
+<%= title pl(:comment) %>
+
+<hr>
+
+<%= render 'comments', comments:@comments if @comments.present? %>
+
+<div id="bottom_links">
+  <%= link_to new(:comment), [:new, @commentable, :comment] %>
+</div>

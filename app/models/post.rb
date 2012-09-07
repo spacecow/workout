@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
   has_many :trainingships, dependent: :destroy
   has_many :training_partners, through: :trainingships, source: :partner
 
+  has_many :comments, as: :commentable
+
   attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes
 
   validates_presence_of :day_id, :author_id, :training_type_ids
@@ -25,6 +27,7 @@ class Post < ActiveRecord::Base
   def full_date; date.full end
 
   def first_type; training_types.first end
+  def last_comment; comments.last end
 
   def training_type_name; training_type && training_type.name end
 

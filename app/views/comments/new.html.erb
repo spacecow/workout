@@ -1,0 +1,10 @@
+<%= title new(:comment) %>
+
+<hr>
+
+<%= simple_form_for [@commentable, @comment] do |f| %>
+  <%= f.input :content %>
+  <%= f.button :submit, class: :submit %>
+<% end %>
+
+<div class="clear"></div>

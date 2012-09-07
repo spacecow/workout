@@ -7,8 +7,10 @@ class DaysController < ApplicationController
     @post = Post.new
     @post.build_day(date:@day.date.full)
     #@posts = Post.includes(:training_partners)
-    @posts = Post.where('day_id = ?', @day.id)
     @training_partners = User.minus(current_user)
+
+    @posts = Post.where('day_id = ?', @day.id)
+    @posts.each{|e| e.comments.new}
   end
 
   private
