@@ -1,4 +1,5 @@
 @import "fancy-buttons"
+@import "compass/css3/border-radius"
 
 $blue: #4B7399
 
@@ -102,7 +103,7 @@ ul.tabrow
   padding-left: $flash_left_padding_width 
   margin-bottom: 10px 
 
-$main_width: 750px
+$main_width: 850px
 
 $flash_border_width: 1px
 $flash_left_padding_width: 40px
@@ -161,10 +162,17 @@ div#main_container
   margin: 100px auto 0 auto
   padding: 20px
   @include box-shadow(rgba(black, 0.9) 0 0 25px, rgba(green, 0.2) 0 0 3px 1px inset)
-  div#actions
-    font-size: 10px
-  div#bottom_links
-    font-size: 10px
+  div#main
+    max-width: 630px
+    float: left
+    div#actions
+      font-size: 10px
+    div#bottom_links
+      font-size: 10px
+  div#chat
+    margin-top: 69px
+    float: right
+    width: 200px
 
 h1
   font-size: 30px !important
@@ -219,6 +227,18 @@ div#calendar
       div.posts
         font-size: 11px
 
+div#menu_toplists
+  border: 1px solid black
+  +border-radius(10px)
+  padding: 5px
+  font-size: 12px
+  h4
+    margin-right: 10px
+    float: left
+  ul
+    margin-right: 10px
+    float: left
+  
 div#toplists
   float: left
   font-size: 12px

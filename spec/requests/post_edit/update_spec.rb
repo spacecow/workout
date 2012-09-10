@@ -51,7 +51,7 @@ describe "Post edit" do
       end
 
       it "shows a flash message" do
-        page.should have_notice 'Successfully updated Post'
+        page.should have_notice 'Post updated'
       end
     end
   end

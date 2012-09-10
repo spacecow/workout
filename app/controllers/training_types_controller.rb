@@ -6,6 +6,9 @@ class TrainingTypesController < ApplicationController
     @post = Post.new(:training_type_tokens => @training_type.id.to_s)
     @post.build_day
     @training_partners = User.minus(current_user)
+
+    @posts = @training_type.posts
+    @posts.each{|e| e.comments.new}
   end
 
   def index

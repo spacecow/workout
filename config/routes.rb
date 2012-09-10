@@ -1,8 +1,4 @@
 Workout::Application.routes.draw do
-  get "comments/index"
-
-  get "comments/new"
-
   match '/delayed_job' => DelayedJobWeb, anchor:false
 
   get 'login' => 'sessions#new'
@@ -14,8 +10,9 @@ Workout::Application.routes.draw do
 
   resources :days, :only => :show
   resources :posts, :only => [:create,:index,:edit,:update,:destroy] do
-    resources :comments, :only => [:index,:new,:create]
+    resources :comments, :only => [:create]
   end
+  resources :messages, :only => :index
 
   match "/stats/charts" => "stats#charts"
   match "/stats/toplists" => "stats#toplists"

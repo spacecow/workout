@@ -1,7 +1,6 @@
-<div id="toplists">
-  <ul id="seven_days">
+<div id="menu_toplists">
   <h4>7 Days</h4>
-  <hr>
+  <ul id="seven_days">
     <% cache "top7duration" do %>
       <% users.each do |user| %>
         <% cache ["top7duration", user] do %>
@@ -11,9 +10,8 @@
     <% end %>
   </ul>
 
-  <ul id="thirty_days">
   <h4>30 Days</h4>
-  <hr>
+  <ul id="thirty_days">
     <% cache "top30duration" do %>
       <% users.each do |user| %>
         <% cache ["top30duration", user] do %>
@@ -24,4 +22,5 @@
   </ul>
 
   <%= link_to pl(:chart), stats_charts_path %>
+  <div class="clear"></div>
 </div>

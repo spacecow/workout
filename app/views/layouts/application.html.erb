@@ -12,7 +12,11 @@
   <%= render 'layouts/flash', flash:flash %>
   <%= render 'layouts/user_nav', month:@month %>
   <div class="clear"></div>
-  <%= yield %>
+  <div id="main">
+    <%= yield %>
+  </div>
+  <%= render 'layouts/chat', comments:@comments if can? :new, Comment %>
+  <div class="clear"></div>
 </div>
 
 </body>

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Day show, comment", focus:true do
+describe "Day show, comment" do
   before(:each) do
     @date = '2012-07-02'
     @post = create_post(date:@date, author:'Prince')
@@ -14,7 +14,7 @@ describe "Day show, comment", focus:true do
     end
 
     it "has no comments div" do
-      page.should_not have_div(:comments)
+      div(:main).should_not have_div(:comments)
     end
 
     it "the new comment field is empty" do
@@ -34,11 +34,11 @@ describe "Day show, comment", focus:true do
     end
 
     it "has a comments div" do
-      page.should have_div(:comments)
+      div(:main).should have_div(:comments)
     end
 
     it "each comment has a div" do
-      div(:comments).divs_no(:comment).should eq 1
+      div(:main).div(:comments).divs_no(:comment).should eq 1
     end
 
     it "displays the comment" do
@@ -122,11 +122,11 @@ describe "Day show, comment", focus:true do
       end
 
       it "has a comments div" do
-        page.should have_div(:comments)
+        div(:main).should have_div(:comments)
       end
 
       it "each comment has a div" do
-        div(:comments).divs_no(:comment).should eq 1
+        div(:main).div(:comments).divs_no(:comment).should eq 1
       end
 
       it "the new comment field is empty" do

@@ -16,7 +16,7 @@ describe "TrainingType show" do
 
     it "shows a flash message" do
       click_button 'Create Post'
-      page.should have_notice('Successfully created Post')
+      page.should have_notice('Post created')
     end
 
     context 'errors page' do

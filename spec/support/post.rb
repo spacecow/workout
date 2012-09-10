@@ -11,7 +11,7 @@ def first_post_timestamp; first_post.div(:timestamp) end
 def first_post_distance; first_post.div(:distance) end
 def first_post_training_partners; first_post.div(:training_partners) end
 
-def toplists; div :toplists end
+def toplists; div :menu_toplists end
 def toplist7; toplists.ul :seven_days end
 def toplist7no(no) toplist7.li no end
 def first_user7; toplist7no 0 end

@@ -2,14 +2,6 @@ class CommentsController < ApplicationController
   authorize_resource
   before_filter :load_commentable
 
-  def index
-    @comments = @commentable.comments
-  end
-
-  def new
-    @comment = @commentable.comments.new
-  end
-
   def create
     @comment = @commentable.comments.new(params[:comment])
     @comment.commenter = current_user

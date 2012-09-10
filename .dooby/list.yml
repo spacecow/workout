@@ -57,7 +57,9 @@ f08fd0: !ruby/object:Dooby::Task
   todo: delayed job :done
 c97486: !ruby/object:Dooby::Task 
   todo: add comments :done
-a7c779: !ruby/object:Dooby::Task 
-  todo: add user to comment :doing
 aec701: !ruby/object:Dooby::Task 
   todo: add user to comment :done
+"240195": !ruby/object:Dooby::Task 
+  todo: add chat :doing
+c86d22: !ruby/object:Dooby::Task 
+  todo: add chat :done

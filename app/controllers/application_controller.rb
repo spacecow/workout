@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :pl, :current_user, :mess, :jt, :session_type, :session_day, :session_user, :return_path, :session_month
 
+  before_filter :load_chat
+
   rescue_from CanCan::AccessDenied do |exception|
     exception.default_message = alertify(:unauthorized_access)
     flash[:alert] = exception.message
@@ -58,4 +60,10 @@ class ApplicationController < ActionController::Base
       day_path(Date.today)
     end
   end
+
+  private
+
+    def load_chat
+      @comments = Comment.where("updated_at > ?", Time.at(params[:after].to_i + 1))
+    end
 end

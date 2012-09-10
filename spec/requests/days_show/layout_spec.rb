@@ -211,7 +211,7 @@ describe "Day show" do
     end #delete link
     ############################################
 
-    it "has a comment link", focus:true do
+    it "has a comment link" do
       first_post_actions.should have_link('Comment')
     end #comment link
     ############################################

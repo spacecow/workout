@@ -7,7 +7,7 @@ describe "Posts index, toplist" do
     end
 
     it "displays no toplists" do
-      page.should_not have_div(:toplists)
+      page.should_not have_div(:menu_toplists)
     end
   end
 
@@ -18,7 +18,7 @@ describe "Posts index, toplist" do
     end
 
     it "displays no toplists" do
-      page.should_not have_div(:toplists)
+      page.should_not have_div(:menu_toplists)
     end
   end
 
@@ -35,7 +35,7 @@ describe "Posts index, toplist" do
       end
 
       it "displays toplists" do
-        page.should have_div(:toplists)
+        page.should have_div(:menu_toplists)
       end
 
       it "lists each user & total time" do
@@ -75,7 +75,7 @@ describe "Posts index, toplist" do
       end
 
       it "displays toplists" do
-        page.should have_div(:toplists)
+        page.should have_div(:menu_toplists)
       end
 
       it "lists each user & total time" do
