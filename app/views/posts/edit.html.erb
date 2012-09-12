@@ -1,5 +1,7 @@
 <%= title edit(:post) %>
 
+<hr>
+
 <%= render 'form', post:@post, date:@date, partners:@training_partners, location:'post' %>
 
 <%= form_tag return_path(@post), :method => :get do %>

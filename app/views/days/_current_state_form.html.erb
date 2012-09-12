@@ -1,0 +1,14 @@
+<hr>
+
+<h2><%= formtitle(current_state) %></h2>
+
+<%= simple_form_for current_state do |f| %>
+ <%=  f.input :weight, wrapper_html:{id:'weight'} %>
+  <%= f.button :submit, class: :submit %>
+<% end %>
+
+<%= form_tag posts_path(month:session_month), :method => :get, id:'cancel_current_state' do %>
+  <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
+<% end %>
+
+<div class="clear"></div>

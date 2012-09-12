@@ -5,8 +5,14 @@ describe "TrainingType show" do
     before(:each) do
       login
       @type = FactoryGirl.create(:training_type, name:'Running')
+      date = '2012-08-23'
+      create_post(type:@type.id.to_s)
       visit training_type_path(@type)
-      fill_in 'Date', with:'2012-08-23'
+      fill_in 'Date', with:date
+    end
+
+    it "has a div for the posts" do
+      page.should have_div(:posts)
     end
 
     it "saves the post to db" do
@@ -27,6 +33,10 @@ describe "TrainingType show" do
 
       it "still has the same title" do
         page.should have_title('Running')
+      end
+
+      it "has no div for the posts" do
+        page.should_not have_div(:posts)
       end
 
       it "redirect to type show page when saved" do

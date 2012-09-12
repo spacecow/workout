@@ -6,10 +6,14 @@
   <%= render 'posts/posts', posts:@posts, title: :type if @posts.present? %>
 <% end %>
 
-<%= render 'posts/form', post:@post, partners:@training_partners, location:'post' %>
+<h2><%= new(:post) %></h2>
 
-<%= form_tag posts_path(month:session_month), :method => :get do %>
+<%= render 'posts/form', post:@post, partners:@training_partners, location:'post' unless @post.nil? %>
+
+<%= form_tag posts_path(month:session_month), :method => :get, id:'cancel_post' do %>
   <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
 <% end %>
 
 <div class="clear"></div>
+
+<%= render 'days/current_state_form', current_state:@current_state unless @current_state.nil? %>

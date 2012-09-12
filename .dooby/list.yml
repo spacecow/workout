@@ -59,7 +59,7 @@ c97486: !ruby/object:Dooby::Task
   todo: add comments :done
 aec701: !ruby/object:Dooby::Task 
   todo: add user to comment :done
-"240195": !ruby/object:Dooby::Task 
-  todo: add chat :doing
 c86d22: !ruby/object:Dooby::Task 
   todo: add chat :done
+1000d0: !ruby/object:Dooby::Task 
+  todo: add current state to post index :done

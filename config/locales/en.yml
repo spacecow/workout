@@ -8,6 +8,7 @@ en:
   comment:
     one: Comment
     other: Comments
+  current_state: Current State
   day:
     other: Days
   delete: Delete
@@ -31,6 +32,9 @@ en:
       cancel: Cancel
       comment:
         create: Comment
+      current_state:
+        create: Save Current State
+        update: Update Current State
       post: Post
 
   labels:
@@ -53,4 +57,5 @@ en:
 
   successes:
     created: '%{o} created'
+    saved: '%{o} saved'
     updated: '%{o} updated'

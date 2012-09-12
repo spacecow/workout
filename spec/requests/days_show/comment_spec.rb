@@ -141,5 +141,4 @@ describe "Day show, comment" do
       #end
     end
   end
-
 end

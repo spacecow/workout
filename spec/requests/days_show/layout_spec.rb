@@ -3,55 +3,145 @@ require 'spec_helper'
 describe "Day show" do
   context "without posts" do
     before(:each) do
-      user = create_member
-      login(user)
-      visit day_path('2012-7-2')
+      @user = create_member
+      login(@user)
     end
 
-    it "has a new post title" do
-      page.should have_title('2012-07-02')
+    context "new post form" do
+      before(:each) do
+        visit day_path('2012-7-2')
+      end
+
+      it "has the date as title" do
+        page.should have_title('2012-07-02')
+      end
+
+      it "has no div for the posts" do
+        page.should_not have_div(:posts)
+      end
+
+      it "has a new post title" do
+        page.should have_title('2012-07-02')
+      end
+
+      it "has a title for the new post form" do
+        page.should have_h2('New Post')
+      end
+
+      it "has the date field filled in" do
+        value('* Date').should eq '2012-07-02'
+      end
+
+      it "has the training type blank" do
+        value('Training Types').should be_blank
+      end
+
+      it "has the time of day left blank" do
+        value('Time of day').should be_nil
+      end
+      it "has the duration left blank" do
+        value('Duration').should be_nil
+      end
+
+      it "has the distance field blank" do
+        value('Distance').should be_nil
+      end
+
+      it "has the comment field blank" do
+        value('Comment').should be_empty
+      end
+
+      it "has the training partners listed" do
+        options('Training Partner').should eq 'BLANK'
     end
 
-    it "has no div for the posts" do
-      page.should_not have_div(:posts)
+      it "has a create button" do
+        form(:new_post).should have_submit_button('Create Post')
+      end
+      it "has a cancel button" do
+        form(:cancel_post).should have_cancel_button 'Calendar'
+      end
     end
 
-    it "has a new post title" do
-      page.should have_title('2012-07-02')
+    context "new current state form" do
+      context "current state on different day" do
+        before(:each) do
+          day = FactoryGirl.create(:day, date:'2012-7-3')
+          state = FactoryGirl.create(:current_state, weight:84, day:day, user:@user)
+          visit day_path('2012-7-2')
+        end
+
+        it "has the weight field blank" do
+          value('* Weight').should be_nil
+        end
+      end
+
+      context "current state with different user" do
+        before(:each) do
+          date = '2012-7-2'
+          day = FactoryGirl.create(:day, date:date)
+          state = FactoryGirl.create(:current_state, weight:84, day:day)
+          visit day_path(date)
+        end
+
+        it "has the weight field blank" do
+          value('* Weight').should be_nil
+        end
+      end
+
+      context "no current state" do
+        before(:each) do
+          visit day_path('2012-7-2')
+        end
+
+        it "exists" do
+          page.should have_form(:new_current_state)
+        end
+
+        it "has a title" do
+          page.should have_h2('New Current State')
+        end
+
+        it "has the weight field blank" do
+          value('* Weight').should be_nil
+        end
+
+        it "has a create button" do
+          form(:new_current_state).should have_submit_button('Save Current State')
+        end
+        it "has a cancel button" do
+          form(:cancel_current_state).should have_cancel_button 'Calendar'
+        end
+      end
     end
 
-    it "has the date field filled in" do
-      value('* Date').should eq '2012-07-02'
-    end
+    context "edit current state form" do
+      before(:each) do
+        date = '2012-7-2'
+        day = FactoryGirl.create(:day, date:date)
+        state = FactoryGirl.create(:current_state, weight:84, day:day, user:@user)
+        @form_id = "edit_current_state_#{state.id}"
+        visit day_path(date)
+      end
 
-    it "has the training type blank" do
-      value('Training Types').should be_blank
-    end
+      it "exists" do
+        page.should have_form(@form_id)
+      end
 
-    it "has the time of day left blank" do
-      value('Time of day').should be_nil
-    end
-    it "has the duration left blank" do
-      value('Duration').should be_nil
-    end
+      it "has a title" do
+        page.should have_h2('Edit Current State')
+      end
 
-    it "has the distance field blank" do
-      value('Distance').should be_nil
-    end
+      it "has the weight field filled in" do
+        value('* Weight').should eq "84" 
+      end
 
-    it "has the comment field blank" do
-      value('Comment').should be_empty
-    end
-
-    it "has the training partners listed" do
-      options('Training Partner').should eq 'BLANK'
-    end
-
-    it "has a create button" do
-      page.should have_submit_button('Create Post')
-    end
-    it "has a cancel button" do
-      page.should have_cancel_button 'Calendar'
+      it "has a update button" do
+        form(@form_id).should have_submit_button('Update Current State')
+      end
+      it "has a cancel button" do
+        form(:cancel_current_state).should have_cancel_button 'Calendar'
+      end
     end
   end
 

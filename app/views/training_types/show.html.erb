@@ -2,7 +2,7 @@
 
 <hr>
 
-<%= render 'posts/posts', posts:@posts, title: :date %>
+<%= render 'posts/posts', posts:@posts, title: :date if @posts.present? %>
 
 <h2><%= new(:post) %></h2>
 

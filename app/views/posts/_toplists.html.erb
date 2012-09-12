@@ -1,24 +1,24 @@
 <div id="menu_toplists">
   <h4>7 Days</h4>
   <ul id="seven_days">
-    <% cache "top7duration" do %>
+    <%# cache "top7duration" do %>
       <% users.each do |user| %>
-        <% cache ["top7duration", user] do %>
+        <%# cache ["top7duration", user] do %>
           <li><%= "#{user.userid} #{user.total_time(7)}" %></li>
-        <% end %>
+        <%# end %>
       <% end %>
-    <% end %>
+    <%# end %>
   </ul>
 
   <h4>30 Days</h4>
   <ul id="thirty_days">
-    <% cache "top30duration" do %>
+    <%# cache "top30duration" do %>
       <% users.each do |user| %>
-        <% cache ["top30duration", user] do %>
+        <%# cache ["top30duration", user] do %>
           <li><%= "#{user.userid} #{user.total_time(30)}" %></li>
-        <% end %>
+        <%# end %>
       <% end %>
-    <% end %>
+    <%# end %>
   </ul>
 
   <%= link_to pl(:chart), stats_charts_path %>

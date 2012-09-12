@@ -5,13 +5,19 @@ describe "Day show" do
     user = create_member
     login(user)
     FactoryGirl.create(:user,userid:'Prince')
-    visit day_path('2012-07-02')
+    date = '2012-07-02'
+    create_post(date:date, user:user)
+    visit day_path(date)
     fill_in 'Distance', with:'10'
     fill_in 'Duration', with:'30'
     fill_in 'Time of day', with:'11:15'
     fill_in 'Comment', with:'Some random comment.'
     fill_in 'Training Type', with:'<<<Running>>>'
     select 'Prince', from:'Training Partner'
+  end
+
+  it "has a div for the posts" do
+    page.should have_div(:posts)
   end
 
   context "create" do
@@ -43,14 +49,17 @@ describe "Day show" do
         @post.training_partners.should eq [User.last]
       end
       it "and redirect back to the day page" do
-        page.current_path.should eq day_path('2012-07-02')
+        current_path.should eq day_path('2012-07-02')
+      end
+
+      it "shows a flash message" do
+        page.should have_notice 'Post created'
       end
     end
 
     it "saves the post to db" do
       lambda{ click_button 'Create Post'
       }.should change(Post,:count).by(1)
-      Post.count.should be 1
     end
 
     context "with existing training type" do
@@ -132,6 +141,11 @@ describe "Day show" do
       select '', from:'Training Partner'
       click_button 'Create Post'
       options('Training Partner').should eq 'BLANK, Prince'
+    end
+
+    it "has no div for the posts" do
+      click_button 'Create Post'
+      page.should_not have_div(:posts)
     end
   end
 

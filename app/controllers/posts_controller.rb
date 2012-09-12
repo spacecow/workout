@@ -31,9 +31,9 @@ class PostsController < ApplicationController
       end
       @training_partners = User.minus(current_user)
       if session_day.nil?
-        @posts = get_training_type.posts
-        @posts.each{|e| e.comments.new}
-        render 'training_types/show', id:@training_type 
+        #@posts = get_training_type.posts
+        #@posts.each{|e| e.comments.new}
+        render 'training_types/show', id:get_training_type 
       else
         render 'days/show', id:get_day
       end

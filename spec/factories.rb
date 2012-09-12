@@ -3,6 +3,11 @@ FactoryGirl.define do
     association :commenter, factory: :user
   end
 
+  factory :current_state do
+    day
+    user
+  end
+
   factory :day do
     date '2012-07-14'
   end

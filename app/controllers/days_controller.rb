@@ -11,6 +11,9 @@ class DaysController < ApplicationController
 
     @posts = Post.where('day_id = ?', @day.id)
     @posts.each{|e| e.comments.new}
+
+    #@current_state = CurrentState.new(day_id:@day.id)
+    @current_state = CurrentState.find_or_initialize_by_day_id_and_user_id(@day.id, current_user.id)
   end
 
   private
