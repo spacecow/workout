@@ -7,6 +7,7 @@ class CurrentState < ActiveRecord::Base
 
   validates_presence_of :day_id, :weight, :user_id
 
+  def chartdate; (date.to_time + 9.hour).to_i * 1000 end
   def date; day.date end
   def full_date; date.full end
 end

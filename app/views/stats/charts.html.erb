@@ -1,5 +1,7 @@
 <%= render 'stats_menu' %>
 
+<%= @weights['Johan'].map(&:weight) %>
+
 <script type="text/javascript" charset="utf-8">
   $(function(){
     new Highcharts.Chart({
@@ -7,7 +9,7 @@
         renderTo: "duration7days"
       },
       title: {
-        text: "7 Days - Distance"
+        text: "7 Days - Duration"
       },
       xAxis: {
         type: "datetime"
@@ -69,12 +71,49 @@
       <% end %>
       ],
     });
+
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "weight"
+      },
+      title: {
+        text: "Weight"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "kg"
+        }
+      },
+      tooltip: {
+        formatter: function () {
+          return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' +
+          Highcharts.numberFormat(this.y, 0) + ' kg';
+        }
+      },
+      series: [
+      <% @weights.keys.sort.each do |name| %>
+      <% start = @weights[name].first.chartdate %>
+      <% entries = fill_out(@weights[name]) %>
+        {
+        name: '<%= name %>',
+        pointInterval: <%= 1.day * 1000 %>,
+        pointStart: <%= start %>,
+        data: <%= entries %>
+        },
+      <% end %>
+      ],
+    });
   });
 </script>
 
 <div id="duration7days" style="width:560px; height:300px;"></div>
 
 <div id="distance7days" style="width:560px; height:300px;"></div>
+
+<div id="weight" style="width:560px; height:300px;"></div>
 
 <%= form_tag posts_path, :method => :get do %>
   <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
