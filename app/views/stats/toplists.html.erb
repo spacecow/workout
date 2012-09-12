@@ -5,25 +5,25 @@
     <ul id="seven_days">
     <h4>7 <%= pl(:day) %> (<%= t(:duration) %>)</h4>
     <hr>
-      <% cache "top7duration" do %>
+      <%# cache "top7duration" do %>
         <% User.all.map{|e| [e.userid, e.total_time(7)]}.sort_by{|e| e[1].to_s}.reverse.each do |user| %>
-          <% cache ["top7duration", user] do %>
+          <%# cache ["top7duration", user] do %>
             <li><%= "#{user[0]} #{user[1]}" %></li>
-          <% end %>
+          <%# end %>
         <% end %>
-      <% end %>
+      <%# end %>
     </ul>
 
     <ul id="thirty_days">
     <h4>30 <%= pl(:day) %> (<%= t(:duration) %>)</h4>
     <hr>
-      <% cache "top30duration" do %>
+      <%# cache "top30duration" do %>
         <% User.all.map{|e| [e.userid, e.total_time(30)]}.sort_by{|e| e[1]}.reverse.each do |user| %>
-          <% cache ["top30duration", user] do %>
+          <%# cache ["top30duration", user] do %>
             <li><%= "#{user[0]} #{user[1]}" %></li>
-          <% end %>
+          <%# end %>
         <% end %>
-      <% end %>
+      <%# end %>
     </ul>
   </div>
 
@@ -31,25 +31,25 @@
     <ul id="seven_days">
     <h4>7 <%= pl(:day) %> (<%= t(:distance) %>)</h4>
     <hr>
-      <% cache "top7distance" do %>
+      <%# cache "top7distance" do %>
         <% User.all.map{|e| [e.userid, e.total_distance(7)]}.sort_by{|e| e[1].to_s}.reverse.each do |user| %>
-          <% cache ["top7distance", user] do %>
+          <%# cache ["top7distance", user] do %>
             <li><%= "#{user[0]} #{user[1]}" %></li>
-          <% end %>
+          <%# end %>
         <% end %>
-      <% end %>
+      <%# end %>
     </ul>
 
     <ul id="thirty_days">
     <h4>30 <%= pl(:day) %> (<%= t(:duration) %>)</h4>
     <hr>
-      <% cache "top30distance" do %>
+      <%# cache "top30distance" do %>
         <% User.all.map{|e| [e.userid, e.total_distance(30)]}.sort_by{|e| e[1]}.reverse.each do |user| %>
-          <% cache ["top30distance", user] do %>
+          <%# cache ["top30distance", user] do %>
             <li><%= "#{user[0]} #{user[1]}" %></li>
-          <% end %>
+          <%# end %>
         <% end %>
-      <% end %>
+      <%# end %>
     </ul>
   </div>
 </div>
