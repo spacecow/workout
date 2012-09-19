@@ -74,6 +74,74 @@
 
     new Highcharts.Chart({
       chart: {
+        renderTo: "duration30days"
+      },
+      title: {
+        text: "30 Days - Duration"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "min"
+        }
+      },
+      tooltip: {
+        formatter: function () {
+          return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' +
+          Highcharts.numberFormat(this.y, 0) + ' min';
+        }
+      },
+      series: [
+      <% @durations30.keys.sort.each do |name| %>
+      <% entries = @durations30[name] %>
+        {
+        name: '<%= name %>',
+        pointInterval: <%= 1.day * 1000 %>,
+        pointStart: <%= entries.first.chartdate %>,
+        data: <%= entries.map(&:score) %>
+        },
+      <% end %>
+      ],
+    });
+
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "distance30days"
+      },
+      title: {
+        text: "30 Days - Distance"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "km"
+        }
+      },
+      tooltip: {
+        formatter: function () {
+          return Highcharts.dateFormat("%B %e %Y", this.x) + ': ' +
+          Highcharts.numberFormat(this.y, 0) + ' km';
+        }
+      },
+      series: [
+      <% @distances30.keys.sort.each do |name| %>
+      <% entries = @distances30[name] %>
+        {
+        name: '<%= name %>',
+        pointInterval: <%= 1.day * 1000 %>,
+        pointStart: <%= entries.first.chartdate %>,
+        data: <%= entries.map(&:score) %>
+        },
+      <% end %>
+      ],
+    });
+
+    new Highcharts.Chart({
+      chart: {
         renderTo: "weight"
       },
       title: {
@@ -112,6 +180,10 @@
 <div id="duration7days" style="width:560px; height:300px;"></div>
 
 <div id="distance7days" style="width:560px; height:300px;"></div>
+
+<div id="duration30days" style="width:560px; height:300px;"></div>
+
+<div id="distance30days" style="width:560px; height:300px;"></div>
 
 <div id="weight" style="width:560px; height:300px;"></div>
 

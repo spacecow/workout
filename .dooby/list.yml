@@ -63,3 +63,5 @@ c86d22: !ruby/object:Dooby::Task
   todo: add chat :done
 1000d0: !ruby/object:Dooby::Task 
   todo: add current state to post index :done
+000c58: !ruby/object:Dooby::Task 
+  todo: charts for 30 days :done
