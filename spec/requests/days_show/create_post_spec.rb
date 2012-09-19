@@ -42,6 +42,9 @@ describe "Day show" do
       it "the time of day" do
         @post.time_of_day.strftime("%H:%M").should eq "11:15"
       end
+      it "the intensity" do
+        @post.intensity.should eq 5
+      end
       it "the comment of the post" do
         @post.comment.should eq "Some random comment." 
       end

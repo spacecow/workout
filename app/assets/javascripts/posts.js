@@ -13,3 +13,17 @@ $(function(){
     prePopulate: $(training_type_id).data('load')
   });
 });
+
+function set_color_picker(element_name,color){
+  $('div.coloritem').removeClass('cpselected');
+  $('div#'+element_name).addClass('cpselected');
+  $('input#hidden_color_picker').val(color);
+  //items = document.getElementsByClassName('coloritem');
+  //for(x=0;x<items.length;x++){
+  //  //Element.removeClassName(items[x],'cpselected');
+  //  //items[x].removeClass('cpselected');
+  //  alert(items[x]);
+  //}
+  //Element.addClassName(element_name,'cpselected')
+  //document.getElementById('hidden_color_picker').value = color
+}

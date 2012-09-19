@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912040344) do
+ActiveRecord::Schema.define(:version => 20120919072843) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -60,9 +60,10 @@ ActiveRecord::Schema.define(:version => 20120912040344) do
     t.integer  "distance"
     t.integer  "duration"
     t.text     "comment"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "day_id"
+    t.integer  "intensity",   :default => 5
   end
 
   create_table "topentries", :force => true do |t|

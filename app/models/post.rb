@@ -11,11 +11,24 @@ class Post < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
-  attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes
+  attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes, :intensity
 
   validates_presence_of :day_id, :author_id, :training_type_ids
 
   after_validation :set_training_type_tokens_error
+
+  MIL_TYPES = { 
+                1 => "#0000ff",
+                2 => "#1700d6",
+                3 => "#3400b9",
+                4 => "#5100a2",
+                5 => "#680085",
+                6 => "#850068",
+                7 => "#a20051",
+                8 => "#b90034",
+                9 => "#d60017",
+               10 => "#ff0000",
+              }.freeze
 
   def authorid; author.userid end
 

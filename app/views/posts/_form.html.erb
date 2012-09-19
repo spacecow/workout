@@ -1,4 +1,4 @@
-<%= simple_form_for post do |f| %>
+<%= simple_form_for post, :builder => ColourPickerFormBuilder do |f| %>
   <%= f.simple_fields_for :day do |f2| %>
     <%= f2.input :date, as: :string, wrapper_html:{id:'date'} %>
   <% end %>
@@ -7,6 +7,7 @@
   <%= f.input :distance, hint:'km' %>
   <%= f.input :duration, hint:'min' %>
   <%= f.input :time_of_day, :as => :string %>
+  <%= f.color_picker :intensity, :available => Post::MIL_TYPES, :selected => post.intensity %>
   <%= f.input :comment %>
   <%= f.input :training_partner_ids, as: :select, collection:partners %>
   <%= hidden_field_tag :location, location %>
