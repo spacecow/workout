@@ -14,7 +14,7 @@ describe Post do
   end
 
   context "delete post" do
-    it "deletes its comments too", focus:true do
+    it "deletes its comments too" do
       post = create_post
       FactoryGirl.create(:comment, commentable:post)
       lambda do
