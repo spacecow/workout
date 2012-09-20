@@ -55,6 +55,10 @@ class Post < ActiveRecord::Base
   end
 
   class << self
+    def colour(no)
+      MIL_TYPES[no]
+    end
+
     def first_post(user); user(user).order('days.date').includes(:day).first end
     def intensity_colour(code)
       "rgba(#{Colour.rgba_array_dec(code).join(',')})"

@@ -79,3 +79,5 @@ d5b0ec: !ruby/object:Dooby::Task
   todo: link to comment from chat :done
 bc0c9f: !ruby/object:Dooby::Task 
   todo: be able to delete comments :done
+c74c67: !ruby/object:Dooby::Task 
+  todo: intensity colour in calender :done

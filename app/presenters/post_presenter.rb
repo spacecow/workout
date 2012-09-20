@@ -49,7 +49,8 @@ class PostPresenter < BasePresenter
   def posts_count(posts)
     if posts.present?
       posts.group_by{|e| ([e.author] | e.training_partners).map(&:userid).join("&")}.map do |k,v|
-        h.content_tag(:div,class:'posts') do
+        colour = Post.colour(v.map{|e| e.intensity*e.duration}.sum/v.map(&:duration).sum)
+        h.content_tag(:div,class:'posts',style:'color:'+colour) do
           "#{k}: #{v.map(&:duration).sum}" 
         end
       end.join.html_safe
