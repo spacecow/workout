@@ -73,3 +73,5 @@ a0b2ba: !ruby/object:Dooby::Task
   todo: url as a function to the post form :done
 "241293": !ruby/object:Dooby::Task 
   todo: delete a post, deletes its comments :done
+3cc65f: !ruby/object:Dooby::Task 
+  todo: background on comments :done

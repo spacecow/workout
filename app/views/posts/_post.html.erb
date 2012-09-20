@@ -14,7 +14,7 @@
       <%= presenter.actions("new_comment_#{i}") %>
       <div class="clear"></div>
       <%= presenter.comment %>
-      <%= render 'comments/comments', comments:comments if comments.present? %>
+      <%= render 'comments/comments', comments:comments, background:post.intensity_colour if comments.present? %>
       <%= simple_form_for [post, comment], html:{id:"new_comment_#{i}"} do |f| %>
         <%= f.input :content, label:false %>
         <%= f.button :submit, class: :submit %>
