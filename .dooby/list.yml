@@ -67,3 +67,7 @@ c86d22: !ruby/object:Dooby::Task
   todo: charts for 30 days :done
 dc9ac3: !ruby/object:Dooby::Task 
   todo: colorpicker for intesity :done
+25e807: !ruby/object:Dooby::Task 
+  todo: url as a function to the post form
+cb9b2c: !ruby/object:Dooby::Task 
+  todo: colour to post according to intensity :done

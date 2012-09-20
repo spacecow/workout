@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   def total_min(days, date=Date.today)
     posts = total_posts(days, date)
     return '-' if posts == '-'
-    posts.map{|e| e.duration.nil? ? 0 : e.duration}.sum
+    posts.map{|e| e.duration.nil? ? 0 : e.duration*e.intensity}.sum/5
   end
   def total_time(days, date=Date.today)
     min = total_min(days, date)

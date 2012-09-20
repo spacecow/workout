@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe Post do
+  describe ".intensity_colour" do
+    it "red" do
+      post = create_post
+      post.intensity_colour.should eq 'rgba(0,0,255,0.1)'
+    end
+  end
+  describe "#intensity_colour" do
+    it "red" do
+      Post.intensity_colour("#ff0000").should eq 'rgba(255,0,0,0.1)'
+    end
+  end
+
   context "delete post" do
     it "deletes its typeships too" do
       post = create_post

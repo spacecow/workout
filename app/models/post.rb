@@ -18,15 +18,15 @@ class Post < ActiveRecord::Base
   after_validation :set_training_type_tokens_error
 
   MIL_TYPES = { 
-                1 => "#0000ff",
-                2 => "#1700d6",
-                3 => "#3400b9",
-                4 => "#5100a2",
-                5 => "#680085",
-                6 => "#850068",
-                7 => "#a20051",
-                8 => "#b90034",
-                9 => "#d60017",
+                1 => "#00ff00",
+                2 => "#00c040",
+                3 => "#008080",
+                4 => "#0040c0",
+                5 => "#0000ff",
+                6 => "#3300cc",
+                7 => "#660099",
+                8 => "#990066",
+                9 => "#cc0033",
                10 => "#ff0000",
               }.freeze
 
@@ -40,6 +40,9 @@ class Post < ActiveRecord::Base
   def full_date; date.full end
 
   def first_type; training_types.first end
+  def intensity_colour
+    Post.intensity_colour(MIL_TYPES[intensity])
+  end
   def last_comment; comments.last end
 
   def training_type_name; training_type && training_type.name end
@@ -53,6 +56,9 @@ class Post < ActiveRecord::Base
 
   class << self
     def first_post(user); user(user).order('days.date').includes(:day).first end
+    def intensity_colour(code)
+      "rgba(#{Colour.rgba_array_dec(code).join(',')})"
+    end
     def last_post(user); user(user).order('days.date').includes(:day).last end
     def interval(first,last)
       where("days.date > ? and days.date <= ?", first, last).includes(:day)
