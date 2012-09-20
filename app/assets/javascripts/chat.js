@@ -6,6 +6,7 @@ $(function(){
 
 function updateChat(){
   var after = $("div#chat div.comment:last-child").data("time");
-  $.getScript("/messages.js?after=" + after);
+  var url = $("div#chat").data("url")
+  $.getScript(url + "?after=" + after);
   setTimeout(updateChat, 10000);
 }

@@ -6,7 +6,7 @@
   <%= f.input :training_type_tokens, wrapper_html:{id:'training_type'}, input_html:{data:{load:post.training_types, url:training_types_path(format: :json)}} %>
   <%= f.input :distance, hint:'km' %>
   <%= f.input :duration, hint:'min' %>
-  <%= f.input :time_of_day, :as => :string %>
+  <%= f.input :time_of_day, :as => :string, input_html:{data:{spinner_url:root_path+"assets/spinnerDefault.png"}} %>
   <%= f.color_picker :intensity, :available => Post::MIL_TYPES, :selected => post.intensity %>
   <%= f.input :comment %>
   <%= f.input :training_partner_ids, as: :select, collection:partners %>

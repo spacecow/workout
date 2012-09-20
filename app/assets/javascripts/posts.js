@@ -2,9 +2,10 @@ $(function(){
   $("input#post_day_attributes_date").datepicker({
     dateFormat: 'yy-mm-dd'
   });
+  var spinner_url = $('input#post_time_of_day').data('spinner-url');
   $("input#post_time_of_day").datetimeEntry({
     datetimeFormat: 'H:M',
-    spinnerImage: '/assets/spinnerDefault.png'
+    spinnerImage: spinner_url
   });
 
   var training_type_id = "input#post_training_type_tokens";
