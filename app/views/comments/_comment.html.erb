@@ -1,12 +1,9 @@
-<div class="comment" data-time="<%= comment.updated_at.to_i %>" style="background:<%= background %>">
-  <div id="content">
-    <%= link_to simple_format(comment.content), day_path(comment.full_date) %>
+<% present [comment, comment.commentable] do |presenter| %>
+  <div class="comment" data-time="<%= comment.updated_at.to_i %>" style="background:<%= background %>">
+    <%= presenter.content %>
+    <%= presenter.timestamp %>
+    <%= presenter.commenter %>
+    <%= presenter.actions(delete) %>
+    <div class="clear"></div>
   </div>
-  <div id="timestamp">
-    <%= time_ago_in_words(comment.updated_at) %> ago
-  </div>
-  <div id="commenter">
-    by <%= link_to comment.commenterid, comment.commenter %>
-  </div>
-  <div class="clear"></div>
-</div>
+<% end %>

@@ -17,6 +17,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = @commentable.comments.find(params[:id])
+    @date = @comment.full_date
+    @comment.destroy
+    redirect_to day_path(@date), notice:deleted(:comment)
+  end
+
   private
 
     def load_commentable

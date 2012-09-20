@@ -57,5 +57,6 @@ en:
 
   successes:
     created: '%{o} created'
+    deleted: '%{o} deleted'
     saved: '%{o} saved'
     updated: '%{o} updated'

@@ -1,5 +1,10 @@
 def postno(no) posts.div(:post,no) end 
 def posts; div(:posts) end
+
+def first_post_commentno(no) first_post_comments.div(:comment,no) end
+def first_post_comments; first_post.div(:comments) end
+def first_post_first_comment; first_post_commentno(0) end
+
 def first_post; postno(0) end
 def first_post_actions; first_post.div(:actions) end
 def first_post_author; first_post.div(:author) end

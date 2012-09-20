@@ -19,4 +19,8 @@ describe "Posts index, chat" do
     chat.click_link 'Oh yeah!'
     current_path.should eq day_path('2012-09-20')
   end
+
+  it "shows no delete link" do
+    chat.should_not have_link 'Delete'
+  end
 end 
