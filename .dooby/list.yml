@@ -71,3 +71,5 @@ cb9b2c: !ruby/object:Dooby::Task
   todo: colour to post according to intensity :done
 a0b2ba: !ruby/object:Dooby::Task 
   todo: url as a function to the post form :done
+"241293": !ruby/object:Dooby::Task 
+  todo: delete a post, deletes its comments :done

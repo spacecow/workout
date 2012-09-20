@@ -14,6 +14,16 @@ describe Post do
   end
 
   context "delete post" do
+    it "deletes its comments too", focus:true do
+      post = create_post
+      FactoryGirl.create(:comment, commentable:post)
+      lambda do
+        lambda do
+          post.destroy
+        end.should change(Post,:count).by(-1)
+      end.should change(Comment,:count).by(-1)
+    end
+    
     it "deletes its typeships too" do
       post = create_post
       lambda do

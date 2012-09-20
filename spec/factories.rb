@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     association :commenter, factory: :user
+    content "Factory comment"
   end
 
   factory :current_state do
@@ -9,7 +10,7 @@ FactoryGirl.define do
   end
 
   factory :day do
-    date '2012-07-14'
+    sequence(:date){|n| "2012-08-#{n}"}
   end
 
   factory :post do

@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   has_many :trainingships, dependent: :destroy
   has_many :training_partners, through: :trainingships, source: :partner
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes, :intensity
 
