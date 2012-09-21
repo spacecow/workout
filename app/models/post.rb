@@ -43,6 +43,9 @@ class Post < ActiveRecord::Base
   def intensity_colour
     Post.intensity_colour(MIL_TYPES[intensity])
   end
+  def interested_parties
+    [author] + training_partners
+  end
   def last_comment; comments.last end
 
   def training_type_name; training_type && training_type.name end

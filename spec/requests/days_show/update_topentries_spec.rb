@@ -85,12 +85,20 @@ describe "Day show, update topentries" do
       context "with other users" do
         before(:each) do
           create_post(date:'2012-07-15', user:@user)
-          other = FactoryGirl.create(:user)
+          other = FactoryGirl.create(:user, userid:'King')
           create_post(date:'2012-07-01', user:other)
           create_post(date:'2012-07-15', user:other)
         end
 
-        it "saves topentries to db" do
+        it "only interested parties' (author) topentries are updated" do
+          lambda{ click_button 'Create Post'
+          }.should change(Topentry,:count).by(2)
+        end
+
+        it "only interested parties' (author&training partner) topentries are updated" do
+          visit day_path('2012-07-15')
+          fill_in 'Training Type', with:'<<<Running>>>'
+          select 'King', from:'Training Partner'
           lambda{ click_button 'Create Post'
           }.should change(Topentry,:count).by(4)
         end

@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe Post do
+  describe ".interested_parties" do
+    it "only author" do
+      post = create_post(author:'Prince')
+      post.interested_parties.should eq [post.author]
+    end
+
+    it "author and training partner" do
+      post = create_post(author:'Prince', partner:'King')
+      post.interested_parties.should eq [post.author] + post.training_partners
+    end
+  end
+
   describe ".intensity_colour" do
     it "red" do
       post = create_post
