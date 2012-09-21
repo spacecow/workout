@@ -13,6 +13,7 @@ describe "Day show, update topentries" do
   end
 
   it "creates no entries if no posts" do
+    Date.stub(:today).and_return Date.parse('2012-07-15')
     lambda{ click_button 'Create Post'
     }.should change(Topentry,:count).by(0)
   end
@@ -27,6 +28,7 @@ describe "Day show, update topentries" do
       end
 
       it "saves topentries to db" do
+        Date.stub(:today).and_return Date.parse('2012-07-16')
         lambda{ click_button 'Create Post'
         }.should change(Topentry,:count).by(3)
       end
@@ -48,6 +50,7 @@ describe "Day show, update topentries" do
       end
 
       it "saves no topentries to db" do
+        Date.stub(:today).and_return Date.parse('2012-07-16')
         lambda{ click_button 'Create Post'
         }.should change(Topentry,:count).by(0)
       end
@@ -60,6 +63,7 @@ describe "Day show, update topentries" do
       end
 
       it "saves topentries to db" do
+        Date.stub(:today).and_return Date.parse('2012-07-15')
         lambda{ click_button 'Create Post'
         }.should change(Topentry,:count).by(2)
       end
@@ -91,6 +95,7 @@ describe "Day show, update topentries" do
         end
 
         it "only interested parties' (author) topentries are updated" do
+          Date.stub(:today).and_return Date.parse('2012-07-15')
           lambda{ click_button 'Create Post'
           }.should change(Topentry,:count).by(2)
         end
@@ -99,6 +104,7 @@ describe "Day show, update topentries" do
           visit day_path('2012-07-15')
           fill_in 'Training Type', with:'<<<Running>>>'
           select 'King', from:'Training Partner'
+          Date.stub(:today).and_return Date.parse('2012-07-15')
           lambda{ click_button 'Create Post'
           }.should change(Topentry,:count).by(4)
         end

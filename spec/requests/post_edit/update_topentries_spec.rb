@@ -16,8 +16,9 @@ describe "Post edit, update topentries" do
     end 
 
     context "topentry does not exist" do
-      it "saves no topentries to db" do
-         lambda{ click_button 'Update Post' 
+      it "saves topentries to db" do
+        Date.stub(:today).and_return Date.parse('2012-08-30')
+        lambda{ click_button 'Update Post' 
         }.should change(Topentry,:count).by(2)
       end
     end

@@ -1,3 +1,5 @@
+require 'assert'
+
 class Post < ActiveRecord::Base
   belongs_to :author, class_name:'User', touch:true
   belongs_to :day, touch:true
@@ -48,6 +50,13 @@ class Post < ActiveRecord::Base
   end
   def last_comment; comments.last end
 
+  def no_nil_duration
+    duration.nil? ? 0 : duration
+  end
+  def no_nil_distance
+    distance.nil? ? 0 : distance
+  end
+
   def training_type_name; training_type && training_type.name end
 
   def training_type_tokens
@@ -68,7 +77,29 @@ class Post < ActiveRecord::Base
     end
     def last_post(user); user(user).order('days.date').includes(:day).last end
     def interval(first,last)
-      where("days.date > ? and days.date <= ?", first, last).includes(:day)
+      where("days.date >= ? and days.date <= ?", first, last).includes(:day)
+    end
+
+    def interval_end(days, date=Date.today)
+      assert_true(date.instance_of?(Date), "date must be input as Date to interval_end")
+      date+[(days-1).day,(Date.today-date).to_i.day].min
+    end
+
+    def interval_start(days, user, date=Date.today)
+      assert_true(user.instance_of?(User), "user must be input as User to interval_start")
+      assert_true(date.instance_of?(Date), "date must be input as Date to interval_start")
+      first_post = Post.user(user).order('days.date').includes(:day).first
+      return date+1.day if first_post.nil?
+      [date-(days-1).day,first_post.date].max
+    end
+
+    def post_array(user,days,start_date,end_date)
+      return [] if (end_date - start_date).to_i < (days-1)
+      posts = Post.user(user).interval(start_date,end_date)
+      scores = (start_date..end_date).to_a.map do |d|
+        p = posts.select{|e| e.date == d}.first
+        p.nil? ? [0,0] : [p.no_nil_duration,p.no_nil_distance]
+      end 
     end
 
     def user(user)
