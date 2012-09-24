@@ -88,9 +88,11 @@ class Post < ActiveRecord::Base
     def interval_start(days, user, date=Date.today)
       assert_true(user.instance_of?(User), "user must be input as User to interval_start")
       assert_true(date.instance_of?(Date), "date must be input as Date to interval_start")
-      first_post = Post.user(user).order('days.date').includes(:day).first
-      return date+1.day if first_post.nil?
-      [date-(days-1).day,first_post.date].max
+      #first_post = Post.user(user).order('days.date').includes(:day).first
+      #return date+1.day if first_post.nil?
+      #[date-(days-1).day,first_post.date].max
+      return date+1.day if user.first_post_date.nil?
+      [date-(days-1).day,user.first_post_date].max
     end
 
     def post_array(user,days,start_date,end_date)

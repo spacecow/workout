@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_many :posts, :foreign_key => 'author_id'
+  has_many :posts, :foreign_key => 'author_id', :after_add => :create_first_post_date, :after_remove => :destroy_first_post_date
   has_many :comments, :foreign_key => 'commenter_id'
 
   has_many :current_states
@@ -64,4 +64,21 @@ class User < ActiveRecord::Base
 
     def role(s); 2**ROLES.index(s.to_s) end
   end
+
+  private
+
+    def create_first_post_date(post)
+      update_column(:first_post_date, post.date) if (first_post_date.nil? && post.day) || (post.day && first_post_date > post.date)
+    end 
+
+    def destroy_first_post_date(post)
+      if first_post_date == post.date
+        post = first_post
+        if post.nil?
+          update_column(:first_post_date, nil)
+        else
+          update_column(:first_post_date, post.date)
+        end
+      end
+    end
 end

@@ -23,28 +23,42 @@ def first_user7; toplist7no 0 end
 def second_user7; toplist7no 1 end
 
 def create_post(params = {})
-  h = {day:Day.find_or_create_by_date('2012-7-14'), training_type_tokens:TrainingType.find_or_create_by_name('Swimming').id.to_s}
+  h = {day_attributes:{date:'2012-7-14'}, training_type_tokens:TrainingType.find_or_create_by_name('Swimming').id.to_s}
 
   h[:training_type_tokens] = params[:type] if params[:type]
 
-  h[:day] = Day.find_or_create_by_date(params[:date]) if params[:date]
-  h[:day] = params[:day] if params[:day]
+  if params[:date]
+    h[:day_attributes] = {}
+    h[:day_attributes][:date] = params[:date].instance_of?(Date) ? params[:date].full : params[:date]
+  end
+  if params[:day]
+    h[:day_attributes] = {}
+    h[:day_attributes][:date] = params[:day].date.full
+  end
 
-  h[:author] = FactoryGirl.create(:user, userid:params[:author]) if params[:author]
-  h[:author] = params[:user] if params[:user]
-
+  #h[:author] = FactoryGirl.create(:user, userid:params[:author]) if params[:author]
+  #h[:author] = params[:user] if params[:user]
+  if params[:author]
+    user = FactoryGirl.create(:user, userid:params[:author]) 
+  elsif params[:user]
+    user = params[:user] 
+  else
+    user = FactoryGirl.create(:user)
+  end
 
   h[:duration] = params[:duration] if params[:duration]
   h[:distance] = params[:distance] if params[:distance]
   h[:time_of_day] = params[:time_of_day] if params[:time_of_day]
   h[:comment] = params[:comment] if params[:comment]
 
-  post = FactoryGirl.create(:post,h)
+  #post = FactoryGirl.create(:post,h)
+  user.posts << Post.create(h)
+  post = user.posts.last
 
   post.training_partners << FactoryGirl.create(:user, userid:params[:partner]) if params[:partner]
   post.training_partners << params[:user_partner] if params[:user_partner]
 
-  h[:author].topentries.create(score:params[:entry], day:h[:day], duration:7, category:'duration') if params[:entry]
+  user.topentries.create(score:params[:entry], day:h[:day], duration:7, category:'duration') if params[:entry]
 
   post
 end

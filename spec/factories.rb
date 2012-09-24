@@ -14,8 +14,9 @@ FactoryGirl.define do
   end
 
   factory :post do
-    association :author, factory: :user
+    #association :author, factory: :user
     day
+    sequence(:training_type_tokens){|n| "<<<Running#{n}>>>"}
   end
 
   factory :topentry do

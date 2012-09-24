@@ -51,10 +51,13 @@ describe "Day show" do
       it "an partner reference" do
         @post.training_partners.should eq [User.last]
       end
+      it "the authors first post date is set" do
+        @post.author.first_post_date.should eq Date.parse('2012-7-2')
+      end
+
       it "and redirect back to the day page" do
         current_path.should eq day_path('2012-07-02')
       end
-
       it "shows a flash message" do
         page.should have_notice 'Post created'
       end

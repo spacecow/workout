@@ -104,7 +104,68 @@ describe Post do
     end
   end
 
+  context "create post" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @early_day = FactoryGirl.create(:day, date:Date.parse('2012-09-24'))
+    end
+
+    context "updates user's first post date" do
+      it "it does not exist" do
+        create_post(day:@early_day, user:@user)
+        @user.first_post_date.should eq @early_day.date
+      end
+
+      it "if earlier than before" do
+        earlier_day = FactoryGirl.create(:day, date:Date.parse('2012-09-23'))
+        create_post(day:@early_day, user:@user)
+        create_post(day:earlier_day, user:@user)
+        @user.first_post_date.should eq earlier_day.date
+      end
+    end
+
+    context "don't update user's first post date" do
+      it "if older than before" do
+        later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
+        create_post(day:@early_day, user:@user)
+        create_post(day:later_day, user:@user)
+        @user.first_post_date.should eq @early_day.date
+      end
+    end
+  end
+
   context "delete post" do
+    context "user's first post date" do
+      before(:each) do
+        @user = FactoryGirl.create(:user)
+        @early_day = FactoryGirl.create(:day, date:Date.parse('2012-09-24'))
+        @post = create_post(day:@early_day, user:@user)
+      end
+
+      context "is updated" do
+        it "if earliest was deleted" do
+          later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
+          create_post(day:later_day, user:@user)
+          @user.posts.delete @post
+          @user.first_post_date.should eq later_day.date
+        end
+
+        it "to nil, if becomes empty" do
+          @user.posts.delete @post
+          @user.first_post_date.should be_nil
+        end
+      end 
+
+      context "isn't updated" do
+        it "if post is older than earliest" do
+          later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
+          later_post = create_post(day:later_day, user:@user)
+          @user.posts.delete later_post 
+          @user.first_post_date.should eq @early_day.date
+        end
+      end
+    end
+
     it "deletes its comments too" do
       post = create_post
       FactoryGirl.create(:comment, commentable:post)

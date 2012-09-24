@@ -29,7 +29,7 @@ describe "Day show, delete topentries" do
 
     it "adds new entries to db" do
       lambda{ first_post_actions.click_link 'Delete'
-      }.should change(Topentry,:count).by(8)
+      }.should change(Topentry,:count).by(14)
     end
 
     it "updates the score" do
@@ -41,7 +41,7 @@ describe "Day show, delete topentries" do
       Topentry.find_by_day_id(Day.find_by_date('2012-07-19')).score.should eq 40
       Topentry.find_by_day_id(Day.find_by_date('2012-07-20')).score.should eq 50
       Topentry.find_by_day_id(Day.find_by_date('2012-07-21')).score.should eq 60
-      Topentry.find_by_day_id(Day.find_by_date('2012-07-22')).score.should eq 10
+      Topentry.find_by_day_id(Day.find_by_date('2012-07-22')).should be_nil 
     end
   end
 end
