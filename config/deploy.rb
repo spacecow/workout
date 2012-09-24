@@ -37,5 +37,16 @@ namespace :deploy do
   end
 end
 
+# create new whenever command for clear crontab
+namespace :whenever do
+  desc <<-DESC
+    Modified from the original to change to current_path instead of release_path
+  DESC
+  task :clear_current_crontab do
+    options = { :roles => whenever_roles }
+    run "cd #{fetch :current_path} && #{fetch :whenever_command}  --clear-crontab #{fetch :whenever_identifier}", options if find_servers(options).any?
+  end
+end
+
 after 'deploy:update_code', 'deploy:symlink_shared'
 #after 'deploy:restart', 'delayed_job:restart'
