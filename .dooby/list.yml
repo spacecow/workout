@@ -89,3 +89,5 @@ ccbbe3: !ruby/object:Dooby::Task
   todo: add 30day to update :done
 012092: !ruby/object:Dooby::Task 
   todo: first date logged in user :done
+1a7789: !ruby/object:Dooby::Task 
+  todo: update first_post_date when updating post :done

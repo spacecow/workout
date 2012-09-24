@@ -132,6 +132,41 @@ describe Post do
         @user.first_post_date.should eq @early_day.date
       end
     end
+  end #create post
+  ######################################
+
+  context "update post" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @early_day = FactoryGirl.create(:day, date:Date.parse('2012-09-24'))
+      @post = create_post(day:@early_day, user:@user)
+    end
+
+    context "user's first post date" do
+      context "is updated" do
+        it "if post gets an earlier date" do
+          earlier_day = FactoryGirl.create(:day, date:Date.parse('2012-09-23'))
+          @post.update_attributes(day_attributes:{date:earlier_day.date.full})
+          User.last.first_post_date.should eq earlier_day.date
+        end
+
+        it "if it's set to nil" do
+          later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
+          @user.update_column(:first_post_date,nil)
+          @user.save
+          @post.update_attributes(day_attributes:{date:later_day.date.full})
+          User.last.first_post_date.should eq later_day.date
+        end
+      end
+
+      context "is not updated" do
+        it "if post has an older date" do
+          later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
+          @post.update_attributes(day_attributes:{date:later_day.date.full})
+          User.last.first_post_date.should eq @early_day.date
+        end
+      end
+    end
   end
 
   context "delete post" do

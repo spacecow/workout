@@ -65,11 +65,11 @@ class User < ActiveRecord::Base
     def role(s); 2**ROLES.index(s.to_s) end
   end
 
-  private
+  def create_first_post_date(post)
+    update_column(:first_post_date,post.date) if (first_post_date.nil? && post.day) || (post.day && first_post_date > post.date)
+  end 
 
-    def create_first_post_date(post)
-      update_column(:first_post_date, post.date) if (first_post_date.nil? && post.day) || (post.day && first_post_date > post.date)
-    end 
+  private
 
     def destroy_first_post_date(post)
       if first_post_date == post.date

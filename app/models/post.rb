@@ -18,6 +18,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :day_id, :author_id, :training_type_ids
 
   after_validation :set_training_type_tokens_error
+  before_update :update_users_first_post_date
 
   MIL_TYPES = { 
                 1 => "#00ff00",
@@ -113,5 +114,9 @@ class Post < ActiveRecord::Base
 
     def set_training_type_tokens_error
       errors.add(:training_type_tokens, I18n.t('errors.messages.blank')) if errors.messages[:training_type_ids]
+    end
+
+    def update_users_first_post_date
+      author.create_first_post_date(self)
     end
 end
