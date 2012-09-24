@@ -3,7 +3,7 @@ require "delayed/recipes"
 
 #whenever
 set :whenever_command, "bundle exec whenever"
-#require "whenever/capistrano"
+require "whenever/capistrano"
 
 #delayed job
 set :rails_env, "production"
