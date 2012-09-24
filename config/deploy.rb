@@ -1,14 +1,15 @@
 require "delayed/recipes"
-
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-
-#delayed job
-set :rails_env, "production"
+require "bundler/capistrano"
 
 #whenever
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
+
+#delayed job
+set :rails_env, "production"
+
+default_run_options[:pty] = true
+ssh_options[:forward_agent] = true
 
 set :repository, "git@github.com:spacecow/workout.git"
 set :scm, "git"
