@@ -2,8 +2,8 @@ require "delayed/recipes"
 #require "bundler/capistrano"
 
 #whenever
-#set :whenever_command, "bundle exec whenever"
-#require "whenever/capistrano"
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 #delayed job
 set :rails_env, "production"
@@ -35,11 +35,6 @@ namespace :deploy do
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
-  desc "Update the crontab file"
-  task :update_crontab, :roles => :app, :except => { :no_release => true } do
-    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
-  end
-
 end
 
 # create new whenever command for clear crontab
