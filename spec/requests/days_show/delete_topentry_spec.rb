@@ -3,15 +3,16 @@ require 'spec_helper'
 describe "Day show, delete topentries" do
   before(:each) do
     @user = login
-    date = '2012-07-15'
+    @date = '2012-07-15'
     create_post(date:'2012-07-01', user:@user)
-    create_post(date:date, user:@user, duration:10)
-    visit day_path(date)
+    create_post(date:@date, user:@user, duration:10)
+    visit day_path(@date)
   end
 
   it "adds no new entry to db" do
+    Date.stub(:today).and_return Date.parse(@date)
     lambda{ first_post_actions.click_link 'Delete'
-    }.should change(Topentry,:count).by(0)
+    }.should change(Topentry,:count).by(2)
   end
 
   context "saves values" do
