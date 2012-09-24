@@ -6,6 +6,10 @@ ssh_options[:forward_agent] = true
 #delayed job
 set :rails_env, "production"
 
+#whenever
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 set :repository, "git@github.com:spacecow/workout.git"
 set :scm, "git"
 set :branch, "master"

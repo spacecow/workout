@@ -10,6 +10,7 @@ gem 'simple_form'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'delayed_job_web'
+gem 'whenever', require:false
 
 # Gems used only for assets and not required
 # in production environments by default.
