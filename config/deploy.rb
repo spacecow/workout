@@ -1,8 +1,8 @@
 require "delayed/recipes"
-require "bundler/capistrano"
+#require "bundler/capistrano"
 
 #whenever
-#set :whenever_command, "bundle exec whenever"
+set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
 #delayed job
