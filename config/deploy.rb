@@ -2,8 +2,8 @@ require "delayed/recipes"
 #require "bundler/capistrano"
 
 #whenever
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#set :whenever_command, "bundle exec whenever"
+#require "whenever/capistrano"
 
 #delayed job
 set :rails_env, "production"
@@ -35,18 +35,23 @@ namespace :deploy do
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :app, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle exec whenever --update-crontab #{application}"
+  end
+
 end
 
 # create new whenever command for clear crontab
-namespace :whenever do
-  desc <<-DESC
-    Modified from the original to change to current_path instead of release_path
-  DESC
-  task :clear_current_crontab do
-    options = { :roles => whenever_roles }
-    run "cd #{fetch :current_path} && #{fetch :whenever_command}  --clear-crontab #{fetch :whenever_identifier}", options if find_servers(options).any?
-  end
-end
+#namespace :whenever do
+#  desc <<-DESC
+#    Modified from the original to change to current_path instead of release_path
+#  DESC
+#  task :clear_current_crontab do
+#    options = { :roles => whenever_roles }
+#    run "cd #{fetch :current_path} && #{fetch :whenever_command}  --clear-crontab #{fetch :whenever_identifier}", options if find_servers(options).any?
+#  end
+#end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
 #after 'deploy:restart', 'delayed_job:restart'
