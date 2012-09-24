@@ -85,3 +85,5 @@ c74c67: !ruby/object:Dooby::Task
   todo: only update interested parties for a post :done
 324dec: !ruby/object:Dooby::Task 
   todo: efficient entry updates :done
+ccbbe3: !ruby/object:Dooby::Task 
+  todo: add 30day to update :done

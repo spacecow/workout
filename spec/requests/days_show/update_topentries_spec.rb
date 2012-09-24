@@ -70,6 +70,7 @@ describe "Day show, update topentries" do
 
       context "with newer entries within timeframe" do
         before(:each) do
+          Date.stub(:today).and_return Date.parse('2012-07-22')
           create_post(date:'2012-07-15', user:@user)
           create_post(date:'2012-07-16', user:@user)
           create_post(date:'2012-07-17', user:@user)

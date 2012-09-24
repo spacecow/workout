@@ -45,32 +45,31 @@ class Topentry < ActiveRecord::Base
       order('days.date').includes(:day)
     end
 
-    def update_entries(days, user, date=Date.today)
-      day = Day.find_or_create_by_date(date)
-      ['duration','distance'].each do |category|
-        score = category == 'duration' ? user.total_min(days, date) : user.total_km(days, date)
-        return false if score == '-'
-        entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration_and_category(day.id, user.id, days, category)
-        entry.update_attributes(score:score, duration:days)
-      end
+    def update_forward_day_entries(users, date=Date.today)
+      update_forward_day_entry(7, users, date)
+      update_forward_day_entry(30, users, date)
     end
 
-    def update_forward_day_entries(days, users, date=Date.today)
-      date = Date.parse(date) if date.instance_of? String
-      users.each do |user|
-        start_date = Post.interval_start(days,user,date)
-        end_date = Post.interval_end(days,date)
-        scores = Post.post_array(user,days,start_date,end_date)
-        return if scores.empty?
-        (end_date - start_date - days + 2).to_i.times do |i| 
-          day = Day.find_or_create_by_date(start_date + i.day + (days-1).day)
-          ['duration','distance'].each_with_index do |category,i2|
-            score = scores[i..-1].take(days).map{|e| e[i2]}.sum
-            entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration_and_category(day.id, user.id, days, category)
-            entry.update_attributes(score:score, duration:days)
+    private 
+
+      def update_forward_day_entry(days, users, date=Date.today)
+        assert_true(days.instance_of?(Fixnum), "days must be input as Fixnum to update_forward_day_entries")
+        date = Date.parse(date) if date.instance_of? String
+        users.each do |user|
+          start_date = Post.interval_start(days,user,date)
+          end_date = Post.interval_end(days,date)
+          scores = Post.post_array(user,days,start_date,end_date)
+          return if scores.empty?
+          (end_date - start_date - days + 2).to_i.times do |i| 
+            day = Day.find_or_create_by_date(start_date + i.day + (days-1).day)
+            ['duration','distance'].each_with_index do |category,i2|
+              score = scores[i..-1].take(days).map{|e| e[i2]}.sum
+              entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration_and_category(day.id, user.id, days, category)
+              entry.update_attributes(score:score, duration:days)
+            end
           end
         end
       end
-    end
+
   end
 end

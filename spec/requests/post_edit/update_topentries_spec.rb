@@ -19,7 +19,7 @@ describe "Post edit, update topentries" do
       it "saves topentries to db" do
         Date.stub(:today).and_return Date.parse('2012-08-30')
         lambda{ click_button 'Update Post' 
-        }.should change(Topentry,:count).by(2)
+        }.should change(Topentry,:count).by(4)
       end
     end
   end
