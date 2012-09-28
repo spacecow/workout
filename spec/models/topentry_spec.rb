@@ -1,6 +1,52 @@
 require 'spec_helper'
 
 describe Topentry do
+  describe "#generate_missing_entries" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      Date.stub(:today).and_return Date.parse('2012-09-27') 
+    end
+
+    context "generates no entries" do
+      it "if no posts" do
+        lambda do
+          Topentry.generate_missing_entries(7, @user) 
+        end.should change(Topentry,:count).by(0)
+      end
+
+      it "if timespan is too short" do
+        create_post(user:@user, date:'2012-09-22')
+        lambda do
+          Topentry.generate_missing_entries(7, @user) 
+        end.should change(Topentry,:count).by(0)
+      end
+    end
+
+    context "generates entries" do
+      context "if timespan is large enough" do
+        before(:each) do
+          create_post(user:@user, date:'2012-09-20', duration:50, distance:9)
+          create_post(user:@user, date:'2012-09-21', duration:60, distance:10)
+        end
+
+        it "saves to db" do
+          lambda do
+            Topentry.generate_missing_entries(7, @user) 
+          end.should change(Topentry,:count).by(2)
+        end
+
+        context "updates values" do
+          before(:each) do
+            Topentry.generate_missing_entries(7, @user) 
+          end
+
+          it "score" do
+            Topentry.all.map(&:score).should eq [60,10]
+          end
+        end
+      end
+    end
+  end
 
   describe "#update_forward_day_entries" do
     before(:each) do

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     posts = Post.user(self).order('days.date').includes(:day)
     return '-' if posts.empty?
     return '-' if (date - posts.first.date).to_i < (days-1)
-    posts.interval(date-days.days,date)
+    posts.interval(date-(days-1).days,date)
   end
 
   def total_km(days, date=Date.today)

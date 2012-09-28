@@ -48,6 +48,7 @@ def create_post(params = {})
 
   h[:duration] = params[:duration] if params[:duration]
   h[:distance] = params[:distance] if params[:distance]
+  h[:intensity] = params[:intensity] if params[:intensity]
   h[:time_of_day] = params[:time_of_day] if params[:time_of_day]
   h[:comment] = params[:comment] if params[:comment]
 

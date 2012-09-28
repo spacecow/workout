@@ -100,8 +100,8 @@ class Post < ActiveRecord::Base
       return [] if (end_date - start_date).to_i < (days-1)
       posts = Post.user(user).interval(start_date,end_date)
       scores = (start_date..end_date).to_a.map do |d|
-        p = posts.select{|e| e.date == d}.first
-        p.nil? ? [0,0] : [p.no_nil_duration,p.no_nil_distance]
+        ps = posts.select{|e| e.date == d}
+        ps.empty? ? [0,0] : [ps.map{|p| p.no_nil_duration*p.intensity/5}.sum ,ps.map{|p| p.no_nil_distance}.sum]
       end 
     end
 

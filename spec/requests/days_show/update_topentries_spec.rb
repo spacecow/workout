@@ -3,6 +3,75 @@ require 'spec_helper'
 describe "Day show, update topentries" do
   before(:each) do
     @user = login
+    Date.stub(:today).and_return Date.parse('2012-09-27')
+    visit day_path('2012-09-27')
+    fill_in 'Training Type', with:'<<<Running>>>'
+    fill_in 'Duration', with:'50'
+    fill_in 'Distance', with:'9'
+  end
+
+  it "saves a post to db" do
+    lambda{ click_button 'Create Post'
+    }.should change(Post,:count).by(1)
+  end
+
+  it "creates no entries if no posts" do
+    lambda{ click_button 'Create Post'
+    }.should change(Topentry,:count).by(0)
+  end
+
+  context "generates entries" do
+    context "if post older than timeframe" do
+      before(:each) do
+        create_post(date:'2012-09-21', user:@user, duration:60, distance:10, intensity:6)
+        lambda do
+          Topentry.generate_total_missing_entries(7)
+        end.should change(Topentry,:count).by(2)
+      end
+
+      context "creates values" do
+        it "score" do
+          Topentry.all.map(&:score).should eq [72,10]
+        end
+      end
+
+      it "updates topentries to db" do
+        lambda{ click_button 'Create Post'
+        }.should change(Topentry,:count).by(0)
+      end
+
+      context "updates values" do
+        before(:each) do
+          click_button 'Create Post'
+        end
+      
+        it "score" do
+          Topentry.all.map(&:score).should eq [122,19]
+        end
+      end
+
+      it "updates topentries (two post on same day) to db", focus:true do
+        create_post(date:'2012-09-27', user:@user, duration:20, distance:5)
+        lambda{ click_button 'Create Post'
+        }.should change(Topentry,:count).by(0)
+      end
+
+      context "updates values" do
+        before(:each) do
+          click_button 'Create Post'
+        end
+      
+        it "score" do
+          Topentry.all.map(&:score).should eq [142,24]
+        end
+      end
+    end
+  end
+end
+
+describe "Day show, update topentries" do
+  before(:each) do
+    @user = login
     visit day_path('2012-07-15')
     fill_in 'Training Type', with:'<<<Running>>>'
   end
