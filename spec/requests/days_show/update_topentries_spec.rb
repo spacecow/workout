@@ -45,7 +45,7 @@ describe "Day show, update topentries" do
           click_button 'Create Post'
         end
       
-        it "score" do
+        it "score", focus:true do
           Topentry.all.map(&:score).should eq [122,19]
         end
       end

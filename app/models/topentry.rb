@@ -65,7 +65,7 @@ class Topentry < ActiveRecord::Base
             ['duration','distance'].each_with_index do |category,i2|
               score = scores[i..-1].take(days).map{|e| e[i2]}.sum
               entry = Topentry.find_or_create_by_day_id_and_user_id_and_duration_and_category(day.id, user.id, days, category)
-              entry.update_attributes(score:score, duration:days)
+              entry.update_attributes(score:score)
             end
           end
         end
