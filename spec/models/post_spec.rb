@@ -152,8 +152,12 @@ describe Post do
 
         it "if it's set to nil" do
           later_day = FactoryGirl.create(:day, date:Date.parse('2012-09-25'))
-          @user.update_column(:first_post_date,nil)
-          @user.save
+          #@user.update_column(:first_post_date,nil)
+          #@user.save
+          @user.first_post_date = nil
+          @post.author.first_post_date = nil
+          #why do i have to set both to nil
+          #when @user == @post.author ??
           @post.update_attributes(day_attributes:{date:later_day.date.full})
           User.last.first_post_date.should eq later_day.date
         end

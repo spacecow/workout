@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20121109030352) do
 
   create_table "posts", :force => true do |t|
     t.integer  "author_id"
-    t.time     "time_of_day"
+    t.datetime "time_of_day"
     t.integer  "distance"
     t.integer  "duration"
     t.text     "comment"

@@ -60,7 +60,7 @@ describe "Posts index" do
       visit posts_path(month:'2012/7')
     end
 
-    it "displays existing posts on given day" do
+    it "displays existing posts on given day", focus:true do
       td(:day_0710).div(:posts,0).should have_content('Prince: 50')
       td(:day_0710).div(:posts,1).should have_content('King: 123')
     end

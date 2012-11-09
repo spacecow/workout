@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe 'users/edit.html.erb', focus:true do
+describe 'users/edit.html.erb' do
   before do
+    view.stub(:session_month){ 'whatever' }
     view.stub(:pl){ t(:profile,count:1)}
     assign(:user, create(:user))
     render
@@ -9,7 +10,7 @@ describe 'users/edit.html.erb', focus:true do
 
   subject{ Capybara.string(rendered) }
   it{ should have_selector 'h1', text:'Edit Profile' }
-  it{ p subject.text }
+  it{ should have_button 'Calendar' }
 
   describe 'form.edit_user' do
     subject{ Capybara.string(rendered).find('form.edit_user')}

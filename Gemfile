@@ -13,6 +13,7 @@ gem 'delayed_job_web'
 gem 'whenever', require:false
 gem 'carrierwave'
 gem 'rmagick'
+gem 'pry'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,7 +32,6 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'guard-spork'
-  gem 'pry'
 end
 
 group :test do

@@ -1,3 +1,5 @@
+<% present @user do |presenter| %>
+
 <%= title edit(:profile) %>
 
 <hr>
@@ -6,4 +8,8 @@
   <%= f.input :userid %>
   <%= f.input :image %>
   <%= f.button :submit, class:'submit' %>
+<% end %>
+
+<%= presenter.cancel_button(session_month, t('helpers.submit.calendar')) %>
+
 <% end %>

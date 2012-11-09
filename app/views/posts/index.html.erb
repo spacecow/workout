@@ -9,6 +9,7 @@
     </h2>
     <%= calendar @month do |date| %>
       <%= presenter.posts_link(date) %>
+      <div class="clear"></div>
       <% if @posts_by_date[date] %>
         <%= presenter.posts_count(@posts_by_date[date]) %>
       <% end %>
