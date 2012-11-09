@@ -45,12 +45,12 @@ describe "Day show, update topentries" do
           click_button 'Create Post'
         end
       
-        it "score", focus:true do
+        it "score" do
           Topentry.all.map(&:score).should eq [122,19]
         end
       end
 
-      it "updates topentries (two post on same day) to db", focus:true do
+      it "updates topentries (two post on same day) to db" do
         create_post(date:'2012-09-27', user:@user, duration:20, distance:5)
         lambda{ click_button 'Create Post'
         }.should change(Topentry,:count).by(0)
@@ -58,6 +58,7 @@ describe "Day show, update topentries" do
 
       context "updates values" do
         before(:each) do
+          create_post(date:'2012-09-27', user:@user, duration:20, distance:5)
           click_button 'Create Post'
         end
       

@@ -1,0 +1,17 @@
+<%= title crop(:image) %>
+
+<hr>
+
+<%= image_tag @user.image_url(:large).to_s, id:'cropbox' %>
+
+<%= simple_form_for @user do |f| %>
+  <% %w(x y w h).each do |attribute| %>
+    <%= f.input "crop_#{attribute}", as: :hidden %>
+  <% end %>
+  <%= f.button :submit, 'Crop', class:'green' %>
+<% end %>
+
+<div style="width:100px; height:100px; overflow:hidden; margin-top:10px;">
+  <%= image_tag @user.image_url(:large).to_s, :id => "preview" %>
+</div>
+

@@ -1,7 +1,9 @@
 <div id="user_nav">
   <% if current_user %>
+    <%= image_tag current_user.image_url(:thumb).to_s %>
     <%= mess(:logged_in_as, name:current_user.userid) %>
     <%= link_to t(:logout), logout_path(month:month) %>
+    <%= link_to edit(:profile), edit_user_path(current_user) %>
   <% else %>
     <%= link_to t(:login), login_path(month:month) %>
   <% end %>

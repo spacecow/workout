@@ -20,6 +20,8 @@ en:
   post:
     one: Post
     other: Posts
+  profile:
+    one: Profile
   toplist:
     other: Toplists
 

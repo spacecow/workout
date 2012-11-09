@@ -1,0 +1,9 @@
+<%= title edit(:profile) %>
+
+<hr>
+
+<%= simple_form_for @user do |f| %>
+  <%= f.input :userid %>
+  <%= f.input :image %>
+  <%= f.button :submit, class:'submit' %>
+<% end %>

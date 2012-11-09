@@ -12,10 +12,14 @@ class User < ActiveRecord::Base
   has_many :topentries
   has_many :days, through: :topentries
 
-  attr_accessible :userid, :email, :password
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :userid, :email, :password, :image, :crop_x, :crop_y, :crop_w, :crop_h
+  mount_uploader :image, ImageUploader
 
   validates :email, presence:true, uniqueness:true
   validates :userid, presence:true, uniqueness:true
+
+  after_update :crop_image
 
   ADMIN     = 'admin'
   GOD       = 'god'
@@ -23,6 +27,10 @@ class User < ActiveRecord::Base
   MINIADMIN = 'miniadmin'
   VIP       = 'vip'
   ROLES     = [GOD,ADMIN,MINIADMIN,VIP,MEMBER]
+
+  def crop_image
+    image.recreate_versions! if crop_x.present?
+  end
 
   def first_post; Post.first_post(self) end
 
