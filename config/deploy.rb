@@ -26,7 +26,7 @@ role :app, "106.187.50.182"
 role :web, "106.187.50.182"
 role :db,  "106.187.50.182", :primary => true
 
-set :default_environment, { 'PATH' => "/home/ghazal/.rvm/gems/ruby-1.9.2-head/bin:$PATH" }
+set :default_environment, { 'PATH' => "/home/jsveholm/.rvm/rubies/ruby-1.9.2-head/bin:$PATH" }
 
 namespace :deploy do
   task :start do ; end
