@@ -16,7 +16,7 @@ describe "Day show, edit current state" do
   end
 
   it "has the weight field empty" do
-    value('* Weight').should eq '84'
+    value('Weight').should eq '84'
   end  
 
   it "has a div for the posts" do

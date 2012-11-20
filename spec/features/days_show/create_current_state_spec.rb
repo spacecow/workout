@@ -14,7 +14,7 @@ describe "Day show, new current state" do
   end
 
   it "has the weight field empty" do
-    value('* Weight').should be_nil
+    value('Weight').should be_nil
   end  
 
   it "has a div for the posts" do
@@ -61,6 +61,7 @@ describe "Day show, new current state" do
     context "error, weight cannot be left blank" do
       before(:each) do
         fill_in 'Weight', with:''
+        fill_in 'Note', with:''
         click_button 'Save Current State' 
       end
 

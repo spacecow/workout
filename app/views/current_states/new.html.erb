@@ -1,0 +1,7 @@
+<%= title @day.date %>
+
+<hr>
+
+<% present @current_state do |presenter| %>
+  <%= presenter.form %>
+<% end %>

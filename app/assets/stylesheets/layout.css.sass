@@ -166,7 +166,7 @@ div#main_container
   padding: 20px
   @include box-shadow(rgba(black, 0.9) 0 0 25px, rgba(green, 0.2) 0 0 3px 1px inset)
   div#main
-    max-width: 630px
+    width: 630px
     float: left
     div#actions
       font-size: 10px
@@ -314,6 +314,12 @@ form.new_comment
     margin: 12px 0 0 10px
 
 
+form#delete_current_state
+  float: left
+  input.delete
+    @include fancy-button(red)
+    margin-top: 20px
+
 form
   border: 1px solid black
   label
@@ -341,9 +347,6 @@ form
     @include fancy-button(#2966a8)
     margin-top: 20px
     float: left
-  input.delete
-    @include fancy-button(red)
-    margin-top: 20px
   span.hint
     font-style: italic
     color: #777

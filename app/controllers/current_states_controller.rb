@@ -8,7 +8,7 @@ class CurrentStatesController < ApplicationController
     if @current_state.save
       redirect_to day_path(@current_state.full_date), notice:saved(:current_state)
     else
-      render 'days/show', id:get_day
+      render :new 
     end
   end
 
@@ -16,7 +16,8 @@ class CurrentStatesController < ApplicationController
     if @current_state.update_attributes(params[:current_state])
       redirect_to day_path(@current_state.full_date), notice:updated(:current_state) 
     else
-      render 'days/show', id:get_day
+      get_day
+      render :edit 
     end
   end
 

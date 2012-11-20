@@ -72,7 +72,7 @@ describe "Day show" do
         end
 
         it "has the weight field blank" do
-          value('* Weight').should be_nil
+          value('Weight').should be_nil
         end
       end
 
@@ -85,7 +85,7 @@ describe "Day show" do
         end
 
         it "has the weight field blank" do
-          value('* Weight').should be_nil
+          value('Weight').should be_nil
         end
       end
     end
