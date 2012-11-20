@@ -28,7 +28,7 @@ describe PostsController do
       before(:each) do
         session[:userid] = create_member.id
         @date = '2012-8-23'
-        session[:day] = FactoryGirl.create(:day, date:@date).id
+        session[:day] = FactoryGirl.create(:day, date:@date).date
         session[:date] = @date
         request.env['HTTP_REFERER'] = posts_path
       end

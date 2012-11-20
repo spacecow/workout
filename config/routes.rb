@@ -13,7 +13,7 @@ Workout::Application.routes.draw do
     resources :comments, :only => [:create,:destroy]
   end
   resources :messages, :only => :index
-  resources :current_states, :only => [:create,:update]
+  resources :current_states, :only => [:create,:update, :destroy]
 
   match "/stats/charts" => "stats#charts"
   match "/stats/toplists" => "stats#toplists"

@@ -1,0 +1,13 @@
+<% present current_state do |presenter| %>
+
+<%= formtitle current_state %>
+
+<%= simple_form_for current_state do |f| %>
+  <%= f.input :weight, wrapper_html:{id:'weight'} %>
+  <%= f.input :note %>
+  <%= f.button :submit, class: :submit %>
+<% end %>
+
+<%= presenter.delete_button(session_month) %>
+
+<% end %>

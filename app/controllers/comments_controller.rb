@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
       @post.build_day(date:@day.date.full)
       @posts = Post.where('day_id = ?', @day.id)
       @posts.each{|e| e.comments.new}
+      @current_state = CurrentState.find_or_initialize_by_day_id_and_user_id(@day.id, current_user.id)
       render '/days/show'
     end
   end

@@ -33,7 +33,9 @@ class PostsController < ApplicationController
       if session_day.nil?
         render 'training_types/show', id:get_training_type 
       else
-        render 'days/show', id:get_day
+        get_day
+        @current_state = CurrentState.find_or_initialize_by_day_id_and_user_id(@day.id, current_user.id)
+        render 'days/show'
       end
     end
   end

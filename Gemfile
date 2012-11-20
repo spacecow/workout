@@ -14,6 +14,7 @@ gem 'whenever', require:false
 gem 'carrierwave'
 gem 'rmagick'
 gem 'pry'
+gem 'rb-inotify', '~> 0.8.8'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,8 +30,11 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 end
 
+group :test, :development do
+  gem 'rspec-rails', "~> 2.0"
+end
+
 group :development do
-  gem 'rspec-rails'
   gem 'guard-spork'
 end
 

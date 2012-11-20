@@ -7,6 +7,7 @@ FactoryGirl.define do
   factory :current_state do
     day
     user
+    weight 83
   end
 
   factory :day do

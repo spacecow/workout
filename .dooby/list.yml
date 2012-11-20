@@ -93,3 +93,5 @@ ccbbe3: !ruby/object:Dooby::Task
   todo: update first_post_date when updating post :done
 bf0048: !ruby/object:Dooby::Task 
   todo: generate_missing_entries
+d71f4c: !ruby/object:Dooby::Task 
+  todo: add notes to current state :done

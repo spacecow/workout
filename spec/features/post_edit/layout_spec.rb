@@ -38,7 +38,7 @@ describe "Post edit" do
     end
 
     it "has the comment field filled in" do
-      value('Comment').should eq "\nJust some random comment." 
+      value('Comment').should eq "Just some random comment." 
     end
 
     it "has possible training partners listed" do

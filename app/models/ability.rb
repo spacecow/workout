@@ -11,6 +11,8 @@ class Ability
       can [:new,:create], Post
       can [:update,:destroy], Post
       can [:show,:index], TrainingType
+      can :create, CurrentState
+      can [:update,:destroy], CurrentState, user_id:user.id
     end
     # :read, :create, :update and :destroy.
   end

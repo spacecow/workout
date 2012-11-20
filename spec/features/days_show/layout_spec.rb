@@ -88,31 +88,6 @@ describe "Day show" do
           value('* Weight').should be_nil
         end
       end
-
-      context "no current state" do
-        before(:each) do
-          visit day_path('2012-7-2')
-        end
-
-        it "exists" do
-          page.should have_form(:new_current_state)
-        end
-
-        it "has a title" do
-          page.should have_h2('New Current State')
-        end
-
-        it "has the weight field blank" do
-          value('* Weight').should be_nil
-        end
-
-        it "has a create button" do
-          form(:new_current_state).should have_submit_button('Save Current State')
-        end
-        it "has a cancel button" do
-          form(:cancel_current_state).should have_cancel_button 'Calendar'
-        end
-      end
     end
 
     context "edit current state form" do
@@ -128,20 +103,9 @@ describe "Day show" do
         page.should have_form(@form_id)
       end
 
-      it "has a title" do
-        page.should have_h2('Edit Current State')
-      end
-
-      it "has the weight field filled in" do
-        value('* Weight').should eq "84" 
-      end
-
-      it "has a update button" do
-        form(@form_id).should have_submit_button('Update Current State')
-      end
-      it "has a cancel button" do
-        form(:cancel_current_state).should have_cancel_button 'Calendar'
-      end
+      #it "has a cancel button", focus:true do
+      #  form(:cancel_current_state).should have_cancel_button 'Calendar'
+      #end
     end
   end
 

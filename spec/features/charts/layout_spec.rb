@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Stats charts" do
-  before(:each) do
+  before do
     visit stats_charts_path
   end
 

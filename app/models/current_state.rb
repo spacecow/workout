@@ -3,7 +3,7 @@ class CurrentState < ActiveRecord::Base
   belongs_to :day
   accepts_nested_attributes_for :day
 
-  attr_accessible :weight
+  attr_accessible :weight, :note
 
   validates_presence_of :day_id, :weight, :user_id
 
