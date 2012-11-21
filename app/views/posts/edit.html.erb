@@ -2,10 +2,10 @@
 
 <hr>
 
-<%= render 'form', post:@post, date:@date, partners:@training_partners, location:'post' %>
+<% present @post do |presenter| %>
 
-<%= form_tag return_path(@post), :method => :get do %>
-  <%= submit_tag t('helpers.submit.cancel'), :class => :cancel %>
+<%= presenter.edit(@training_partners, return_path(@post)) %>
+
+<%# render 'form', post:@post, date:@date, partners:@training_partners, location:'post' %>
+
 <% end %>
-
-<div class="clear"></div>

@@ -154,30 +154,4 @@ describe "Day show" do
       page.should_not have_div(:posts)
     end
   end
-
-  context "cancel" do
-    context "from the main page" do
-      it "saves no post to db" do
-        lambda{ click_button 'Calendar'
-        }.should change(Post,:count).by(0)
-      end
-
-      it "redirect back to the calendar page" do
-        click_button 'Calendar'
-        page.current_path.should eq posts_path
-      end
-    end
-
-    context "from the error page" do
-      before(:each) do
-        fill_in 'Date', with:''
-        click_button 'Create Post'
-        click_button 'Calendar'
-      end
-
-      it "redirect back to the calendar page" do
-        page.current_path.should eq posts_path
-      end
-    end
-  end
 end

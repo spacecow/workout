@@ -7,7 +7,7 @@ describe "Posts index" do
         login
         visit posts_path(month:'2012/7')
         td(:day_0701).click_link '1' 
-        click_button 'Calendar'
+        click_link 'Calendar'
       end
 
       it "back to the calendar" do
@@ -24,7 +24,7 @@ describe "Posts index" do
         login
         visit posts_path
         click_link '15' 
-        click_button 'Calendar'
+        click_link 'Calendar'
       end
 
       it "back to the calendar" do

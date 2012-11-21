@@ -13,6 +13,12 @@ class PostPresenter < BasePresenter
     end
   end
 
+  def cancel_button(return_path)
+    h.form_tag return_path, :method => :get, class:%w(cancel button).join(' ') do 
+      h.submit_tag h.t('helpers.submit.cancel'), :class => :cancel
+    end
+  end
+
   def comment
     h.content_tag(:div, id:'comment') do
       post.comment
@@ -41,9 +47,31 @@ class PostPresenter < BasePresenter
     h.link_to h.t(:delete), h.send("post_path", @object), method: :delete, data:{confirm:h.sure?} if h.can? :destroy, @object 
   end
 
+  def edit(training_partners, return_path)
+    h.content_tag :div, class:%w(edit post).join(' ') do
+      form(training_partners) +
+      cancel_button(return_path) +
+      clear_div
+    end 
+  end
+
   def edit_link
     dcase = @object.class.to_s.downcase
     h.link_to h.t(:edit), h.send("edit_#{dcase}_path", @object) if h.can? :edit, @object 
+  end
+
+  def form(training_partners)
+    h.render 'posts/form', post:post, partners:training_partners, location:'post' unless post.nil?
+  end
+
+  def new(training_partners, return_path=nil)
+    h.content_tag :div, class:%w(new post).join(' ') do
+      "<hr>".html_safe + 
+      h.minititle(h.new(:post)) +
+      form(training_partners) +
+      (cancel_button(return_path) if post.errors.present?) +
+      clear_div
+    end 
   end
 
   def posts_count(posts)

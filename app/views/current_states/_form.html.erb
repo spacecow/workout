@@ -1,5 +1,7 @@
 <% present current_state do |presenter| %>
 
+<hr>
+
 <%= formtitle current_state %>
 
 <%= simple_form_for current_state do |f| %>
@@ -8,7 +10,7 @@
   <%= f.button :submit, class: :submit %>
 <% end %>
 
-<%= presenter.cancel_button(session_month) %>
-<%= presenter.delete_button(session_month) %>
+<%= presenter.cancel_button %>
+<%= presenter.delete_button %>
 
 <% end %>

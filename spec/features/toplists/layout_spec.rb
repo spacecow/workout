@@ -34,8 +34,4 @@ describe "Stats toplists" do
       current_path.should eq stats_toplists_path
     end
   end
-
-  it "has a calendar button" do
-    page.should have_cancel_button('Calendar')
-  end
 end

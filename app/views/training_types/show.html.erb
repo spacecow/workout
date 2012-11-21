@@ -1,7 +1,5 @@
 <%= title @training_type.name %>
 
-<hr>
-
 <%= render 'posts/posts', posts:@posts, title: :date if @posts.present? %>
 
 <h2><%= new(:post) %></h2>

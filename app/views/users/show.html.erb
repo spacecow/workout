@@ -1,7 +1,5 @@
 <%= title @user.userid %>
 
-<hr>
-
 <%= render 'posts/posts', posts:@posts, title: :typedate if @posts.present? %>
 
 <%= form_tag posts_path, :method => :get do %>

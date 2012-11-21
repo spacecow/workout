@@ -58,9 +58,6 @@ describe "Day show" do
       it "has a create button" do
         form(:new_post).should have_submit_button('Create Post')
       end
-      it "has a cancel button" do
-        form(:cancel_post).should have_cancel_button 'Calendar'
-      end
     end
 
     context "new current state form" do
