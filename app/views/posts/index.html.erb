@@ -1,6 +1,4 @@
 <% present Post do |presenter| %>
-  <%= render 'toplists', users:@users if can? :new, Post %>
-
   <div id="calendar">
     <h2 id="month">
       <%= link_to "<", month:@month.prev_month %>

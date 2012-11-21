@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   cache_sweeper :post_sweeper
 
   def index
+    @selected = :calendar
     set_month
     first = @month.beginning_of_month.beginning_of_week(:monday) - 1.day
     last = @month.end_of_month.end_of_week(:monday)
@@ -87,7 +88,7 @@ class PostsController < ApplicationController
     end
     
     def set_month
-      session_month(params[:month] || Date.today.half)
+      session_month(params[:month] || session_month || Date.today.half)
       @month = Date.parse(session_month)
     end
 end

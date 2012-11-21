@@ -13,6 +13,7 @@
   <%= render 'layouts/user_nav', month:@month %>
   <div class="clear"></div>
   <div id="main">
+    <%= render '/layouts/stats_menu' %>
     <%= yield %>
   </div>
   <%= render 'layouts/chat', comments:@comments if can? :new, Comment %>

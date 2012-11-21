@@ -95,3 +95,5 @@ bf0048: !ruby/object:Dooby::Task
   todo: generate_missing_entries
 d71f4c: !ruby/object:Dooby::Task 
   todo: add notes to current state :done
+bc554a: !ruby/object:Dooby::Task 
+  todo: add menu to all pages :done

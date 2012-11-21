@@ -1,5 +1,6 @@
 <div id="stats_menu">
   <ul class="tabrow">
+    <li id="calendar" <%= stats_menu_class(:calendar,@selected) %>><%= link_to t(:calendar), posts_path %></li>
     <li id="charts" <%= stats_menu_class(:charts,@selected) %>><%= link_to pl(:chart), stats_charts_path %></li>
     <li id="toplists" <%= stats_menu_class(:toplists,@selected) %>><%= link_to pl(:toplist), stats_toplists_path %></li>
   </ul>
