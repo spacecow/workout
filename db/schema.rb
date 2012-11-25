@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120054902) do
+ActiveRecord::Schema.define(:version => 20121125065112) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -55,9 +55,27 @@ ActiveRecord::Schema.define(:version => 20121120054902) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "noticements", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "notification_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "notifications", :force => true do |t|
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.integer  "creator_id"
+    t.integer  "type_mask"
+    t.string   "content"
+    t.boolean  "unread",          :default => true
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
   create_table "posts", :force => true do |t|
     t.integer  "author_id"
-    t.datetime "time_of_day"
+    t.time     "time_of_day"
     t.integer  "distance"
     t.integer  "duration"
     t.text     "comment"

@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   has_many :topentries
   has_many :days, through: :topentries
 
+  has_many :owned_notifications, class_name:'Notification', foreign_key:'creator_id'
+  has_many :noticements
+  has_many :notifications, through: :noticements
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :userid, :email, :password, :image, :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :image, ImageUploader

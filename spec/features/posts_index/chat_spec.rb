@@ -7,10 +7,6 @@ describe "Posts index, chat" do
     visit posts_path(month:'2012/8')
   end
 
-  it "has a title" do
-    chat.should have_content("Live Update")
-  end
-
   it "shows the comment as a link" do
     chat.should have_link('Oh yeah!')
   end
