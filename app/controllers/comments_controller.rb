@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(params[:comment])
     @comment.commenter = current_user
     if @comment.save
+      @comment.notify
       redirect_to :back, notice:created(:comment)
     else
       @day = @commentable.day
