@@ -33,6 +33,7 @@ class Post < ActiveRecord::Base
                10 => "#ff0000",
               }.freeze
 
+  def author_image_url(version=nil) author.image_url(version) end
   def authorid; author.userid end
 
   def day_attributes=(params)

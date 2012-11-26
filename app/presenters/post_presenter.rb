@@ -60,6 +60,12 @@ class PostPresenter < BasePresenter
     h.link_to h.t(:edit), h.send("edit_#{dcase}_path", @object) if h.can? :edit, @object 
   end
 
+  def image
+    h.content_tag :div, class:'image' do
+      h.image_tag post.author_image_url(:thumb)
+    end
+  end
+
   def form(training_partners)
     h.render 'posts/form', post:post, partners:training_partners, location:'post' unless post.nil?
   end

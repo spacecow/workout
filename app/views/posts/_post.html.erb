@@ -2,11 +2,12 @@
   <hr>
   <div class="post" style="background-color: <%= post.intensity_colour %>">
     <div id="intensity" style="color: <%= post.intensity_colour %>">
+      <%= presenter.image %>
       <div id="number">
         <%= post.intensity %>
       </div>
     </div>
-    <div id="rest">
+    <div class="rest">
       <%= presenter.title(post.training_types,title) %>
       <%= presenter.timestamp %>
       <%= presenter.distance %>

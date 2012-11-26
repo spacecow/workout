@@ -101,13 +101,14 @@ div.timestamp
   font-size: 12px
 div.image.mini.thumb
   margin-left: -30px
-  margin-right: 5px
   float: left
 div.content
   font-size: 14px
 li.unread
   div.content
     font-weight: bold
+div.rest
+  margin-left: 5px
 
 ul.noticements
   li.noticement
@@ -264,6 +265,16 @@ div#calendar
           color: white
           text-shadow: 1px 1px 1px black 
           
+div#posts
+  div.post
+    margin-left: 50px 
+    div#intensity
+      margin-left: -50px
+      position: relative
+      div#number
+        position: absolute
+      div.image
+        position: absolute
 
 div#menu_toplists
   border: 1px solid black
@@ -286,13 +297,15 @@ div#toplists
 
 div#posts
   div.post
+    min-height: 50px
     div#intensity
-      font-size: 20px
-      +single-text-shadow
-      margin-right: 5px
-      float: left
       div#number
-    div#rest
+        font-size: 20px
+        color: white
+        text-shadow: 1px 1px 1px black 
+        margin-right: 5px
+        float: left
+    div.rest
       float: left
     div#training_type
       font-size: 20px
