@@ -13,6 +13,7 @@ class Ability
       can [:show,:index], TrainingType
       can :create, CurrentState
       can [:update,:destroy], CurrentState, user_id:user.id
+      can :read, Noticement, user_id:user.id
     end
     # :read, :create, :update and :destroy.
   end

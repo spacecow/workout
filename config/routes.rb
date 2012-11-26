@@ -15,6 +15,12 @@ Workout::Application.routes.draw do
   resources :messages, :only => :index
   resources :current_states, :only => [:create,:update, :destroy]
 
+  resources :noticements do
+    member do
+      put 'read'
+    end
+  end
+
   match "/stats/charts" => "stats#charts"
   match "/stats/toplists" => "stats#toplists"
 

@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20121125065112) do
   create_table "noticements", :force => true do |t|
     t.integer  "user_id"
     t.integer  "notification_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.boolean  "unread",          :default => true
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -68,14 +69,13 @@ ActiveRecord::Schema.define(:version => 20121125065112) do
     t.integer  "creator_id"
     t.integer  "type_mask"
     t.string   "content"
-    t.boolean  "unread",          :default => true
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "posts", :force => true do |t|
     t.integer  "author_id"
-    t.time     "time_of_day"
+    t.datetime "time_of_day"
     t.integer  "distance"
     t.integer  "duration"
     t.text     "comment"

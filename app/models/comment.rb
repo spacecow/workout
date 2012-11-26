@@ -9,8 +9,14 @@ class Comment < ActiveRecord::Base
   def commenterid; commenter.userid end
   def full_date; commentable.full_date end
   def notify
-    User.where("id <> ?", commenter.id).each do |user|
-      Notification.notify_from_about(commenter,self)
+    Notification.notify_from_about(commenter,self)
+  end
+
+  class << self
+    def notify_old
+      Comment.all.each do |comment|
+        comment.notify
+      end
     end
   end
 end

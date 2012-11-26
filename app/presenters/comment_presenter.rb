@@ -18,10 +18,4 @@ class CommentPresenter < BasePresenter
       h.link_to h.simple_format(comment.content), h.day_path(comment.full_date)
     end
   end
-
-  def timestamp
-    h.content_tag(:div, id:'timestamp') do
-      "#{h.time_ago_in_words(comment.updated_at)} ago"
-    end
-  end
 end

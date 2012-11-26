@@ -5,7 +5,7 @@ describe "Post edit" do
     before(:each) do
       member = create_member({userid:'King'})
       login(member)
-      post = create_post({date:'2012-7-2', author:'Prince', type:'<<<Running>>>', time_of_day:Time.zone.parse('12:15'), duration:35, distance:9, comment:'Just some random comment.'})
+      post = create_post({date:'2012-7-2', author:'Prince', type:'<<<Running>>>', time_of_day:Time.zone.parse('11:15'), duration:35, distance:9, comment:'Just some random comment.'})
       visit edit_post_path(post, date:'2012-7-2', month:'2012/7')
       @running = post.training_types.first
     end

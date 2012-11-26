@@ -1,7 +1,12 @@
-<%= present noticement do |presenter| %>
+<% present noticement do |presenter| %>
 
-<li class='noticement'>
+<li class='<%= noticement.klass %>'>
+  <div class="thumb mini image">
+    <%= image_tag noticement.creator_image_url(:mini_thumb) %>
+  </div>
   <%= presenter.content %>
+  <%= presenter.timestamp %>
+  <div class="clear"></div>
 </li>
 
 <% end %>

@@ -20,6 +20,8 @@ FactoryGirl.define do
 
   factory :notification do
     association :notifiable, factory: :comment
+    type_mask Notification.type(:new)
+    association :creator, factory: :user
   end
 
   factory :post do

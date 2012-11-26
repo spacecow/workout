@@ -6,7 +6,6 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer :creator_id
       t.integer :type_mask
       t.string :content
-      t.boolean :unread, default:true
 
       t.timestamps
     end

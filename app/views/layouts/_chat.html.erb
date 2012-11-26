@@ -1,4 +1,8 @@
+<% present current_user do |presenter| %>
+
 <div id="chat" data-url=<%= messages_path(:js) %>>
-  Live Update
-  <%= render 'comments/comments', comments:comments, background:'#ddd', delete:false %>
+  <%= presenter.noticements %>
+  <%# render 'comments/comments', comments:comments, background:'#ddd', delete:false %>
 </div>
+
+<% end %>
