@@ -1,0 +1,184 @@
+@import "fancy-buttons"
+@import "compass/css3/border-radius"
+
+$main_container_width: 850px
+$main_width: 630px
+
+$blue: #4B7399
+
+a
+  text-decoration: none 
+  color: $blue
+  text-shadow: 1px 1px 1px #aaa
+  &:hover
+    color: #eee
+    text-shadow: 1px 1px 1px $blue 
+
+h1
+  font-size: 30px !important
+h2
+  font-size: 25px !important
+
+hr
+  border: 0
+  height: 0
+  box-shadow: 0 0 2px 1px rgba(black, 0.2)
+  &:after
+    content: "\00a0"
+
+div.clear
+  clear: both
+  height: 0
+  overflow: hidden
+
+$flash_border_width: 1px
+$flash_left_padding_width: 40px
+$flash_width: $main_width - $flash_left_padding_width - 2*$flash_border_width
+$alert_dark: #933
+$notice_dark: #396
+$alert_light: #f33
+$notice_light: #4CC417
+@mixin flash
+  float: left
+  width: $flash_width
+  padding-left: $flash_left_padding_width 
+  margin-bottom: 10px 
+
+@mixin custom_gradient($light, $dark, $corner: 10px, $border_width:1px)
+  color: white
+  font-weight: bold
+  padding-bottom: 5px
+  padding-top: 5px
+  border: $border_width solid black
+  +border-radius($corner)
+  +background-image(linear-gradient(color-stops($light, $dark)))
+
+div#flash_notice
+  +flash
+  +custom_gradient($notice_light,$notice_dark)
+
+div#flash_alert
+  +flash
+  +custom_gradient($alert_light,$alert_dark)
+
+div#main_container
+  font-family: "Lucida Grande",arial,helvetica,sans-serif
+  width: $main_container_width
+  margin: 100px auto 0 auto
+  padding: 20px
+  +box-shadow(rgba(black, 0.9) 0 0 25px, rgba(green, 0.2) 0 0 3px 1px inset)
+  div#main
+    width: $main_width
+    float: left
+  div#chat
+    width: 200px
+    float: right 
+
+div.author, div.commenter
+  font-size: 12px
+  font-style: italic
+div.actions
+  font-size: 10px
+div.timestamp
+  color: GoldenRod
+  font-size: 12px
+  font-style: italic
+div.training_partners
+  font-size: 12px
+  font-style: italic
+div.distance
+  font-size: 12px 
+  font-style: italic
+
+ul
+  list-style-type: none
+  li
+    div.left
+      float: left
+      &.relative
+        position: relative
+        div
+          position: absolute
+    div.right
+      margin-left: 5px
+      div.title
+        font-size: 16px
+        margin-bottom: 3px
+      div.timestamp, div.author, div.commenter, div.actions, div.distance, div.training_partners
+        float: left
+        line-height: 15px
+      div.author, div.commenter, div.actions, div.distance, div.training_partners
+        margin-left: 5px
+      div.comment, div.content
+        font-size: 14px
+    &.thumb
+      margin-left: 50px
+      min-height: 50px
+      div.left
+        margin-left: -50px
+    &.mini_thumb
+      margin-left: 30px
+      min-height: 30px
+      div.left
+        margin-left: -30px
+    &.unread
+      div.content
+        font-weight: bold
+
+$label_margin: 5px
+$label_width: 140px
+$label_full_width: $label_width + $label_margin
+$input_width: 300px
+$textarea_height: 100px
+
+form
+  div, input.button
+    margin-left: $label_full_width
+  div.colorpicker
+    div.coloritem
+      float: left
+      width: 20px
+      height: 16px
+      font-size: 12px
+      text-align: center
+      padding-top: 3px
+      margin: 5px 0 0 3px
+      a
+        color: #ccc
+        &:hover
+          color: white
+  ul.token-input-list
+    width: $input_width+3px !important
+    display: inline-block
+  label
+    margin-left: -$label_full_width
+    float: left
+    text-align: right
+    width: $label_width
+  input
+    &.string, &.integer
+      width: $input_width 
+    &.button
+      margin-top: 5px
+    &.submit
+      +fancy-button(green)
+      float: left
+    &.cancel
+      +fancy-button(#2966a8)
+      float: left
+      margin: 5px 0 0 5px
+    &.delete
+      +fancy-button(red)
+      float: left
+      margin: 5px 0 0 5px
+  textarea
+    width: $input_width
+    height: $textarea_height
+  span
+    &.hint
+      font-style: italic
+      color: #777
+    &.error
+      display: block
+      font-style: italic
+      color: red

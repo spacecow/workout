@@ -6,6 +6,9 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :content, :commentable_id, :commenter_id
 
+  def commenter_image_url(version=nil)
+    commenter.image_url(version)
+  end
   def commenterid; commenter.userid end
   def full_date; commentable.full_date end
   def notify

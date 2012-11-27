@@ -1,9 +1,16 @@
 <% present [comment, comment.commentable] do |presenter| %>
-  <div class="comment" data-time="<%= comment.updated_at.to_i %>" style="background:<%= background %>">
+
+<li class="comment mini_thumb" data-time="<%= comment.updated_at.to_i %>" style="background:<%= background %>">
+  <div class="left">
+    <%= presenter.image_mini_thumb %>
+  </div>
+  <div class="right">
     <%= presenter.content %>
     <%= presenter.timestamp %>
     <%= presenter.commenter %>
-    <%= presenter.actions(delete) %>
-    <div class="clear"></div>
+    <%= presenter.actions %>
   </div>
+  <div class="clear"></div>
+</li>
+
 <% end %>

@@ -13,7 +13,7 @@ class Noticement < ActiveRecord::Base
   def creatorid; notification.creatorid end
   def full_date; notification.full_date end
   def info; notification.info end
-  def klass; "noticement #{unread ? 'unread' : 'read'}" end
+  def klass; "noticement mini_thumb #{unread ? 'unread' : 'read'}" end
   def notifiable; notification.notifiable end
   def userid; user.userid end
 end

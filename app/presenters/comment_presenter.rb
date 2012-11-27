@@ -1,21 +1,27 @@
 class CommentPresenter < BasePresenter
   presents :comment
 
-  def actions(delete)
-    h.content_tag(:div, id:'actions') do
+  def actions
+    h.content_tag(:div, class:'actions') do
       delete_link
-    end if delete
+    end
   end
 
   def commenter
-    h.content_tag(:div, id:'commenter') do
+    h.content_tag(:div, class:'commenter') do
       "by #{h.link_to comment.commenterid, comment.commenter}".html_safe
     end
   end
 
   def content
-    h.content_tag(:div, id:'content') do
-      h.link_to h.simple_format(comment.content), h.day_path(comment.full_date)
+    h.content_tag(:div, class:'content') do
+      comment.content
     end
+  end
+
+  def image_mini_thumb
+    h.content_tag :div, class:%w(image mini thumb).join(' ') do
+      h.image_tag comment.commenter_image_url(:mini_thumb) 
+    end 
   end
 end

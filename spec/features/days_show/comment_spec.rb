@@ -34,11 +34,11 @@ describe "Day show, comment" do
     end
 
     it "has a comments div" do
-      div(:main).should have_div(:comments)
+      div(:main).should have_ul(:comments,0)
     end
 
     it "each comment has a div" do
-      div(:main).div(:comments).divs_no(:comment).should eq 1
+      div(:main).ul(:comments,0).lis_no(:comment).should eq 1
     end
 
     it "displays the comment" do
@@ -122,11 +122,11 @@ describe "Day show, comment" do
       end
 
       it "has a comments div" do
-        div(:main).should have_div(:comments)
+        div(:main).should have_ul(:comments,0)
       end
 
       it "each comment has a div" do
-        div(:main).div(:comments).divs_no(:comment).should eq 1
+        div(:main).ul(:comments,0).lis_no(:comment).should eq 1
       end
 
       it "the new comment field is empty" do

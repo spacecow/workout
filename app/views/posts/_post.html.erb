@@ -1,13 +1,13 @@
 <% present post do |presenter| %>
   <hr>
-  <div class="post" style="background-color: <%= post.intensity_colour %>">
-    <div id="intensity" style="color: <%= post.intensity_colour %>">
+  <li class="post thumb" style="background-color: <%= post.intensity_colour %>">
+    <div class="left relative" style="color: <%= post.intensity_colour %>">
       <%= presenter.image %>
-      <div id="number">
+      <div class="number">
         <%= post.intensity %>
       </div>
     </div>
-    <div class="rest">
+    <div class="right">
       <%= presenter.title(post.training_types,title) %>
       <%= presenter.timestamp %>
       <%= presenter.distance %>
@@ -16,13 +16,14 @@
       <%= presenter.actions("new_comment_#{i}") %>
       <div class="clear"></div>
       <%= presenter.comment %>
-      <%= render 'comments/comments', comments:comments, background:post.intensity_colour, delete:true if comments.present? %>
+      <%= presenter.comments %>
+      <%# render 'comments/comments', comments:comments, background:post.intensity_colour, delete:true if comments.present? %>
       <%= simple_form_for [post, comment], html:{id:"new_comment_#{i}"} do |f| %>
         <%= f.input :content, label:false %>
         <%= f.button :submit, class: :submit %>
       <% end %>
     </div>
     <div class="clear"></div>
-  </div>
+  </li>
 <% end %>
 

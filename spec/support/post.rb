@@ -1,20 +1,20 @@
-def postno(no) posts.div(:post,no) end 
-def posts; div(:posts) end
+def postno(no) posts.li(:post,no) end 
+def posts; ul(:posts,0) end
 
-def first_post_commentno(no) first_post_comments.div(:comment,no) end
-def first_post_comments; first_post.div(:comments) end
+def first_post_commentno(no) first_post_comments.li(:comment,no) end
+def first_post_comments; first_post.ul(:comments,0) end
 def first_post_first_comment; first_post_commentno(0) end
 
 def first_post; postno(0) end
-def first_post_actions; first_post.div(:actions) end
-def first_post_author; first_post.div(:author) end
-def first_post_comment; first_post.div(:comment) end
+def first_post_actions; first_post.div(:actions,0) end
+def first_post_author; first_post.div(:author,0) end
+def first_post_comment; first_post.div(:comment,0) end
 def first_post_comment_content; first_post.find_field('comment_content') end
 def first_post_comment_value; first_post_comment_content.value end
-def first_post_title; first_post.div(:title) end
-def first_post_timestamp; first_post.div(:timestamp) end
-def first_post_distance; first_post.div(:distance) end
-def first_post_training_partners; first_post.div(:training_partners) end
+def first_post_title; first_post.div(:title,0) end
+def first_post_timestamp; first_post.div(:timestamp,0) end
+def first_post_distance; first_post.div(:distance,0) end
+def first_post_training_partners; first_post.div(:training_partners,0) end
 
 def toplists; div :menu_toplists end
 def toplist7; toplists.ul :seven_days end

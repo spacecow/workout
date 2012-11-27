@@ -1,10 +1,10 @@
 <% present noticement do |presenter| %>
 
 <li class='<%= noticement.klass %>'>
-  <div class="thumb mini image">
+  <div class="left">
     <%= image_tag noticement.creator_image_url(:mini_thumb) %>
   </div>
-  <div class="rest">
+  <div class="right">
     <%= presenter.content %>
     <%= presenter.timestamp %>
   </div>

@@ -127,10 +127,10 @@ describe "Day show" do
     end
 
     it "has a div for the posts" do
-      page.should have_div(:posts)
+      page.should have_ul(:posts,0)
     end
     it "has a div for each post" do
-      div(:posts).divs_no(:post).should be(1)
+      ul(:posts,0).lis_no(:post).should be(1)
     end
 
     context "training type" do

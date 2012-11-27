@@ -11,8 +11,8 @@ describe "TrainingType show" do
       fill_in 'Date', with:date
     end
 
-    it "has a div for the posts" do
-      page.should have_div(:posts)
+    it "has a ul for the posts" do
+      page.should have_ul(:posts,0)
     end
 
     it "saves the post to db" do

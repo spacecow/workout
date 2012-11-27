@@ -2,8 +2,8 @@
 
 <%= render 'posts/posts', posts:@posts, title: :typedate if @posts.present? %>
 
-<%= form_tag posts_path, :method => :get do %>
-  <%= submit_tag t('helpers.submit.calendar'), :class => :cancel %>
-<% end %>
+<%# form_tag posts_path, :method => :get do %>
+  <%# submit_tag t('helpers.submit.calendar'), :class => :cancel %>
+<%# end %>
 
 <div class="clear"></div>

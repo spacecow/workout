@@ -1,45 +1,65 @@
 require 'spec_helper'
 
 describe PostPresenter do
+  let(:post){ create :post }
+  let(:presenter){ PostPresenter.new(post,view)}
+  describe ".comments, no comments" do
+    specify{ presenter.comments.should be_nil } 
+  end
+
+  describe ".comments" do
+    let!(:comment){ create :comment, commentable:post }
+    before{ controller.stub(:current_user){ nil }}
+    subject{ Capybara.string(presenter.comments).find('ul.comments')}
+    it{ should have_selector 'li.comment', count:1 }
+  end
+
   describe ".training_partner" do
     it "no partner" do
-      post = create_post
-      @presenter = PostPresenter.new(post, view)
-      @presenter.training_partners.should eq '<div id="training_partners"></div>' 
+      presenter.training_partners.should be_nil 
     end
 
-    it "a partner" do
-      partner = FactoryGirl.create(:user, userid:'King')
-      post = create_post 
-      post.training_partners << partner
-      @presenter = PostPresenter.new(post, view)
-      @presenter.training_partners.should eq "<div id=\"training_partners\">with <a href=\"/users/#{partner.id}\">King</a></div>" 
+    context "a partner" do
+      let(:partner){ create(:user, userid:'King')}
+      before{ post.training_partners << partner }
+
+      context "div.training_partners" do
+        subject{ Capybara.string(presenter.training_partners).find('div.training_partners')}
+        its(:text){ should eq 'with King' }
+
+        context "a" do
+          subject{ Capybara.string(presenter.training_partners).find('div.training_partners a')}
+          its(:text){ should eq 'King' }
+          specify{ subject[:href].should eq user_path(partner)}
+        end
+      end
     end
   end
 
   describe ".timestamp" do
     it "no time" do
-      post = create_post 
-      @presenter = PostPresenter.new(post, view)
-      @presenter.timestamp.should eq '<div id="timestamp"></div>' 
+      presenter.timestamp.should be_nil 
     end
 
-    it "start time" do
-      post = create_post(time_of_day:Time.zone.parse('15:30'))
-      @presenter = PostPresenter.new(post, view)
-      @presenter.timestamp.should eq '<div id="timestamp">15:30</div>' 
+    context "start time" do
+      before{ post.time_of_day = Time.zone.parse('15:30')}
+      subject{ Capybara.string(presenter.timestamp).find('div.timestamp')}
+      its(:text){ should eq '15:30' }
     end
 
-    it "duration" do
-      post = create_post(duration:30)
-      @presenter = PostPresenter.new(post, view)
-      @presenter.timestamp.should eq '<div id="timestamp">30 min</div>' 
+    context "duration" do
+      before{ post.duration = 30 }
+      subject{ Capybara.string(presenter.timestamp).find('div.timestamp')}
+      its(:text){ should eq '30 min' }
     end
 
-    it "start time & duration" do
-      post = create_post(time_of_day:Time.zone.parse('15:30'), duration:30)
-      @presenter = PostPresenter.new(post, view)
-      @presenter.timestamp.should eq '<div id="timestamp">15:30 ~ 16:00</div>'
+    context "start time & duration" do
+      before do
+        post.time_of_day = Time.zone.parse('15:30')
+        post.duration = 30
+      end
+      subject{ Capybara.string(presenter.timestamp).find('div.timestamp')}
+      its(:text){ should eq '15:30 ~ 16:00' }
     end
   end
 end

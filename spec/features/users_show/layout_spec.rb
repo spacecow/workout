@@ -26,7 +26,7 @@ describe "User show" do
     end
 
     it "displays posts" do
-      page.should have_div(:posts)
+      page.should have_ul(:posts,0)
     end
   end
 

@@ -17,7 +17,7 @@ describe "Day show" do
   end
 
   it "has a div for the posts" do
-    page.should have_div(:posts)
+    page.should have_ul(:posts,0)
   end
 
   context "create" do
