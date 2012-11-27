@@ -4,11 +4,12 @@ class Ability
   def initialize(user)
     can :index, Post
     if user
-      can [:index,:create,:destroy], Comment
+      can [:index,:destroy], Comment
+      can [:create,:update], Comment
       can :show, User
       can :update, User, id:user.id
       can :show, Day
-      can [:new,:create], Post
+      can [:show, :new,:create], Post
       can [:update,:destroy], Post
       can [:show,:index], TrainingType
       can :create, CurrentState

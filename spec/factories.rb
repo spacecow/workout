@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :day do
-    sequence(:date){|n| "2012-08-#{n}"}
+    sequence(:date){|n| Date.parse("2012-08-01")+n.day}
   end
 
   factory :noticement do

@@ -41,4 +41,40 @@ describe PostsController do
       end
     end 
   end
+
+  describe "delete a post" do
+    let(:member){ create :user }
+
+    before do
+      session[:userid] = member.id
+      request.env["HTTP_REFERER"] = root_path
+    end
+      
+    describe "#destroy" do
+      before do
+        create :comment, commentable:@model
+        delete :destroy, id:@model.id 
+      end
+
+      context Post do
+        subject{ Post }
+        its(:count){ should eq 0 }
+      end
+
+      context Comment do
+        subject{ Comment }
+        its(:count){ should eq 1 }
+      end
+
+      context Notification do
+        subject{ Notification }
+        its(:count){ should eq 1 }
+      end
+
+      context 'last comment' do
+        subject{ Comment.last }
+        its(:deleted_at){ should_not be_nil }
+      end
+    end #delete a post
+  end
 end

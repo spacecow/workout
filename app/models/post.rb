@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   has_many :trainingships, dependent: :destroy
   has_many :training_partners, through: :trainingships, source: :partner
 
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :comments, as: :commentable
 
   attr_accessible :distance, :training_type_tokens, :duration, :time_of_day, :comment, :training_partner_ids, :day_attributes, :intensity
 
@@ -35,6 +35,10 @@ class Post < ActiveRecord::Base
 
   def author_image_url(version=nil) author.image_url(version) end
   def authorid; author.userid end
+
+  def comments_official
+    comments.where(deleted_at:nil).reject(&:new_record?)
+  end
 
   def day_attributes=(params)
     self.day = params[:date].empty? ? nil : Day.find_or_create_by_date(params[:date]) 

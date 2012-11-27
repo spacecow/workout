@@ -72,6 +72,11 @@ class PostsController < ApplicationController
   def destroy
     date = @post.date
     interested_parties = @post.interested_parties
+
+    @post.comments.each do |comment|
+      comment.act_paranoid!
+    end
+
     @post.destroy
     Topentry.update_forward_day_entries(interested_parties, date)
     redirect_to :back #new_post_path(date:@post.date, month:@month)

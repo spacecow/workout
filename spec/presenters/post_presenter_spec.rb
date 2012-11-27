@@ -8,10 +8,29 @@ describe PostPresenter do
   end
 
   describe ".comments" do
-    let!(:comment){ create :comment, commentable:post }
-    before{ controller.stub(:current_user){ nil }}
-    subject{ Capybara.string(presenter.comments).find('ul.comments')}
-    it{ should have_selector 'li.comment', count:1 }
+    context "without comments" do
+      it{ presenter.comments.should be_nil }
+    end
+
+    context "with a new comment" do
+      before{ post.comments.new }
+      it{ presenter.comments.should be_nil }
+    end
+
+    context "with a deleted comment" do
+      before do
+        controller.stub(:current_user){ nil }
+        create :comment, commentable:post, deleted_at:1.day.ago
+      end
+      it{ presenter.comments.should be_nil }
+    end
+
+    context "with comments" do
+      let!(:comment){ create :comment, commentable:post }
+      before{ controller.stub(:current_user){ nil }}
+      subject{ Capybara.string(presenter.comments).find('ul.comments')}
+      it{ should have_selector 'li.comment', count:1 }
+    end #with comments
   end
 
   describe ".training_partner" do

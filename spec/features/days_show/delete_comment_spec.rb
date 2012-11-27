@@ -12,7 +12,7 @@ describe 'Day show, delete comment' do
   context "delete comment" do
     before(:each) do
       lambda{ first_post_first_comment.click_link 'Delete'
-      }.should change(Comment,:count).by(-1)
+      }.should change(Comment,:count).by(0)
     end
 
     it "redirects to the day page" do

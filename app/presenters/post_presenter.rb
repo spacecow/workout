@@ -32,8 +32,8 @@ class PostPresenter < BasePresenter
 
   def comments
     h.content_tag :ul, class:'comments' do
-      h.render post.comments.reject(&:new_record?), background:post.intensity_colour
-    end if post.comments.reject(&:new_record?).present?
+      h.render post.comments_official, background:post.intensity_colour
+    end if post.comments_official.present?
   end
 
   def hide_comment_link(no)

@@ -25,8 +25,8 @@ class Notification < ActiveRecord::Base
   def types; TYPES.reject{|r| ((type_mask||0) & 2**TYPES.index(r)).zero? } end
 
   class << self
-    def notify_from_about(notifier,notifiable)
-      note = notifier.owned_notifications.build(type_mask:Notification.type(:new), content:notifiable.content)
+    def notify_from_about(notifier,notifiable,type)
+      note = notifier.owned_notifications.build(type_mask:Notification.type(type), content:notifiable.content)
       note.notifiable = notifiable
       note.save!
 

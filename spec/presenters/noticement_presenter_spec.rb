@@ -3,7 +3,7 @@ require 'spec_helper'
 describe NoticementPresenter do
   let(:creator){ create :user, userid:'Batman' }
   let(:notification){ create :notification, content:'some notification', creator:creator}
-  let(:noticement){ stub_model(Noticement, notification:notification, updated_at:1.hour.ago)}
+  let(:noticement){ stub_model(Noticement, notification:notification)}
   let(:presenter){ NoticementPresenter.new(noticement,view)}
 
   describe ".content div.content a" do
@@ -38,7 +38,7 @@ describe NoticementPresenter do
 
   describe ".timestamp div.timestamp" do
     subject{ Capybara.string(presenter.timestamp).find('div.timestamp')}
-    its(:text){ should eq 'about 1 hour ago' }
+    its(:text){ should eq 'less than a minute ago' }
   end
 
   describe ".creator" do

@@ -49,7 +49,7 @@ describe "Posts index" do
   it "with a post with a partner" do
     post = create_post(date:'2012-7-10', author:'Author', partner:'Partner', duration:100)
     visit posts_path(month:'2012/7')
-    td(:day_0710).div(:posts,0).should have_content('Author&Partner: 100')
+    td(:day_0710).div(:posts,0).should have_content('Author&Partner100')
   end
 
   context "with posts of different authors" do
@@ -61,8 +61,8 @@ describe "Posts index" do
     end
 
     it "displays existing posts on given day" do
-      td(:day_0710).div(:posts,0).should have_content(': 50')
-      td(:day_0710).div(:posts,1).should have_content(': 123')
+      td(:day_0710).div(:posts,0).should have_content('50')
+      td(:day_0710).div(:posts,1).should have_content('123')
     end
 
     it "displays no posts if there are none" do

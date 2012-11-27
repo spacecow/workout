@@ -203,17 +203,8 @@ describe Post do
           @user.first_post_date.should eq @early_day.date
         end
       end
-    end
+    end #user's first post date
 
-    it "deletes its comments too" do
-      post = create_post
-      FactoryGirl.create(:comment, commentable:post)
-      lambda do
-        lambda do
-          post.destroy
-        end.should change(Post,:count).by(-1)
-      end.should change(Comment,:count).by(-1)
-    end
     
     it "deletes its typeships too" do
       post = create_post

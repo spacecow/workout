@@ -100,7 +100,7 @@ describe "Day show" do
         page.should have_form(@form_id)
       end
 
-      #it "has a cancel button", focus:true do
+      #it "has a cancel button" do
       #  form(:cancel_current_state).should have_cancel_button 'Calendar'
       #end
     end

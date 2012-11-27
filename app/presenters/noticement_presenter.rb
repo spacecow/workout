@@ -12,4 +12,10 @@ class NoticementPresenter < BasePresenter
       "by #{h.link_to noticement.creatorid, noticement.creator}".html_safe
     end
   end
+
+  def timestamp
+    h.content_tag(:div, class:'timestamp') do
+      h.time_ago_in_words(noticement.notification.updated_at)+" ago"
+    end
+  end
 end

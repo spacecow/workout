@@ -10,7 +10,7 @@ describe 'users/edit.html.erb' do
 
   subject{ Capybara.string(rendered) }
   it{ should have_selector 'h1', text:'Edit Profile' }
-  it{ should have_button 'Calendar' }
+  it{ should_not have_button 'Calendar' }
 
   describe 'form.edit_user' do
     subject{ Capybara.string(rendered).find('form.edit_user')}

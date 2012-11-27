@@ -1,12 +1,13 @@
 class CommentsController < ApplicationController
-  authorize_resource
   before_filter :load_commentable
+  authorize_resource :commentable
+  load_and_authorize_resource through: :commentable
 
   def create
-    @comment = @commentable.comments.new(params[:comment])
+    #@comment = @commentable.comments.new(params[:comment])
     @comment.commenter = current_user
     if @comment.save
-      @comment.notify
+      @comment.notify(:new)
       redirect_to :back, notice:created(:comment)
     else
       @day = @commentable.day
@@ -19,11 +20,18 @@ class CommentsController < ApplicationController
     end
   end
 
+  def update
+    if @comment.update_attributes(params[:comment])
+      @comment.notify(:edit)
+      redirect_to :back, notice:updated(:comment)
+    end
+  end
+
   def destroy
-    @comment = @commentable.comments.find(params[:id])
-    @date = @comment.full_date
-    @comment.destroy
-    redirect_to day_path(@date), notice:deleted(:comment)
+    #@comment.destroy
+    if @comment.act_paranoid!
+      redirect_to day_path(@comment.full_date), notice:deleted(:comment)
+    end
   end
 
   private

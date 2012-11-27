@@ -13,7 +13,7 @@ describe "User show" do
     end
 
     it "has a calendar button" do
-      page.should have_cancel_button 'Calendar'
+      page.should_not have_button 'Calendar'
     end
   end
 

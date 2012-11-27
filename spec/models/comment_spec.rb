@@ -16,7 +16,7 @@ describe Comment do
   end
 
   describe ".notify" do
-    let(:notify){ lambda{ comment.notify }} 
+    let(:notify){ lambda{ comment.notify(:new) }} 
     it "saves notifications to db" do
       lambda{ notify.call }.should change(Notification,:count).by(1)
     end

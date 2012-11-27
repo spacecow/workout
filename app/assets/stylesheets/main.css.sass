@@ -91,6 +91,8 @@ div.distance
   font-style: italic
 
 ul
+  padding: 0
+  margin: 0
   list-style-type: none
   li
     div.left
@@ -147,6 +149,9 @@ form
         color: #ccc
         &:hover
           color: white
+    div.cpselected
+      border: 2px solid black
+
   ul.token-input-list
     width: $input_width+3px !important
     display: inline-block
@@ -158,6 +163,7 @@ form
   input
     &.string, &.integer
       width: $input_width 
+      margin-right: 5px
     &.button
       margin-top: 5px
     &.submit

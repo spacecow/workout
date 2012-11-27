@@ -10,7 +10,7 @@ Workout::Application.routes.draw do
 
   resources :days, :only => :show
   resources :posts, :only => [:create,:index,:edit,:update,:destroy] do
-    resources :comments, :only => [:create,:destroy]
+    resources :comments, :only => [:create,:update,:destroy]
   end
   resources :messages, :only => :index
   resources :current_states, :only => [:create,:update, :destroy]
