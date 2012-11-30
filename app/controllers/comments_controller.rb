@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   load_and_authorize_resource through: :commentable
 
   def create
-    #@comment = @commentable.comments.new(params[:comment])
     @comment.commenter = current_user
     if @comment.save
       @comment.notify(:new)
@@ -13,8 +12,7 @@ class CommentsController < ApplicationController
       @day = @commentable.day
       @post = Post.new
       @post.build_day(date:@day.date.full)
-      @posts = Post.where('day_id = ?', @day.id)
-      @posts.each{|e| e.comments.new}
+      @day.posts.each{|e| e.comments.new}
       @current_state = CurrentState.find_or_initialize_by_day_id_and_user_id(@day.id, current_user.id)
       render '/days/show'
     end

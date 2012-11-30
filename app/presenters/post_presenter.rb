@@ -131,14 +131,14 @@ class PostPresenter < BasePresenter
     end if post.training_partners.present?
   end
 
-  def title(type,title)
+  def title(title)
     h.content_tag(:div, class:"title") do
       if title == :date
-        h.link_to post.date.full, h.day_path(post.date.full)
+        h.link_to post.full_date, h.day_path(post.full_date)
       elsif title == :typedate
-        "#{post.training_types.map{|type| h.link_to type.name, type}.join(', ')}, #{h.link_to post.date.full, h.day_path(post.date.full)}".html_safe
+        "#{post.training_types_names_links.map{|e| h.link_to *e}.join(', ')}, #{h.link_to post.full_date, h.day_path(post.full_date)}".html_safe
       elsif title == :type
-        "#{post.training_types.map{|type| h.link_to type.name, type}.join(', ')}".html_safe
+        post.training_types_names_links.map{|e| h.link_to *e}.join(', ').html_safe
       end
     end
   end

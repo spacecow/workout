@@ -97,3 +97,7 @@ d71f4c: !ruby/object:Dooby::Task
   todo: add notes to current state :done
 bc554a: !ruby/object:Dooby::Task 
   todo: add menu to all pages :done
+f5f074: !ruby/object:Dooby::Task 
+  todo: consider post created at as notification's updated at when notify_old
+0b39d0: !ruby/object:Dooby::Task 
+  todo: cache noticements

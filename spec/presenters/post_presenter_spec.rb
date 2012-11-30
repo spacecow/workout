@@ -1,8 +1,49 @@
 require 'spec_helper'
 
 describe PostPresenter do
+  let(:post){ stub_model Post }
+  let(:presenter){ PostPresenter.new(post,view)}
+  describe ".title" do
+    let(:run){ create :training_type, name:'Running'}
+    let(:day){ create :day, date:Date.parse('2012-11-28')}
+
+    context "date" do
+      before{ post.stub(:day){day}}
+      subject{ Capybara.string(presenter.title :date).find('div.title a')}
+      its(:text){ should eq '2012-11-28' }
+      specify{ subject[:href].should eq day_path(day.full_date)}
+    end
+
+    context "type" do
+      before{ post.stub(:training_types){[run]}}
+      subject{ Capybara.string(presenter.title :type).find('div.title a')}
+      its(:text){ should eq 'Running' }
+      specify{ subject[:href].should eq training_type_path(run)}
+    end
+
+    context "typedate" do
+      before do
+        post.stub(:training_types){[run]}
+        post.stub(:day){day}
+      end
+      context 'type' do
+        subject{ Capybara.string(presenter.title :typedate).all('div.title a')[0]}
+        its(:text){ should eq 'Running' }
+        specify{ subject[:href].should eq training_type_path(run)}
+      end
+      context 'date' do
+        subject{ Capybara.string(presenter.title :typedate).all('div.title a')[1]}
+        its(:text){ should eq '2012-11-28' }
+        specify{ subject[:href].should eq day_path(day.full_date)}
+      end
+    end
+  end
+end
+
+describe PostPresenter do
   let(:post){ create :post }
   let(:presenter){ PostPresenter.new(post,view)}
+
   describe ".comments, no comments" do
     specify{ presenter.comments.should be_nil } 
   end

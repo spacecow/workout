@@ -1,4 +1,12 @@
 class DayPresenter < BasePresenter
+  presents :day
+
+  def current_state_form(current_state)
+    h.content_tag :div, class:['current_state', 'new'].join(' ') do
+      h.render 'current_states/form', current_state:current_state unless current_state.nil?
+    end
+  end
+
   def edit_post(post, training_partners, return_path)
     output = nil
     h.present post do |presenter|
@@ -15,7 +23,9 @@ class DayPresenter < BasePresenter
     output
   end
 
-  def current_state_form(current_state)
-    h.render 'current_states/form', current_state:current_state unless current_state.nil?
+  def posts(title)
+    h.content_tag :ul, class:'posts' do
+      h.render day.posts, title:title
+    end if day.posts.present?
   end
 end

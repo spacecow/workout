@@ -38,7 +38,7 @@ FactoryGirl.define do
   end
 
   factory :training_type do
-    name 'Factorywork'
+    sequence(:name){|n| "Factorywork#{n}" }
   end
 
   factory :user do

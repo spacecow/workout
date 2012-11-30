@@ -3,13 +3,11 @@
 <% present @day do |presenter| %>
 
 <%# cache @day do %>
-  <%= render 'posts/posts', posts:@posts, title: :type if @posts.present? %>
+  <%= presenter.posts(:type) %>
 <%# end %>
 
 <%= presenter.new_post(@post, @training_partners, return_path(@post)) %>
 
-<div id="current_state">
 <%= presenter.current_state_form @current_state %>
-</div>
 
 <% end %>

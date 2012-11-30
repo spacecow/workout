@@ -5,4 +5,6 @@ class Day < ActiveRecord::Base
   attr_accessible :date
 
   validates :date, presence:true, uniqueness:true
+
+  def full_date; date.full end
 end

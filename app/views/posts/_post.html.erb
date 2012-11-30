@@ -8,17 +8,16 @@
       </div>
     </div>
     <div class="right">
-      <%= presenter.title(post.training_types,title) %>
+      <%= presenter.title(title) %>
       <%= presenter.timestamp %>
       <%= presenter.distance %>
       <%= presenter.author %>
       <%= presenter.training_partners %>
-      <%= presenter.actions("new_comment_#{i}") %>
+      <%= presenter.actions("new_comment_#{post.id}") %>
       <div class="clear"></div>
       <%= presenter.comment %>
       <%= presenter.comments %>
-      <%# render 'comments/comments', comments:comments, background:post.intensity_colour, delete:true if comments.present? %>
-      <%= simple_form_for [post, comment], html:{id:"new_comment_#{i}"} do |f| %>
+      <%= simple_form_for [post, post.last_comment], html:{id:"new_comment_#{post.id}"} do |f| %>
         <%= f.input :content, label:false %>
         <%= f.button :submit, class: :submit %>
       <% end %>
@@ -26,4 +25,3 @@
     <div class="clear"></div>
   </li>
 <% end %>
-

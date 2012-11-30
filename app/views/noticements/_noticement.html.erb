@@ -1,6 +1,6 @@
 <% present noticement do |presenter| %>
 
-<li class='<%= noticement.klass %>'>
+<li class='<%= noticement.klass %>' data-time='<%= noticement.created_at.to_i %>'>
   <div class="left">
     <%= image_tag noticement.creator_image_url(:mini_thumb) %>
   </div>

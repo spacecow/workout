@@ -45,7 +45,7 @@ class Post < ActiveRecord::Base
   end
 
   def date; day.date end
-  def full_date; date.full end
+  def full_date; day.full_date end
 
   def first_type; training_types.first end
   def intensity_colour
@@ -61,6 +61,11 @@ class Post < ActiveRecord::Base
   end
   def no_nil_distance
     distance.nil? ? 0 : distance
+  end
+
+  def training_types_names; training_types.map(&:name) end
+  def training_types_names_links
+    training_types_names.zip training_types
   end
 
   def training_type_name; training_type && training_type.name end

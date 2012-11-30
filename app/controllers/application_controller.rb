@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
   private
 
     def load_chat
-      @comments = Comment.where("updated_at > ?", Time.at(params[:after].to_i + 1))
+      #@comments = Comment.where("updated_at > ?", Time.at(params[:after].to_i + 1))
+      @noticements ||= current_user && current_user.noticements.page(params[:page]).per_page(10)
     end
 end

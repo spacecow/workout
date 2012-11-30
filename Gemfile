@@ -15,6 +15,7 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'pry'
 gem 'rb-inotify', '~> 0.8.8'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.

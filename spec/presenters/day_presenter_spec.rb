@@ -2,12 +2,27 @@ require 'spec_helper'
 
 describe DayPresenter do
   let!(:day){ create :day }
+  let(:presenter){ DayPresenter.new(day,view)}
+
+  describe ".posts" do
+    context "no posts" do
+      it{ presenter.posts(:type).should be_nil }
+    end
+
+    context "with posts" do
+      before do
+        create :post, day:day
+        view.stub(:render){nil}
+      end
+      subject{ Capybara.string(presenter.posts(:type))}
+      it{ should have_selector 'ul.posts' }
+    end
+  end
 
   describe ".new_post/.edit_post" do
     let(:new_post){ Post.new }
     let(:old_post){ create :post }
     before{ view.stub(:pl){ t(:post,count:1)}}
-    let(:presenter){ DayPresenter.new(day,view)}
 
     context "new state" do
       subject{ Capybara.string(presenter.new_post(new_post,[])).find('div.post.new')}
@@ -39,7 +54,6 @@ describe DayPresenter do
       view.stub(:pl){ t(:current_state,count:1)}
       controller.stub(:current_user){ create :user }
     end
-    let(:presenter){ DayPresenter.new(day,view)}
 
     context "new state" do
       subject{ Capybara.string presenter.current_state_form(new_state)}
