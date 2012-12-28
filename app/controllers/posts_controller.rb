@@ -35,6 +35,7 @@ class PostsController < ApplicationController
         render 'training_types/show', id:get_training_type 
       else
         get_day
+        @day.posts.each{|e| e.comments.new}
         render 'days/show'
       end
     end

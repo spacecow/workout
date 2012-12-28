@@ -8,5 +8,5 @@ private
     FactoryGirl.create(:user,h)
   end
   def create_user_with_role(s,h={})
-    create_user_with_hash h.merge({:roles_mask=>User.role(s)})
+    create_user_with_hash h.merge({:roles_mask=>Authorization.role(s)})
   end

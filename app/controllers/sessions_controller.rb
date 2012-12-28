@@ -3,10 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_userid(params[:login])
-    user = User.find_by_email(params[:login]) if user.nil?
-    if user && user.authenticate(params[:password])
-      session_userid(user.id)
+    #user = User.find_by_userid(params[:login])
+    #user = User.find_by_email(params[:login]) if user.nil?
+    auth = Authentication.new(params, env["omniauth.auth"])
+    #if user && user.authenticate(params[:password])
+    if auth.authenticated? 
+      session_userid(auth.user.id)
       flash[:notice] = notify(:logged_in)
       if url = session_original_url
         session_original_url(nil)

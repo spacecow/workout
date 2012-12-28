@@ -25,13 +25,6 @@ class User < ActiveRecord::Base
 
   after_update :crop_image
 
-  ADMIN     = 'admin'
-  GOD       = 'god'
-  MEMBER    = 'member'
-  MINIADMIN = 'miniadmin'
-  VIP       = 'vip'
-  ROLES     = [GOD,ADMIN,MINIADMIN,VIP,MEMBER]
-
   def crop_image
     image.recreate_versions! if crop_x.present?
   end
@@ -73,8 +66,6 @@ class User < ActiveRecord::Base
     def minus(user)
       User.where('id <> ?',user.id).map{|e| [e.userid, e.id]}
     end
-
-    def role(s); 2**ROLES.index(s.to_s) end
   end
 
   def create_first_post_date(post)
