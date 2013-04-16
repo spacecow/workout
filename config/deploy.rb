@@ -8,13 +8,13 @@ require "whenever/capistrano"
 # get capistrano to see rvm path
 # ------------------------------
 # Add RVM's lib directory to the load path.
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+# $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 
 # Load RVM's capistrano plugin.    
-require "rvm/capistrano"
+# require "rvm/capistrano"
 
-set :rvm_ruby_string, '1.9.2-head'
-set :rvm_type, :user  # Don't use system-wide RVM
+# set :rvm_ruby_string, '1.9.2-head'
+# set :rvm_type, :user  # Don't use system-wide RVM
 # ------------------------------
 
 
@@ -31,15 +31,22 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :application, "workout"
-set :deploy_to, "/home/ghazal/apps/#{application}"
-set :user, "ghazal"
-set :admin_runner, "ghazal"
+set :deploy_to, "/home/aurora/apps/#{application}"
+set :user, "aurora"
+set :admin_runner, "aurora"
   
-role :app, "106.187.50.182"
-role :web, "106.187.50.182"
-role :db,  "106.187.50.182", :primary => true
+role :app, "sao.fir-vpc.riec.tohoku.ac.jp"
+role :web, "sao.fir-vpc.riec.tohoku.ac.jp"
+role :db,  "sao.fir-vpc.riec.tohoku.ac.jp", :primary => true
 
-set :default_environment, { 'PATH' => "/home/jsveholm/.rvm/rubies/ruby-1.9.2-head/bin:$PATH" }
+#set :rake, "~/.rvm/rubies/ruby-1.9.2-head/bin/rake"
+#set :default_environment, { 
+#  'PATH' => "/home/aurora/.rvm/rubies/ruby-1.9.2-head/bin:/home/aurora/.rvm/gems/ruby-1.9.2-head/bin:/home/aurora/.rvm/bin:$PATH",
+#  'RUBY_VERSION' => 'ruby 1.9.2',
+#  'GEM_HOME' => '/home/aurora/.rvm/gems/ruby-1.9.2-head',
+#  'GEM_PATH' => '/home/aurora/.rvm/gems/ruby-1.9.2-head' 
+#}
+
 
 namespace :deploy do
   task :start do ; end

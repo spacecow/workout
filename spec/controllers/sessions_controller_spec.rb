@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SessionsController, focus:true do
+describe SessionsController do
   let!(:user){ create :user, userid:'batman', email:'batman@marvel.com', password:'secret' }
 
   def send_post(login, password='secret')
