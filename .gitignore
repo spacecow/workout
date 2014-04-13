@@ -8,3 +8,4 @@
 *.swo
 /public/uploads
 config/deploy*
+vendor/bundle
